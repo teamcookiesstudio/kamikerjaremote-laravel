@@ -19,7 +19,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'level',
+        'first_name', 'last_name', 'email', 'password', 'level', 'is_approved',
+        'approved_by',
     ];
 
     /**
@@ -28,7 +29,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'level', 'is_approved', 'approved_by',
     ];
 
     public function scopeAdmin($query)
@@ -51,5 +52,20 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->hasOne(Profile::class, 'member_id');
+    }
+
+    public function scopeWaitingApproval($query)
+    {
+        return $query->whereNull('is_approved');
+    }
+
+    public function scopeRejected($query)
+    {
+        return $query->where('is_approved', false);
+    }
+
+    public function scopeApproved($query)
+    {
+        return $query->where('is_approved', true);
     }
 }

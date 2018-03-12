@@ -15,10 +15,10 @@
                     @endif
                     <p>{{$user->first_name}}</p>
                     <p>{{$user->last_name}}</p>
-                    <p>{{$user->profile->occupation}}</p>
-                    <p>{{$user->profile->location}}</p>
-                    <p>{{$user->profile->summary}}</p>
-                    <p>{{$user->profile->website}}</p>
+                    <p>{{$user->profile->occupation ?? null}}</p>
+                    <p>{{$user->profile->location ?? null}}</p>
+                    <p>{{$user->profile->summary ?? null}}</p>
+                    <p>{{$user->profile->website ?? null}}</p>
                     <p><a href="{{ route('profiles.edit') }}">Ubah profile</a></p>
                 </div>
             </div>
