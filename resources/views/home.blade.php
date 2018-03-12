@@ -13,7 +13,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <p>{{$user->name}}</p>
+                    <p>{{$user->first_name}}</p>
+                    <p>{{$user->last_name}}</p>
                     <p>{{$user->profile->occupation}}</p>
                     <p>{{$user->profile->location}}</p>
                     <p>{{$user->profile->summary}}</p>
