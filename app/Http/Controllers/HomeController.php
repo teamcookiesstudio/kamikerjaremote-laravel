@@ -35,6 +35,6 @@ class HomeController extends Controller
 
     public function viewProfile($profileHash)
     {
-        return view('view_profile', compact('profileHash'));
+        return view('search.view_profile', compact('profileHash'));
     }
 }

@@ -31,4 +31,4 @@ Route::middleware(['auth', 'admin'])->group(function() {
 });
 
 Route::get('/search', 'HomeController@search')->name('search.result');
-Route::get('/freelancer/{hash}', 'HomeController@viewProfile')->name('view_profile');
+Route::get('/freelancer/{hash}', 'HomeController@viewProfile')->name('search.view_profile');

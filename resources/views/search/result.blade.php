@@ -1,4 +1,4 @@
-@extends('search')
+@extends('layouts.search')
 
 @section('content')
   <div class="search-wrapper">
