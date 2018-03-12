@@ -17,7 +17,7 @@ class CreateProfilesTable extends Migration
             $table->increments('id');
             $table->integer('member_id')->unsigned();
             $table->foreign('member_id')->references('id')->on('users')->onDelete('restrict');            
-            $table->string('current_position')->nullable();;
+            $table->string('occupation')->nullable();;
             $table->string('location')->nullable();;
             $table->text('summary')->nullable();;
             $table->string('website')->nullable();

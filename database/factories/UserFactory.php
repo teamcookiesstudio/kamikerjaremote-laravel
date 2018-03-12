@@ -26,7 +26,7 @@ $factory->define(App\User::class, function (Faker $faker) {
 $factory->define(App\Profile::class, function (Faker $faker) {
     return [
         'member_id' => rand(1,3),
-        'current_position' => $faker->jobTitle,
+        'occupation' => $faker->jobTitle,
         'location' => $faker->randomElement(['Bandung', 'Jakarta', 'Jogja']),
         'summary' => $faker->sentence,
         'website' => 'http://' .$faker->domainName,
