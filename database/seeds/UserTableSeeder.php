@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use App\Profile;
 
 class UserTableSeeder extends Seeder
 {
@@ -19,11 +20,13 @@ class UserTableSeeder extends Seeder
             'level' => User::ACCESS_ADMIN        
         ]);
 
-        factory(User::class)->create([
+        $member = factory(User::class)->create([
             'name' => 'Anhar Solehudin',
             'email' => 'anhsbolic@gmail.com',
             'password' => bcrypt('anharsolehudin'),
             'level' => User::ACCESS_MEMBER
         ]);
+
+        factory(Profile::class)->create(['member_id' => $member->id]);
     }
 }

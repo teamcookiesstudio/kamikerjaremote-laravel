@@ -22,3 +22,14 @@ $factory->define(App\User::class, function (Faker $faker) {
         'level' => rand(1,2),
     ];
 });
+
+$factory->define(App\Profile::class, function (Faker $faker) {
+    return [
+        'member_id' => rand(1,3),
+        'current_position' => $faker->jobTitle,
+        'location' => $faker->randomElement(['Bandung', 'Jakarta', 'Jogja']),
+        'summary' => $faker->sentence,
+        'website' => 'http://' .$faker->domainName,
+        'url_photo_profile' => $faker->imageUrl
+    ];
+});
