@@ -31,7 +31,7 @@
         <a class="logo" href="/">Logo</a>
         <div class="menus">
           <ul>
-            <li><a href="/">Home</a></li>
+            <li><a href="{{ route('home') }}">Home</a></li>
             <li><a href="#">Freelancer</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Contact</a></li>
