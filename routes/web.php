@@ -17,9 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::middleware(['auth'])->group(function() {
+    Route::get('/home', 'HomeController@index')->name('home');
     Route::get('profile', 'ProfileController@show')->name('profiles.show');
     Route::get('profile/edit', 'ProfileController@edit')->name('profiles.edit');
     Route::patch('profile', 'ProfileController@update')->name('profiles.update');    
@@ -30,3 +29,6 @@ Route::middleware(['auth', 'admin'])->group(function() {
     Route::get('members/{user_id}/approve', 'MemberController@approved')->name('members.approve');
     Route::get('members/{user_id}/reject', 'MemberController@reject')->name('members.reject');
 });
+
+Route::get('/search', 'HomeController@search')->name('search');
+Route::get('/freelancer/{hash}', 'HomeController@viewProfile')->name('view_profile');
