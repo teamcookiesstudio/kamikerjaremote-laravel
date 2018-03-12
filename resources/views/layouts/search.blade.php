@@ -11,12 +11,12 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>KKR | Cari Freelancer</title>
 
-    <link href="css/flexboxgrid.css" rel="stylesheet">
-    <link href="css/ionicons.min.css" rel="stylesheet">
-    <link href="css/normalize.css" rel="stylesheet">
-    <link href="css/fontello.css" rel="stylesheet">
-    <link href="css/fontello-ie7.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
+    <link href="{{ asset('css/flexboxgrid.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/ionicons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/fontello.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/fontello-ie7.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
