@@ -15,9 +15,11 @@ class CreateProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('current_position');
-            $table->string('location');
-            $table->text('summary');
+            $table->integer('member_id')->unsigned();
+            $table->foreign('member_id')->references('id')->on('users')->onDelete('restrict');            
+            $table->string('current_position')->nullable();;
+            $table->string('location')->nullable();;
+            $table->text('summary')->nullable();;
             $table->string('website')->nullable();
             $table->string('url_photo_profile')->nullable();                      
             $table->timestamps();

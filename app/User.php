@@ -46,4 +46,8 @@ class User extends Authenticatable
     {
         return $this->level == static::ACCESS_ADMIN;
     }
+
+    public function profile(){
+        return hasOne(Profile::class);        
+    }
 }
