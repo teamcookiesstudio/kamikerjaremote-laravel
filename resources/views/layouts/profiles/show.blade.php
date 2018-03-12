@@ -10,6 +10,7 @@
 
                 <div class="card-body">
                     <p>{{$user->name}}</p>
+                    <p>{{$user->name}}</p>
                 </div>
             </div>
         </div>

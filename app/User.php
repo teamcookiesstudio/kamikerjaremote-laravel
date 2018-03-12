@@ -1,9 +1,10 @@
 <?php
 
-namespace App;
+namespace app;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Profile;
 
 class User extends Authenticatable
 {
@@ -47,7 +48,8 @@ class User extends Authenticatable
         return $this->level == static::ACCESS_ADMIN;
     }
 
-    public function profile(){
-        return hasOne(Profile::class);        
+    public function profile()
+    {
+        return $this->hasOne(Profile::class, 'member_id');
     }
 }

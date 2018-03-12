@@ -13,8 +13,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                    <p>{{$user->name}}</p>
+                    <p>{{$user->profile->current_position}}</p>
+                    <p>{{$user->profile->location}}</p>
+                    <p>{{$user->profile->summary}}</p>
+                    <p>{{$user->profile->website}}</p>
                 </div>
             </div>
         </div>
