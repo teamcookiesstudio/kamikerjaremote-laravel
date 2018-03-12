@@ -30,7 +30,7 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $q = $request->get('q');
-        return view('search', compact('q'));
+        return view('search.result', compact('q'));
     }
 
     public function viewProfile($profileHash)

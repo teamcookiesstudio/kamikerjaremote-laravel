@@ -30,5 +30,5 @@ Route::middleware(['auth', 'admin'])->group(function() {
     Route::get('members/{user_id}/reject', 'MemberController@reject')->name('members.reject');
 });
 
-Route::get('/search', 'HomeController@search')->name('search');
+Route::get('/search', 'HomeController@search')->name('search.result');
 Route::get('/freelancer/{hash}', 'HomeController@viewProfile')->name('view_profile');
