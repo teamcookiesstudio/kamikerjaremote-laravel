@@ -12,6 +12,6 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'member_id', 'current_position', 'location', 'summary', 'website', 'url_photo_prfile',
+        'member_id', 'occupation', 'location', 'summary', 'website', 'url_photo_prfile',
     ];
 }

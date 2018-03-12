@@ -26,4 +26,15 @@ class HomeController extends Controller
         $user = auth()->user();
         return view('home', compact('user'));
     }
+
+    public function search(Request $request)
+    {
+        $q = $request->get('q');
+        return view('search', compact('q'));
+    }
+
+    public function viewProfile($profileHash)
+    {
+        return view('view_profile', compact('profileHash'));
+    }
 }

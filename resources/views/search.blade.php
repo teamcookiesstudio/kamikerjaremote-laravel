@@ -2,15 +2,13 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-
-            <div class="card card-default">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
                 <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
-                    <p>{{$user->name}}</p>
-                    <p>{{$user->name}}</p>
+                    Anda mencari : {{$q}}
                 </div>
             </div>
         </div>

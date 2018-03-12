@@ -14,14 +14,16 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         factory(User::class)->create([
-            'name' => 'kkr for the win',
+            'first_name' => 'kkr for the win',
+            'last_name' => 'admin',
             'email' => 'rahmat.awaludin@gmail.com',
             'password' => bcrypt('sukseskkr2018'),
             'level' => User::ACCESS_ADMIN        
         ]);
 
         $member = factory(User::class)->create([
-            'name' => 'Anhar Solehudin',
+            'first_name' => 'Anhar',
+            'last_name' => 'Solehudin',
             'email' => 'anhsbolic@gmail.com',
             'password' => bcrypt('anharsolehudin'),
             'level' => User::ACCESS_MEMBER
