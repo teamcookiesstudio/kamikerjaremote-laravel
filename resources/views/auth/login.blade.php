@@ -33,9 +33,9 @@
                     <div class="remember">
                         <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>{{ __('Remember Me') }}</input>
                     </div>
-                    <button class="btn btn-simple forgot-pass" href="{{ route('password') }}">
+                    <a class="btn btn-simple forgot-pass" href="{{ route('password.request') }}">
                         {{ __('Forgot Password?') }}
-                    </button>
+                    </a>
                 </div>
                 <button type="submit" class="btn btn-block btn-primary">{{ __('Login') }}</button>
                 <div class="or-strikeout">
