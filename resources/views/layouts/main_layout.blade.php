@@ -39,6 +39,11 @@
           <li>
             <a href="#">Freelancer</a>
           </li>
+          @if (auth()->check() && auth()->user()->isAdmin())
+          <li>
+            <a href="{{ route('members.index') }}">Approval</a>
+          </li>
+          @endif
           <li>
             <a href="#">About</a>
           </li>

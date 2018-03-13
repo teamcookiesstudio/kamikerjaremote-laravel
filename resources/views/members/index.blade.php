@@ -10,10 +10,6 @@
 
             <div class="card-body">
                 <p> 
-                <a href="{{ route('members.create') }}" class="btn btn-primary">Pinjaman baru</a>
-                </p>
-
-                <p> 
                 {!! Form::open(['route' => ['members.index'], 'method' => 'get', 'class' => 'form-inline'] ) !!}
                     <div class="form-group">
                         {!! Form::label('Status: ') !!}
@@ -21,8 +17,7 @@
                             'all' => 'All', 
                             'approved' => 'Approved', 
                             'rejected' => 'Rejected', 
-                            'waiting' => 'Waiting Approval', 
-                            'draft' => 'Draft'], request()->get('status', 'all') , ['class' => 'form-control']) !!}
+                            'waiting' => 'Waiting Approval'], request()->get('status', 'all') , ['class' => 'form-control']) !!}
                         {!! Form::label('Per Halaman: ') !!}
                         <select name="perPage" class="form-control">
                             <option value="3" {{$perPage == 3 ? 'selected="selected"' : null}}>3</option>
@@ -41,16 +36,19 @@
                             <th>#</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Status</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                    @forelse ($$members as $member)
+                    @forelse ($members as $member)
                         <tr>
                             <th scope="row">{{ $member->id }}</th>
-                            <td>{{ $member->name }} bulan</td>
+                            <td>{{ $member->first_name }} {{ $member->last_name }}</td>
                             <td>{{ $member->email }}</td>
+                            <td>{{ $member->status }}</td>
                             <td>
+                                @include('members._status', ['member' => $member])
                             </td>
 
                         </tr>
@@ -63,7 +61,7 @@
                 </table>
 
                 <p>
-                    {{ $$members->appends(isset($status) ? compact('status', 'perPage') : compact('perPage'))->links() }}
+                    {{ $members->appends(isset($status) ? compact('status', 'perPage') : compact('perPage'))->links() }}
                 </p>
 
             </div>

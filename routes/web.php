@@ -25,9 +25,9 @@ Route::middleware(['auth'])->group(function() {
 });
 
 Route::middleware(['auth', 'admin'])->group(function() {
-    Route::get('members', 'MemberController@show')->name('members.index');
-    Route::get('members/{user_id}/approve', 'MemberController@approved')->name('members.approve');
-    Route::get('members/{user_id}/reject', 'MemberController@reject')->name('members.reject');
+    Route::get('members', 'MemberController@index')->name('members.index');
+    Route::patch('members/{user}/approve', 'MemberController@approve')->name('members.approve');
+    Route::patch('members/{user}/reject', 'MemberController@reject')->name('members.reject');
 });
 
 Route::get('/search', 'HomeController@search')->name('search.result');

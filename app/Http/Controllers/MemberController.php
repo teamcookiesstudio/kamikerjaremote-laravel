@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class MemberController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $perPage = $request->get('perPage', 3);
         if ($perPage > 20) {
             $perPage = 20;
         }
+
+        $members = User::member();
         $status = $request->get('status', 'all');
 
         switch ($status) {
@@ -38,8 +41,16 @@ class MemberController extends Controller
         return view('members.index', $param);
     }
 
-    public function approve(User $user) {}
+    public function approve(User $user) 
+    {
+        $user->update(['is_approved' => true, 'reviewed_by' => auth()->user()->id]);
+        return redirect()->route('members.index');
+    }
 
-    public function reject(User $user) {}
+    public function reject(User $user)
+    {
+        $user->update(['is_approved' => false, 'reviewed_by' => auth()->user()->id]);
+        return redirect()->route('members.index');
+    }
 
 }

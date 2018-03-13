@@ -1,6 +1,6 @@
 <?php
 
-namespace app;
+namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -20,7 +20,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'first_name', 'last_name', 'email', 'password', 'level', 'is_approved',
-        'approved_by',
+        'reviewed_by',
     ];
 
     /**
@@ -29,7 +29,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'level', 'is_approved', 'approved_by',
+        'password', 'remember_token', 'level', 'is_approved', 'reviewed_by',
     ];
 
     public function scopeAdmin($query)
@@ -67,5 +67,23 @@ class User extends Authenticatable
     public function scopeApproved($query)
     {
         return $query->where('is_approved', true);
+    }
+
+    public function getStatusAttribute()
+    {
+
+        if ($this->is_approved == false && !is_null($this->reviewed_by)) {
+            return 'rejected';
+        }
+
+        if (is_null($this->is_approved)) {
+            return 'waiting approval';
+        }
+
+
+        if ($this->is_approved == true) {
+            return 'approved';
+        }
+
     }
 }
