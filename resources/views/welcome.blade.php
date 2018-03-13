@@ -36,8 +36,28 @@
               </ul>
               @if (Route::has('login'))
                 <div class="actions">
-                    @auth
-                        <a class="btn btn-primary" href="{{ url('/home') }}">Home</a>
+                  @auth
+                    <div class="logged-user">
+                        <img src="https://randomuser.me/api/portraits/men/51.jpg" id="user-action">
+                        <div class="user-actions" id="actions">
+                          <div class="arrow-up"></div>
+                          <ul>
+                            <li id="logout">
+                              <div>
+                                <i class="ion-log-out"></i>
+                                
+                                <a style="color: #404040; " href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                  Logout
+                                </a>
+                
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                  @csrf
+                                </form>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
                     @else
                         <a class="btn btn-primary" href="{{ route('login') }}">Login</a>
                         <span>or</span>
@@ -219,6 +239,8 @@
     </footer>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ asset('js/nav.js') }}"></script>
   </body>
 </html>

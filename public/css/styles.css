@@ -148,7 +148,9 @@ label + input[type=file] {
   .btn-block {
     width: 100%; }
     .btn-block-half {
-      width: 50%; }
+      width: 50%;
+      -webkit-appearance: button-bevel;
+}
   .btn-simple {
     background: transparent;
     border: none;
@@ -307,12 +309,60 @@ nav .menus {
       font-size: inherit; }
 
 nav .logged-user {
+  display: flex;
+  position: relative;
+  padding: 0 2rem;
+}
+
+nav .logged-user img {
   height: 48px;
   width: 48px;
   border-radius: 100px;
   object-fit: cover;
-  object-position: center;
-  padding: 0 2rem; }
+  object-position: center; 
+  cursor: pointer;
+}
+
+nav .logged-user .user-actions {
+  position: absolute;
+  top: 100%;
+  margin-top: .25rem;
+  z-index: 1000;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 24px 0px rgba(131,131,131,0.5);
+}
+
+nav .logged-user .user-actions .arrow-up {
+  height: 0;
+  width: 0;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  border-bottom: 7px solid #ffffff;
+}
+
+nav .logged-user .user-actions ul {
+  background: #ffffff;
+  border-radius: 5px;
+  list-style: none;
+  margin: 0;
+}
+
+nav .logged-user .user-actions li,
+nav .logged-user .user-actions li a {
+  padding: .5rem .25rem;
+  color: #838383;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+nav .logged-user .user-actions li i {
+  margin-right: .5rem;
+}
 
 /** INDEX **/
 
@@ -536,6 +586,10 @@ nav .logged-user {
       text-decoration: none; }
 #login .login-form {
   margin-top: 32px; }
+#login .login-form p {
+  text-align: left;
+  color: #404040;
+}
   .login-form .btn.btn-primary {
     margin-top: 2rem; }
 #login .login-preferences {

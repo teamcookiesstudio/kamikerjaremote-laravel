@@ -59,23 +59,25 @@
             <span>or</span>
             <a class="btn btn-thin" href="{{ route('register') }}">{{ __('Register') }}</a>
             @else
-            <li class="nav-item dropdown">
-              <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false" v-pre>
-                {{ Auth::user()->first_name }}
-                <span class="caret"></span>
-              </a>
-
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                  {{ __('Logout') }}
-                </a>
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                  @csrf
-                </form>
+            <div class="logged-user">
+              <img src="https://randomuser.me/api/portraits/men/51.jpg" id="user-action">
+              <div class="user-actions" id="actions">
+                <div class="arrow-up"></div>
+                <ul>
+                  <li id="logout">
+                    <div>
+                      <i class="ion-log-out"></i>
+                      <a style="color: #404040; " href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                        Logout
+                      </a>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                      </form>
+                    </div>
+                  </li>
+                </ul>
               </div>
-            </li>
+            </div>
             @endguest
           </ul>
         </div>
@@ -85,4 +87,6 @@
   @yield('content')
 </body>
 <script src="{{ asset('js/edit-profile-modal.js') }}"></script>
+<script src="{{ asset('js/nav.js') }}"></script>
+
 </html>

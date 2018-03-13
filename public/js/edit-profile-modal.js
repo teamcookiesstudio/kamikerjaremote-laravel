@@ -12,7 +12,7 @@ var btnEditPortfolio = document.getElementById("edit-portfolio");
 var btnShowPortfolio = document.getElementById("show-portfolio")
 
 // Get the <span> element that closes the modal
-// var saveProfile = document.getElementById("save-button");
+var saveProfile = document.getElementById("save-button");
 var closeProfile = document.getElementById("close-modal");
 
 var savePortfolio = document.getElementById("save-button-portfolio");
@@ -34,10 +34,10 @@ btnShowPortfolio.onclick = function () {
 }
 
 // When the user clicks on <span> (x), close the modal
-// saveProfile.onclick = function() {
-//   modalProfile.style.display = "none";
-//   body.style.overflow = "auto";
-// }
+saveProfile.onclick = function() {
+    modalProfile.style.display = "none";
+  body.style.overflow = "auto";
+}
 
 savePortfolio.onclick = function() {
     modalPortfolio.style.display = "none";
@@ -45,7 +45,7 @@ savePortfolio.onclick = function() {
 }
 
 closeProfile.onclick = function () {
-  modalProfile.style = 'none';
+  modalProfile.style.display = "none";
   body.style.overflow = "auto";
 }
 
