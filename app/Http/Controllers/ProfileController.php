@@ -35,7 +35,7 @@ class ProfileController extends Controller
         $user->update($request->only('first_name', 'last_name'));
         $profile = Profile::firstOrCreate(['member_id' => auth()->user()->id]);
         $profile->update($request->only('occupation', 'location', 'summary'));
-		return redirect()->route('home');
+		return response()->json(['message' => 'Profile updated!.'], 200);
     }
     
 }

@@ -24,6 +24,10 @@ Route::middleware(['auth'])->group(function() {
     Route::patch('profile', 'ProfileController@update')->name('profiles.update');    
 });
 
+Route::middleware(['auth'])->group(function() {
+    Route::post('portfolio', 'PortfolioController@store')->name('portfolio.store');
+});
+
 Route::middleware(['auth', 'admin'])->group(function() {
     Route::get('members', 'MemberController@index')->name('members.index');
     Route::patch('members/{user}/approve', 'MemberController@approve')->name('members.approve');

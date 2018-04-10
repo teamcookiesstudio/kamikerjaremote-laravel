@@ -43,12 +43,14 @@
     </div>
     <div class="row center-xs">
       <a class="col-xs-11 portfolios">
-        <div class="item-wrapper" id="show-portfolio">
-          <img src="images/rectangle3.jpg">
+        @foreach($portfolios as $portfolio)
+        <div class="item-wrapper" id="show-portfolio" data-id="{{$portfolio->id}}">
+          <img src="{{ asset('storage/portfolio/'.$user->first_name.$user->last_name.'/'.$portfolio->thumbnail) }}">
           <div class="item-body">
-            <span>Logo design for a premier ranch in western U.S.</span>
+            <span>{{$portfolio->project_name}}</span>
           </div>
         </div>
+        @endforeach
       </a>
     </div>
   </div>
@@ -77,8 +79,7 @@
         </div>
 
         <div class="profile-form">
-          <form class="form-control">
-              {!! Form::open(['route' => 'profiles.update', 'method' => 'patch']) !!} @if ($errors->any())
+          <form class="form-control" id="profile-form"> @if ($errors->any())
               <div class="alert alert-danger">
                 <ul>
                   @foreach ($errors->all() as $error)
@@ -129,10 +130,8 @@
               </div>
     
               <div class="modal-footer">
-                {!! Form::submit('Simpan', ['class' => 'btn btn-red']) !!}
+                {!! Form::button('Simpan', ['class' => 'btn btn-red', 'id' => 'save-button-profile']) !!}
               </div>
-    
-              {!! Form::close() !!}
           </form> 
         </div>        
       </div>     
@@ -148,22 +147,24 @@
       </button>          
     </div>
     <div class="modal-body">
+      <form id="portfolio-form" enctype="multipart/form-data">
       <div class="portfolio-form">
         <div class="portfolio-header">
           <label class="portfolio-upload" for="upload-portfolio-img"><i class="ion-ios-camera-outline"></i><span>Upload Thumbnail</span></label>
-          <input type="file" accept="image/*" id="upload-portfolio-img">
+          <input type="file" accept="image/*" id="upload-portfolio-img" name="thumbnail">
         </div>
         <div class="row center-xs">
           <div class="col-xs-12 input-label">
             <label>Project Name</label>
-            <input id="project-name" type="text" placeholder="My awesome project">
+            <input id="project-name" type="text" placeholder="My awesome project" name="project_name" required>
+            <input type="hidden" value="{{auth::user()->id}}" id="member-id">
           </div>
         </div>
         <div class="row center-xs">
           <div class="col-xs-12 col-md-6 input-label">
             <label>Start Date</label>
             <div class="dropdown">
-              <select>
+              <select id="start-date-month" name="start_date_month">
                 <option>January</option>
                 <option>February</option>
                 <option>March</option>
@@ -179,7 +180,7 @@
               </select>
             </div>
             <div class="dropdown">
-              <select>
+              <select id="start-date-year" name="start_date_year">
                 <option>2011</option>
                 <option>2012</option>
                 <option>2013</option>
@@ -195,7 +196,7 @@
           <div class="col-xs-12 col-md-6 input-label">
             <label>End Date</label>
             <div class="dropdown">
-              <select>
+              <select id="end-date-month" name="end_date_month">
                 <option>January</option>
                 <option>February</option>
                 <option>March</option>
@@ -211,7 +212,7 @@
               </select>
             </div>
             <div class="dropdown">
-              <select>
+              <select id="end-date-year" name="end_date_year">
                 <option>2011</option>
                 <option>2012</option>
                 <option>2013</option>
@@ -227,14 +228,14 @@
         </div>
         <div class="row center-xs">
           <div class="col-xs-12 start-xs project-ongoing">
-            <input type="checkbox" id="project-ongoing">
+            <input type="checkbox" id="project-ongoing" name="project_ongoing">
             <label for="project-ongoing">Project Ongoing</label>
           </div>
         </div>
         <div class="row center-xs">
           <div class="col-xs-12 input-label">
             <label>Description</label>
-            <textarea id="description" type="text" placeholder="Tell some description of your project"></textarea>
+            <textarea id="description" type="text" placeholder="Tell some description of your project" name="description"></textarea>
           </div>
         </div>
       </div>
@@ -243,6 +244,7 @@
       <a href="#" id="save-button-portfolio" class="btn btn-red">Save</a>
     </div>
   </div>
+</form>
 </div>
 <div class="modal" id="portfolio-details">
   <div class="modal-content">
@@ -270,3 +272,9 @@
   </div>
 </div>
 @endsection
+@push('script')
+
+<script>
+
+</script>
+@endpush
