@@ -18,7 +18,7 @@
   <link href="{{ asset('css/fontello.css') }}" rel="stylesheet">
   <link href="{{ asset('css/fontello-ie7.css') }}" rel="stylesheet">
   <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
-
+  @stack('style')
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -91,7 +91,10 @@
   </nav>
   @yield('content')
 </body>
-<script src="{{ asset('js/edit-profile-modal.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script src="{{ asset('js/pages/profile-page.js') }}"></script>
 <script src="{{ asset('js/nav.js') }}"></script>
+@stack('script')
 
 </html>

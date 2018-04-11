@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Portofolio;
 
 class HomeController extends Controller
 {
@@ -24,7 +25,8 @@ class HomeController extends Controller
     public function index()
     {
         $user = auth()->user();
-        return view('home', compact('user'));
+        $portofolios = Portofolio::findMember(auth()->user()->id)->get();
+        return view('home', compact('user', 'portofolios'));
     }
 
     public function search(Request $request)

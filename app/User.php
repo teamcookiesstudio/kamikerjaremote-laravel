@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Portfolio;
 use App\Profile;
 
 class User extends Authenticatable
@@ -52,6 +53,11 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->hasOne(Profile::class, 'member_id');
+    }
+
+    public function portfolio()
+    {
+        return $this->hasMany(Portfolio::class, 'member_id', 'id');
     }
 
     public function scopeWaitingApproval($query)
