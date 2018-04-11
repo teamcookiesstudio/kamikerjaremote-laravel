@@ -1,23 +1,23 @@
 jQuery.editProfile = {
   $modalProfile: jQuery('#modal-profile'),
-  $modalPortfolio: jQuery('#modal-portfolio'),
-  $modalDetPort: jQuery('#portfolio-details'),
+  $modalportofolio: jQuery('#modal-portofolio'),
+  $modalDetPort: jQuery('#portofolio-details'),
   $body: jQuery('#profile'),
   $btnEditProfile: jQuery('#edit-profile'),
-  $btnEditPortfolio: jQuery('#edit-portfolio'),
-  $btnShowPortfolio: jQuery('#show-portfolio'),
+  $btnEditportofolio: jQuery('#edit-portofolio'),
+  $btnShowportofolio: jQuery('.portofolios #show-portofolio'),
   $saveProfile: jQuery('#save-button-profile'),
   $closeProfile: jQuery('#close-modal'),
-  $savePortfolio: jQuery('#save-button-portfolio'),
-  $closePortfolio: jQuery('#close-portfolio-modal'),
-  $closeDetPort: jQuery('#close-portfolio'),
+  $saveportofolio: jQuery('#save-button-portofolio'),
+  $closeportofolio: jQuery('#close-portofolio-modal'),
+  $closeDetPort: jQuery('#close-portofolio'),
   $body: jQuery('#profile'),
   init: function() {
     var self = this;
     self.setEvent();
     self.profile();
-    self.portfolio();
-    self.showPortfolioItem();
+    self.portofolio();
+    self.showportofolioItem();
   },
   profile: function() {
     var self = this;
@@ -52,15 +52,15 @@ jQuery.editProfile = {
       });
     });
   },
-  portfolio: function() {
+  portofolio: function() {
     var self = this;
-    self.$btnEditPortfolio.on('click', function() {
-      self.$modalPortfolio.css({'display': 'block'});
+    self.$btnEditportofolio.on('click', function() {
+      self.$modalportofolio.css({'display': 'block'});
       self.$body.css({'overflow': 'hidden'});
     });
 
-    self.$closePortfolio.on('click', function () {
-      self.$modalPortfolio.css({'display': 'none'});
+    self.$closeportofolio.on('click', function () {
+      self.$modalportofolio.css({'display': 'none'});
       self.$body.css({'overflow': 'auto'});
     });
 
@@ -74,9 +74,9 @@ jQuery.editProfile = {
       }
     });
 
-    self.$savePortfolio.on('click', function() {
+    self.$saveportofolio.on('click', function() {
       var object = {
-        thumbnail: jQuery('#upload-portfolio-img').prop('files')[0],
+        thumbnail: jQuery('#upload-portofolio-img').prop('files')[0],
         member_id: parseInt(jQuery('#member-id').val()),
         project_on_going: ''
       };
@@ -87,7 +87,7 @@ jQuery.editProfile = {
         object.project_on_going = 0;
       }
 
-      var form = jQuery('#portfolio-form').serializeArray();
+      var form = jQuery('#portofolio-form').serializeArray();
       var formData = new FormData();
       formData.append('thumbnail', object.thumbnail);
       formData.append('member_id', object.member_id);
@@ -101,22 +101,22 @@ jQuery.editProfile = {
       });
 
       jQuery.ajax({
-        url: 'portfolio',
+        url: 'portofolio',
         data: formData,
         type: 'POST',
         contentType: false,
         processData: false,
         success: function(response) {
           window.location.reload();
-          self.$modalPortfolio.css({'display': 'none'});
+          self.$modalportofolio.css({'display': 'none'});
           self.$body.css({'overflow': 'auto'});
         }
       });
     });
   },
-  showPortfolioItem: function() {
+  showportofolioItem: function() {
     var self = this;
-    self.$btnShowPortfolio.on('click', function() {
+    self.$btnShowportofolio.on('click', function() {
       self.$modalDetPort.css({'display': 'block'});
       self.$body.css({'overflow': 'hidden'});
     });
@@ -132,8 +132,8 @@ jQuery.editProfile = {
         self.$modalProfile.css({'display': 'none'});
         self.$body.css({'overflow': 'auto'});
       }
-      if (event.target == self.$modalPortfolio) {
-        self.$modalPortfolio.css({'display': 'none'});
+      if (event.target == self.$modalportofolio) {
+        self.$modalportofolio.css({'display': 'none'});
         self.$body.css({'overflow': 'auto'});
         }
       if (event.target == self.$modalDetPort) {

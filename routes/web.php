@@ -25,7 +25,7 @@ Route::middleware(['auth'])->group(function() {
 });
 
 Route::middleware(['auth'])->group(function() {
-    Route::post('portfolio', 'PortfolioController@store')->name('portfolio.store');
+    Route::post('portofolio', 'PortofolioController@store')->name('portpfolio.store');
 });
 
 Route::middleware(['auth', 'admin'])->group(function() {

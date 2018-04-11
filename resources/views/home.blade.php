@@ -33,21 +33,21 @@
     </div>
   </div>
 </section>
-<section class="portfolio-container">
+<section class="portofolio-container">
   <div class="container">
     <div class="row center-xs">
-      <div class="col-xs-11 portfolios-header">
-        <h3>Portfolio</h3>
-        <a href="#" class="btn btn-outline btn-sm" id="edit-portfolio">Add Portfolio</a>
+      <div class="col-xs-11 portofolios-header">
+        <h3>portofolio</h3>
+        <button class="btn btn-outline btn-sm" id="edit-portofolio">Add portofolio</button>
       </div>
     </div>
     <div class="row center-xs">
-      <a class="col-xs-11 portfolios">
-        @foreach($portfolios as $portfolio)
-        <div class="item-wrapper" id="show-portfolio" data-id="{{$portfolio->id}}">
-          <img src="{{ asset('storage/portfolio/'.$user->first_name.$user->last_name.'/'.$portfolio->thumbnail) }}">
+      <a class="col-xs-11 portofolios">
+        @foreach($portofolios as $portofolio)
+        <div class="item-wrapper" id="show-portofolio">
+          <img src="{{ asset('storage/portofolio/'.$user->first_name.$user->last_name.'/'.$portofolio->thumbnail) }}">
           <div class="item-body">
-            <span>{{$portfolio->project_name}}</span>
+          <span>{{$portofolio->project_name}}</span>
           </div>
         </div>
         @endforeach
@@ -123,7 +123,7 @@
               </div>
               <div class="row center-xs">
                 <div class="col-xs-12 input-label">
-                  {!! Form::label('Website') !!} {!! Form::text('website', $user->profile->website ?? null) !!} {!! $errors->first('website',
+                  {!! Form::label('Website') !!} {!! Form::text('website', $user->profile->website ?? null, ['id' => 'website']) !!} {!! $errors->first('website',
                   '
                   <p class="text-danger">:message</p>') !!}
                 </div>
@@ -138,26 +138,32 @@
     </div>
   </div>
 </div>
-<div class="modal" id="modal-portfolio">
+<div class="modal" id="modal-portofolio">
   <div class="modal-content">
     <div class="modal-header">
-      <h2>Portfolio</h2>
-      <button class="btn btn-simple" id="close-portfolio-modal">
+      <h2>portofolio</h2>
+      <button class="btn btn-simple" id="close-portofolio-modal">
         <i class="ion-android-close"></i>
       </button>          
     </div>
     <div class="modal-body">
-      <form id="portfolio-form" enctype="multipart/form-data">
-      <div class="portfolio-form">
-        <div class="portfolio-header">
-          <label class="portfolio-upload" for="upload-portfolio-img"><i class="ion-ios-camera-outline"></i><span>Upload Thumbnail</span></label>
-          <input type="file" accept="image/*" id="upload-portfolio-img" name="thumbnail">
+      <form id="portofolio-form" enctype="multipart/form-data">
+      <div class="portofolio-form">
+        <div class="portofolio-header">
+          <label class="portofolio-upload" for="upload-portofolio-img"><i class="ion-ios-camera-outline"></i><span>Upload Thumbnail</span></label>
+          <input type="file" accept="image/*" id="upload-portofolio-img" name="thumbnail">
         </div>
         <div class="row center-xs">
           <div class="col-xs-12 input-label">
             <label>Project Name</label>
-            <input id="project-name" type="text" placeholder="My awesome project" name="project_name" required>
+            <input id="project-name" type="text" placeholder="My awesome project" name="project_name">
             <input type="hidden" value="{{auth::user()->id}}" id="member-id">
+          </div>
+        </div>
+        <div class="row center-xs">
+          <div class="col-xs-12 input-label">
+            <label>Project Url</label>
+            <input id="project-url" type="text" placeholder="https://example.com" name="project_url">
           </div>
         </div>
         <div class="row center-xs">
@@ -238,27 +244,32 @@
             <textarea id="description" type="text" placeholder="Tell some description of your project" name="description"></textarea>
           </div>
         </div>
+        <div class="row center-xs">
+            <div class="col-xs-12 input-label">
+              <div id="fine-uploader-manual-trigger"></div>
+            </div>
+        </div>
       </div>
     </div>
     <div class="modal-footer">
-      <a href="#" id="save-button-portfolio" class="btn btn-red">Save</a>
+      <button id="save-button-portofolio" class="btn btn-red">Save</button>
     </div>
   </div>
 </form>
 </div>
-<div class="modal" id="portfolio-details">
+<div class="modal" id="portofolio-details">
   <div class="modal-content">
     <div class="modal-body">
       <img src="images/rectangle3.jpg">
-      <div class="portfolio-desc">
+      <div class="portofolio-desc">
         <div class="top-desc">
           <div class="details">
             <h2 class="title">Developing Gojek for Apple Watch</h2>
             <span class="date-range">2017 January - 2018 January</span>
           </div>
           <div class="actions">
-            <a href="#" class="btn btn-outline btn-sm">Edit Portfolio</a>
-            <button class="btn btn-simple" id="close-portfolio">
+            <button class="btn btn-outline btn-sm">Edit portofolio</button>
+            <button class="btn btn-simple" id="close-portofolio">
               <i class="ion-android-close"></i>
             </button>
           </div>
@@ -272,9 +283,3 @@
   </div>
 </div>
 @endsection
-@push('script')
-
-<script>
-
-</script>
-@endpush

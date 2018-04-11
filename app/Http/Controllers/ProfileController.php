@@ -34,7 +34,7 @@ class ProfileController extends Controller
         $user = auth()->user();
         $user->update($request->only('first_name', 'last_name'));
         $profile = Profile::firstOrCreate(['member_id' => auth()->user()->id]);
-        $profile->update($request->only('occupation', 'location', 'summary'));
+        $profile->update($request->only('occupation', 'location', 'summary', 'website'));
 		return response()->json(['message' => 'Profile updated!.'], 200);
     }
     
