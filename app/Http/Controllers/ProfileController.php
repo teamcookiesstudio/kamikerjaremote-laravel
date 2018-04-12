@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Profile;
+use App\Models\SkillSet;
 use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
@@ -31,10 +32,14 @@ class ProfileController extends Controller
     
     public function update(ProfileRequest $request)
     {
+        foreach($request->skill_set_name as $value){
+            $skillset[] = SkillSet::firstOrCreate(['skill_set_name' => $value])->id;
+        }
         $user = auth()->user();
         $user->update($request->only('first_name', 'last_name'));
         $profile = Profile::firstOrCreate(['member_id' => auth()->user()->id]);
         $profile->update($request->only('occupation', 'location', 'summary', 'website'));
+        $profile->skillsets()->sync($skillset);
 		return response()->json(['message' => 'Profile updated!.'], 200);
     }
     

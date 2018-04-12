@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\SkillSet;
 
 class Profile extends Model
 {
@@ -12,6 +13,11 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'member_id', 'occupation', 'location', 'summary', 'website', 'url_photo_prfile',
+        'id', 'member_id', 'occupation', 'location', 'summary', 'website', 'url_photo_prfile',
     ];
+
+    public function skillsets()
+    {
+        return $this->belongsToMany(SkillSet::class);
+    }
 }

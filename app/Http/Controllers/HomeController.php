@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Portofolio;
+use App\Profile;
+use App\Models\SkillSet;
 
 class HomeController extends Controller
 {
@@ -25,8 +27,13 @@ class HomeController extends Controller
     public function index()
     {
         $user = auth()->user();
+        $arr = [];
         $portofolios = Portofolio::findMember(auth()->user()->id)->get();
-        return view('home', compact('user', 'portofolios'));
+        $profile = Profile::where('member_id', $user->id)->first();
+        foreach($profile->skillsets()->get() as $skill){
+            $skillset[] = $skill->skill_set_name;
+        }
+        return view('home', compact('user', 'portofolios', 'skillset'));
     }
 
     public function search(Request $request)
