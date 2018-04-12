@@ -38,13 +38,13 @@
     <div class="row center-xs">
       <div class="col-xs-11 portofolios-header">
         <h3>portofolio</h3>
-        <button class="btn btn-outline btn-sm" id="edit-portofolio">Add portofolio</button>
+        <button class="btn btn-outline btn-sm" id="add-portofolio">Add portofolio</button>
       </div>
     </div>
     <div class="row center-xs">
       <a class="col-xs-11 portofolios">
         @foreach($portofolios as $portofolio)
-        <div class="item-wrapper" id="show-portofolio">
+        <div class="item-wrapper" id="show-portofolio" data-portofolio-id="{{$portofolio->id}}">
           <img src="{{ asset('storage/portofolio/'.$user->first_name.$user->last_name.'/'.$portofolio->thumbnail) }}">
           <div class="item-body">
           <span>{{$portofolio->project_name}}</span>
@@ -252,7 +252,8 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button id="save-button-portofolio" class="btn btn-red">Save</button>
+      <button id="save-button-portofolio" type="submit"class="btn btn-red">Save</button>
+      <button id="update-button-portofolio" class="btn btn-red" style="display:none;">Update</button>
     </div>
   </div>
 </form>
@@ -268,7 +269,7 @@
             <span class="date-range">2017 January - 2018 January</span>
           </div>
           <div class="actions">
-            <button class="btn btn-outline btn-sm">Edit portofolio</button>
+            <button class="btn btn-outline btn-sm" id="edit-portofolio">Edit portofolio</button>
             <button class="btn btn-simple" id="close-portofolio">
               <i class="ion-android-close"></i>
             </button>
