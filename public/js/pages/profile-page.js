@@ -14,6 +14,9 @@ jQuery.editProfile = {
   $body: jQuery('#profile'),
   init: function() {
     var self = this;
+    jQuery('#skill-set').select2({
+      tags: true
+    });
     self.setEvent();
     self.profile();
     self.portofolio();
@@ -32,7 +35,9 @@ jQuery.editProfile = {
     });
 
     self.$saveProfile.on('click', function(){
-      var object = {};
+      var object = {
+        skill_set_name: jQuery('#skill-set').val()
+      };
       var form = $('#profile-form').serializeArray();
       _.forEach(form, function(el, i){
         object[el.name] = el.value;

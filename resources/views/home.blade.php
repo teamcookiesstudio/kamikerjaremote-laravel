@@ -1,4 +1,7 @@
 @extends('layouts.main_layout') 
+@push('style')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+@endpush
 @section('content')
 <section class="user-header">
   <div class="user-cover">
@@ -126,6 +129,12 @@
                   {!! Form::label('Website') !!} {!! Form::text('website', $user->profile->website ?? null, ['id' => 'website']) !!} {!! $errors->first('website',
                   '
                   <p class="text-danger">:message</p>') !!}
+                </div>
+              </div>
+              <div class="row center-xs">
+                <div class="col-xs-12 input-label">
+                    {!! Form::label("Skill Set") !!}
+                    {!! Form::select(null, App\Models\SkillSet::pluck("skill_set_name", "skill_set_name")->all(), $skillset ?? null, ["id" => "skill-set", "multiple" => "multiple"]) !!}
                 </div>
               </div>
     
@@ -283,3 +292,6 @@
   </div>
 </div>
 @endsection
+@push('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+@endpush
