@@ -28,9 +28,9 @@
         <span class="about">{{$user->profile->summary ?? null}}</span>
         <a href="{{$user->profile->website ?? null}}" target="_blank" class="link">{{$user->profile->website ?? null}}</a>
         <div class="tags">
-          <div class="tag">UI Designer</div>
-          <div class="tag">UX Designer</div>
-          <div class="tag">UX Research</div>
+          @foreach($skillset as $value)
+          <div class="tag">{{$value}}</div>
+          @endforeach
         </div>
       </div>
     </div>
