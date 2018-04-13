@@ -48,7 +48,7 @@
       <a class="col-xs-11 portofolios">
         @foreach($portofolios as $portofolio)
         <div class="item-wrapper" id="show-portofolio" data-portofolio-id="{{$portofolio->id}}">
-          <img src="{{ asset('storage/portofolio/'.$user->first_name.$user->last_name.'/'.$portofolio->thumbnail) }}">
+          <img src="{{ asset('storage/portofolio/'.$portofolio->thumbnail) }}">
           <div class="item-body">
           <span>{{$portofolio->project_name}}</span>
           </div>
@@ -180,31 +180,10 @@
             <label>Start Date</label>
             <div class="dropdown">
               <select id="start-date-month" name="start_date_month">
-                <option>January</option>
-                <option>February</option>
-                <option>March</option>
-                <option>March</option>
-                <option>May</option>
-                <option>June</option>
-                <option>July</option>
-                <option>August</option>
-                <option>September</option>
-                <option>October</option>
-                <option>November</option>
-                <option>December</option>
               </select>
             </div>
             <div class="dropdown">
               <select id="start-date-year" name="start_date_year">
-                <option>2011</option>
-                <option>2012</option>
-                <option>2013</option>
-                <option>2014</option>
-                <option>2015</option>
-                <option>2016</option>
-                <option>2017</option>
-                <option>2018</option>
-                <option>2019</option>
               </select>
             </div>
           </div>
@@ -212,31 +191,10 @@
             <label>End Date</label>
             <div class="dropdown">
               <select id="end-date-month" name="end_date_month">
-                <option>January</option>
-                <option>February</option>
-                <option>March</option>
-                <option>March</option>
-                <option>May</option>
-                <option>June</option>
-                <option>July</option>
-                <option>August</option>
-                <option>September</option>
-                <option>October</option>
-                <option>November</option>
-                <option>December</option>
               </select>
             </div>
             <div class="dropdown">
               <select id="end-date-year" name="end_date_year">
-                <option>2011</option>
-                <option>2012</option>
-                <option>2013</option>
-                <option>2014</option>
-                <option>2015</option>
-                <option>2016</option>
-                <option>2017</option>
-                <option>2018</option>
-                <option>2019</option>
               </select>
             </div>
           </div>
@@ -295,4 +253,11 @@
 @endsection
 @push('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script>
+jQuery.ajaxSetup({
+    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+  });
+</script>
+<script src="{{ asset('js/pages/portofolio-modal.js') }}"></script>
+<script src="{{ asset('js/pages/profile-page.js') }}"></script>
 @endpush

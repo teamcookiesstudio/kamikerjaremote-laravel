@@ -1,32 +1,42 @@
 jQuery.editProfile = {
   data: {
     portofolio: {
-      id: ''
+      id: '',
+      item: {},
+      collection: {}
     },
     profile: {}
   },
-  $endDateMonth: jQuery('#end-date-month'),
-  $endDateYear: jQuery('#end-date-year'),
-  $modalProfile: jQuery('#modal-profile'),
-  $modalportofolio: jQuery('#modal-portofolio'),
-  $modalDetPort: jQuery('#portofolio-details'),
-  $body: jQuery('#profile'),
-  $btnEditProfile: jQuery('#edit-profile'),
-  $btnAddportofolio: jQuery('#add-portofolio'),
-  $btnEditportofolio: jQuery('#edit-portofolio'),
-  $btnShowportofolio: jQuery('.portofolios #show-portofolio'),
-  $saveProfile: jQuery('#save-button-profile'),
-  $closeProfile: jQuery('#close-modal'),
-  $saveportofolio: jQuery('#save-button-portofolio'),
-  $updateportofolio: jQuery('#update-button-portofolio'),
-  $closeportofolio: jQuery('#close-portofolio-modal'),
-  $closeDetPort: jQuery('#close-portofolio'),
+  wrapper: {
+    portofolio: {
+      $modalportofolio: jQuery('#modal-portofolio'),
+      $btnEditportofolio: jQuery('#edit-portofolio'),
+      $btnShowportofolio: jQuery('.portofolios #show-portofolio'),
+      $btnAddportofolio: jQuery('#add-portofolio'),
+      $saveportofolio: jQuery('#save-button-portofolio'),
+      $updateportofolio: jQuery('#update-button-portofolio'),
+      $closeportofolio: jQuery('#close-portofolio-modal'),
+      $closeDetPort: jQuery('#close-portofolio'),
+      $modalDetPort: jQuery('#portofolio-details'),
+      $portofolioForm: jQuery('#portofolio-form')[0],
+      $endDateMonth: jQuery('#end-date-month'),
+      $endDateYear: jQuery('#end-date-year'),
+      $startDateYear: jQuery('#start-date-year'),
+      $startDateMonth: jQuery('#start-date-month'),
+      $btnProjectOnGoing: jQuery('.project-ongoing #project-ongoing')
+    },
+    profile: {
+      $modalProfile: jQuery('#modal-profile'),
+      $saveProfile: jQuery('#save-button-profile'),
+      $closeProfile: jQuery('#close-modal'),
+      $btnEditProfile: jQuery('#edit-profile'),
+      $skillSet: jQuery('#skill-set'),
+    }
+  },
   $body: jQuery('#profile'),
   init: function() {
     var self = this;
-    jQuery('#skill-set').select2({
-      tags: true
-    });
+    self.wrapper.profile.$skillSet.select2({ tags: true });
     self.setEvent();
     self.profile();
     self.portofolio();
@@ -34,59 +44,68 @@ jQuery.editProfile = {
   },
   profile: function() {
     var self = this;
-    self.$btnEditProfile.on('click', function() {
-      self.$modalProfile.css({'display': 'block'});
+    self.wrapper.profile.$btnEditProfile.click(() => {
+      self.wrapper.profile.$modalProfile.css({'display': 'block'});
       self.$body.css({'overflow': 'hidden'});
     });
 
-    self.$closeProfile.on('click', function () {
-      self.$modalProfile.css({'display': 'none'});
+    self.wrapper.profile.$closeProfile.click(() => {
+      self.wrapper.profile.$modalProfile.css({'display': 'none'});
       self.$body.css({'overflow': 'auto'});
     });
 
-    self.$saveProfile.on('click', function(){
-      var object = {
-        skill_set_name: jQuery('#skill-set').val()
-      };
+    self.wrapper.profile.$saveProfile.click(() => {
+      var object = { skill_set_name: self.wrapper.profile.$skillSet.val() };
       var form = $('#profile-form').serializeArray();
       _.forEach(form, function(el, i){
         object[el.name] = el.value;
       });
 
-      jQuery.ajaxSetup({
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
-      });
       jQuery.ajax({
         url: 'profile',
         type: 'PATCH',
         data: object,
         success: function(response) {
           window.location.reload();
-          self.$modalProfile.css({'display': 'none'});
-        }
+          self.wrapper.profile.$modalProfile.css({'display': 'none'});
+        },
+        error: function(xhr,status, response){
+          var error = jQuery.parseJSON(xhr.responseText);
+          for(var k in error.errors){
+            if(error.errors.hasOwnProperty(k)){
+                error.errors[k].forEach(function(val){
+                    $.notify(""+val+"");
+                });
+              }
+            }
+          }
       });
     });
   },
   portofolio: function() {
     var self = this;
-    self.$btnAddportofolio.on('click', function() {
-      self.$saveportofolio.show();
-      self.$updateportofolio.hide();
-      self.$modalportofolio.css({'display': 'block'});
+
+    self.wrapper.portofolio.$btnAddportofolio.click(function(event) {
+      self.wrapper.portofolio.$saveportofolio.show();
+      self.wrapper.portofolio.$updateportofolio.hide();
+      self.wrapper.portofolio.$modalportofolio.css({'display': 'block'});
       self.$body.css({'overflow': 'hidden'});
     });
 
-    self.$closeportofolio.on('click', function () {
-      jQuery('#portofolio-form')[0].reset();
-      self.$modalportofolio.css({'display': 'none'});
+    self.wrapper.portofolio.$closeportofolio.click(function(event) {
+      self.wrapper.portofolio.$endDateMonth.removeClass('disabled').attr('disabled', false);
+      self.wrapper.portofolio.$endDateYear.removeClass('disabled').attr('disabled', false);
+      self.wrapper.portofolio.$portofolioForm.reset();
+      self.wrapper.portofolio.$modalportofolio.css({'display': 'none'});
       self.$body.css({'overflow': 'auto'});
     });
 
-    self.$btnEditportofolio.on('click', function() {
-      self.$saveportofolio.hide();
-      self.$updateportofolio.show();
-      self.$modalDetPort.css({'display': 'none'});
+    self.wrapper.portofolio.$btnEditportofolio.click(function(event) {
+      self.wrapper.portofolio.$saveportofolio.hide();
+      self.wrapper.portofolio.$updateportofolio.show();
+      self.wrapper.portofolio.$modalDetPort.css({'display': 'none'});
       self.$body.css({'overflow': 'auto'});
+
       async.waterfall([
         function(callback) {
           var id = self.data.portofolio.id;
@@ -95,18 +114,23 @@ jQuery.editProfile = {
             jQuery('#project-name').val(response.portofolio.project_name);
             jQuery('#project-url').val(response.portofolio.project_url);
             jQuery('#description').val(response.portofolio.description);
-            if(response.portofolio.project_on_going == 1){
-              jQuery('.project-ongoing #project-ongoing').prop('checked', true);
-              jQuery('#start-date-month').val(response.start_date_month);
-              jQuery('#start-date-year').val(response.start_date_year);
-            } else {
-              jQuery('.project-ongoing #project-ongoing').prop('checked', false);
-              jQuery('#start-date-month').val(response.start_date_month);
-              jQuery('#start-date-year').val(response.start_date_year);
-              self.$endDateMonth.val(response.end_date_month);
-              self.$endDateYear.val(response.end_date_year);
+            if(response.portofolio.project_on_going == 1)
+            {
+              self.wrapper.portofolio.$btnProjectOnGoing.prop('checked', true);
+              self.wrapper.portofolio.$startDateMonth.val(response.start_date_month);
+              self.wrapper.portofolio.$startDateYear.val(response.start_date_year);
+              self.wrapper.portofolio.$endDateMonth.addClass('disabled').attr('disabled', true);
+              self.wrapper.portofolio.$endDateYear.addClass('disabled').attr('disabled', true);
+            } 
+            else 
+            {
+              self.wrapper.portofolio.$btnProjectOnGoing.prop('checked', false);
+              self.wrapper.portofolio.$startDateMonth.val(response.start_date_month);
+              self.wrapper.portofolio.$startDateYear.val(response.start_date_year);
+              self.wrapper.portofolio.$endDateMonth.val(response.end_date_month);
+              self.wrapper.portofolio.$endDateYear.val(response.end_date_year);
             }
-            self.$modalportofolio.css({'display': 'block'});
+            self.wrapper.portofolio.$modalportofolio.css({'display': 'block'});
             self.$body.css({'overflow': 'hidden'});
             callback(null, true);
           });
@@ -114,23 +138,23 @@ jQuery.editProfile = {
       ]);
     });
 
-    jQuery('.project-ongoing #project-ongoing').change(function(){
+    self.wrapper.portofolio.$btnProjectOnGoing.change(function() {
       if(this.checked){
-        self.$endDateMonth.prop('disabled', 'disabled');
-        self.$endDateYear.prop('disabled', 'disabled');
+        self.wrapper.portofolio.$endDateMonth.addClass('disabled').attr('disabled', true);
+        self.wrapper.portofolio.$endDateYear.addClass('disabled').attr('disabled', true);
       } else {
-        self.$endDateMonth.prop('disabled', false);
-        self.$endDateYear.prop('disabled', false);
+        self.wrapper.portofolio.$endDateMonth.removeClass('disabled').attr('disabled', false);
+        self.wrapper.portofolio.$endDateYear.removeClass('disabled').attr('disabled', false);
       }
     });
 
-    self.$saveportofolio.on('click', function(event) {
+    self.wrapper.portofolio.$saveportofolio.click(function(event) {
       event.preventDefault();
       var url = 'portofolio';
       self.postPortofolio(url);
     });
 
-    self.$updateportofolio.on('click', function(event){
+    self.wrapper.portofolio.$updateportofolio.click(function(event) {
       event.preventDefault();
       var url = 'portofolio/'+self.data.portofolio.id;
       self.postPortofolio(url);
@@ -138,29 +162,31 @@ jQuery.editProfile = {
   },
   showportofolioItem: function() {
     var self = this;
-    self.$btnShowportofolio.on('click', function() {
+
+    self.wrapper.portofolio.$btnShowportofolio.click( function() {
       self.data.portofolio.id = $(this).attr('data-portofolio-id');
-      self.$modalDetPort.css({'display': 'block'});
+      self.wrapper.portofolio.$modalDetPort.css({'display': 'block'});
       self.$body.css({'overflow': 'hidden'});
     });
-    self.$closeDetPort.on('click', function () {
-      self.$modalDetPort.css({'display': 'none'});
+    self.wrapper.portofolio.$closeDetPort.click( function() {
+      self.wrapper.portofolio.$modalDetPort.css({'display': 'none'});
       self.$body.css({'overflow': 'auto'});
     });
   },
   setEvent: function() {
     var self = this;
-    jQuery(window).click(function(event){
-      if (event.target == self.$modalProfile) {
+
+    jQuery(window).click( function(event) {
+      if (event.target == self.wrapper.portofolio.$modalProfile) {
         self.$modalProfile.css({'display': 'none'});
         self.$body.css({'overflow': 'auto'});
       }
-      if (event.target == self.$modalportofolio) {
-        self.$modalportofolio.css({'display': 'none'});
+      if (event.target == self.wrapper.portofolio.$modalportofolio) {
+        self.wrapper.portofolio.$modalportofolio.css({'display': 'none'});
         self.$body.css({'overflow': 'auto'});
         }
-      if (event.target == self.$modalDetPort) {
-        self.modalDetPort.css({'display': 'none'});
+      if (event.target == self.wrapper.portofolio.$modalDetPort) {
+        self.wrapper.portofolio.modalDetPort.css({'display': 'none'});
         self.$body.css({'overflow': 'auto'});
       }
     });
@@ -187,10 +213,6 @@ jQuery.editProfile = {
       formData.append(el.name, el.value);
     });
 
-    jQuery.ajaxSetup({
-      headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
-    });
-
     jQuery.ajax({
       url: url,
       data: formData,
@@ -199,13 +221,23 @@ jQuery.editProfile = {
       processData: false,
       success: function(response) {
         window.location.reload();
-        self.$modalportofolio.css({'display': 'none'});
+        self.wrapper.portofolio.$modalportofolio.css({'display': 'none'});
         self.$body.css({'overflow': 'auto'});
+      },
+      error: function(xhr,status, response){
+        var error = jQuery.parseJSON(xhr.responseText);
+        for(var k in error.errors){
+          if(error.errors.hasOwnProperty(k)){
+              error.errors[k].forEach(function(val){
+                  $.notify(""+val+"");
+              });
+            }
+          }
       }
     });
   }
 };
 
-jQuery(document).ready(function(){
+jQuery(document).ready(() => {
   jQuery.editProfile.init();
 });

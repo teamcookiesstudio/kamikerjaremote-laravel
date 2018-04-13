@@ -53,7 +53,7 @@ class PortofolioController extends Controller
             $auth = Auth::user();
             $fileName = "" . uniqid() . "." .
             $request->file("thumbnail")->getClientOriginalExtension();
-            $request->file("thumbnail")->move(storage_path() . '/app/public/portofolio/'.$auth->first_name.$auth->last_name.'/', $fileName);
+            $request->file("thumbnail")->move(storage_path() . '/app/public/portofolio/', $fileName);
             
             $image = Portofolio::find($portofolio->id);
             $image->thumbnail = $fileName;
@@ -114,7 +114,7 @@ class PortofolioController extends Controller
             $auth = Auth::user();
             $fileName = "" . uniqid() . "." .
             $request->file("thumbnail")->getClientOriginalExtension();
-            $request->file("thumbnail")->move(storage_path() . '/app/public/portofolio/'.$auth->first_name.$auth->last_name.'/', $fileName);
+            $request->file("thumbnail")->move(storage_path() . '/app/public/portofolio/', $fileName);
             
             $image = Portofolio::find($portofolio->id);
             $image->thumbnail = $fileName;
