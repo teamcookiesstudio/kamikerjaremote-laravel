@@ -101,26 +101,26 @@
               @endif
               <div class="row center-xs">
                 <div class="col-xs-12 col-md-6 input-label">
-                  {!! Form::label('First Name') !!} {!! Form::text('first_name', $user->first_name ?? null) !!} {!! $errors->first('first_name',
+                  {!! Form::label('First Name') !!} {!! Form::text('first_name', $user->first_name ?? null, ['required', 'placeholder' => 'First name']) !!} {!! $errors->first('first_name',
                   '
                   <p class="text-danger">:message</p>') !!}
                 </div>
                 <div class="col-xs-12 col-md-6 input-label">
-                  {!! Form::label('Last Name') !!} {!! Form::text('last_name', $user->last_name ?? null) !!} {!! $errors->first('last_name',
+                  {!! Form::label('Last Name') !!} {!! Form::text('last_name', $user->last_name ?? null, ['required', 'placeholder' => 'Last name']) !!} {!! $errors->first('last_name',
                   '
                   <p class="text-danger">:message</p>') !!}
                 </div>
               </div>
               <div class="row center-xs">
                 <div class="col-xs-12 input-label">
-                  {!! Form::label('Current Position') !!} {!! Form::text('occupation', $user->profile->occupation ?? null) !!} {!! $errors->first('occupation',
+                  {!! Form::label('Current Position') !!} {!! Form::text('occupation', $user->profile->occupation ?? null, ['placeholder' => 'Occupation']) !!} {!! $errors->first('occupation',
                   '
                   <p class="text-danger">:message</p>') !!}
                 </div>
               </div>
               <div class="row center-xs">
                 <div class="col-xs-12 input-label">
-                  {!! Form::label('Location') !!} {!! Form::text('location', $user->profile->location ?? null) !!} {!! $errors->first('occupation',
+                  {!! Form::label('Location') !!} {!! Form::text('location', $user->profile->location ?? null, ['placeholder' => 'Location']) !!} {!! $errors->first('occupation',
                   '
                   <p class="text-danger">:message</p>') !!}
                 </div>
@@ -134,7 +134,7 @@
               </div>
               <div class="row center-xs">
                 <div class="col-xs-12 input-label">
-                  {!! Form::label('Website') !!} {!! Form::text('website', $user->profile->website ?? null, ['id' => 'website']) !!} {!! $errors->first('website',
+                  {!! Form::label('Website') !!} {!! Form::text('website', $user->profile->website ?? null, ['id' => 'website', 'placeholder' => 'https://example.com']) !!} {!! $errors->first('website',
                   '
                   <p class="text-danger">:message</p>') !!}
                 </div>
@@ -173,7 +173,7 @@
         <div class="row center-xs">
           <div class="col-xs-12 input-label">
             <label>Project Name</label>
-            <input id="project-name" type="text" placeholder="My awesome project" name="project_name">
+            <input id="project-name" type="text" placeholder="My awesome project" name="project_name" required>
             <input type="hidden" value="{{auth::user()->id}}" id="member-id">
           </div>
         </div>

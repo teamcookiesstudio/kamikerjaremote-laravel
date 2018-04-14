@@ -38,7 +38,11 @@
                 <div class="actions">
                   @auth
                     <div class="logged-user">
-                        <img src="https://randomuser.me/api/portraits/men/51.jpg" id="user-action">
+                        @if($user->profile->url_photo_profile)
+                        <img class="profile-img" id="user-action" src="{{ asset('storage/profile/'.$user->profile->url_photo_profile) }}">
+                        @else
+                        <img class="profile-img" id="user-action" src="{{ asset('images/no_avatar.jpg') }}">
+                        @endif
                         <div class="user-actions" id="actions">
                           <div class="arrow-up"></div>
                           <ul>
