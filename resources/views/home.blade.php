@@ -73,7 +73,11 @@
           </label>
           <input type="file" accept="image/*" id="file-cover">
           <div class="profile-img-container">
-            <img class="profile-img" src="https://randomuser.me/api/portraits/men/51.jpg">
+          @if($user->profile->url_photo_profile)
+          <img class="profile-img" id="profile-image" src="{{ asset('storage/profile/'.$user->profile->url_photo_profile) }}">
+          @else
+          <img class="profile-img" id="profile-image" src="{{ asset('images/no_avatar.jpg') }}">
+          @endif
             <label for="file-avatar" class="btn btn-circle btn-sm btn-red">
               <i class="ion-edit"></i>
             </label>

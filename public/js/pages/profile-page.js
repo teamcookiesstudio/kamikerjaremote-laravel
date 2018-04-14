@@ -49,27 +49,41 @@ jQuery.editProfile = {
   },
   profile: function() {
     var self = this;
-    self.wrapper.profile.$btnEditProfile.click(() => {
+
+    jQuery('#file-avatar').change( function() {
+      self.initChangeProfilePicture(this, $('#profile-image'));
+    });
+
+    self.wrapper.profile.$btnEditProfile.click( function() {
       self.wrapper.profile.$modalProfile.css({'display': 'block'});
       self.$body.css({'overflow': 'hidden'});
     });
 
-    self.wrapper.profile.$closeProfile.click(() => {
+    self.wrapper.profile.$closeProfile.click( function() {
       self.wrapper.profile.$modalProfile.css({'display': 'none'});
       self.$body.css({'overflow': 'auto'});
     });
 
-    self.wrapper.profile.$saveProfile.click(() => {
-      var object = { skill_set_name: self.wrapper.profile.$skillSet.val() };
+    self.wrapper.profile.$saveProfile.click( function() {
       var form = $('#profile-form').serializeArray();
+      var skillSet = self.wrapper.profile.$skillSet.val();
+      var object = new FormData();
+      for(var i = 0; i < skillSet.length; i++){
+        object.append('skill_set_name[]', skillSet[i]);
+      }
+      object.append('url_photo_profile', jQuery('#file-avatar').prop('files')[0]);
+      object.append('_method', 'patch');  
       _.forEach(form, function(el, i){
-        object[el.name] = el.value;
+        object.append(el.name, el.value);
       });
-
+      
       jQuery.ajax({
         url: 'profile',
-        type: 'PATCH',
+        type: 'POST',
         data: object,
+        cache: false,
+        contentType: false,
+        processData: false,
         success: function(response) {
           window.location.reload();
           self.wrapper.profile.$modalProfile.css({'display': 'none'});
@@ -276,9 +290,20 @@ jQuery.editProfile = {
     var year = date.getFullYear();
     var initEndDate = { month: month, year: year };
     return initEndDate;
+  },
+  initChangeProfilePicture: function(input, $selector) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+  
+      reader.onload = function(e) {
+        $selector.attr('src', e.target.result);
+      }
+  
+      reader.readAsDataURL(input.files[0]);
+    }
   }
 };
 
-jQuery(document).ready(() => {
+jQuery(document).ready( function() {
   jQuery.editProfile.init();
 });
