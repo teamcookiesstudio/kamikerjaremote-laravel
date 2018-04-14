@@ -9,9 +9,9 @@
       <div class="row center-xs">
         <div class="col-xs-11 col-md-12">
           @if($user->profile->url_photo_profile)
-          <img class="profile-img" id="profile-image" src="{{ asset('storage/profile/'.$user->profile->url_photo_profile) }}">
+          <img class="profile-img" src="{{ asset('storage/profile/'.$user->profile->url_photo_profile) }}">
           @else
-          <img class="profile-img" id="profile-image" src="{{ asset('images/no_avatar.jpg') }}">
+          <img class="profile-img" src="{{ asset('images/no_avatar.jpg') }}">
           @endif
           <button class="btn btn-outline btn-sm" id="edit-profile">Ubah profile</button>
         </div>
