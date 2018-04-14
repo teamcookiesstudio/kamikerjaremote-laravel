@@ -228,12 +228,12 @@
 <div class="modal" id="portofolio-details">
   <div class="modal-content">
     <div class="modal-body">
-      <img src="images/rectangle3.jpg">
+      <img src="images/rectangle3.jpg" id="portofolio-item-image">
       <div class="portofolio-desc">
         <div class="top-desc">
           <div class="details">
-            <h2 class="title">Developing Gojek for Apple Watch</h2>
-            <span class="date-range">2017 January - 2018 January</span>
+            <h2 class="title" id="portofolio-item-project-name">Developing Gojek for Apple Watch</h2>
+            <span class="date-range" id="portofolio-item-project-date">2017 January - 2018 January</span>
           </div>
           <div class="actions">
             <button class="btn btn-outline btn-sm" id="edit-portofolio">Edit portofolio</button>
@@ -243,8 +243,8 @@
           </div>
         </div>
         <div class="bottom-desc">
-          <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <a class="link" href="https://www.teamcookies.id" target="_blank">https://www.teamcookies.id</a>
+          <p class="description" id="portofolio-item-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <a class="link" id="portofolio-item-project-url" href="https://www.teamcookies.id" target="_blank">https://www.teamcookies.id</a>
         </div>
       </div>
     </div>
@@ -258,6 +258,6 @@ jQuery.ajaxSetup({
     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
   });
 </script>
-<script src="{{ asset('js/pages/portofolio-modal.js') }}"></script>
 <script src="{{ asset('js/pages/profile-page.js') }}"></script>
+<script src="{{ asset('js/pages/portofolio-modal.js') }}"></script>
 @endpush

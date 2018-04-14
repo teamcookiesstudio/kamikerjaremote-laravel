@@ -36,6 +36,11 @@ jQuery.editProfile = {
   $body: jQuery('#profile'),
   init: function() {
     var self = this;
+    var memberId = jQuery('#member-id').val();
+    var url = 'portofolio/'+memberId;
+    $.get(url, function(response) {
+      self.data.portofolio.collection = response;
+    });
     self.wrapper.profile.$skillSet.select2({ tags: true });
     self.setEvent();
     self.profile();
@@ -106,36 +111,31 @@ jQuery.editProfile = {
       self.wrapper.portofolio.$modalDetPort.css({'display': 'none'});
       self.$body.css({'overflow': 'auto'});
 
-      async.waterfall([
-        function(callback) {
-          var id = self.data.portofolio.id;
-          var url = 'portofolio/'+id;
-          jQuery.get(url, function(response) {
-            jQuery('#project-name').val(response.portofolio.project_name);
-            jQuery('#project-url').val(response.portofolio.project_url);
-            jQuery('#description').val(response.portofolio.description);
-            if(response.portofolio.project_on_going == 1)
-            {
-              self.wrapper.portofolio.$btnProjectOnGoing.prop('checked', true);
-              self.wrapper.portofolio.$startDateMonth.val(response.start_date_month);
-              self.wrapper.portofolio.$startDateYear.val(response.start_date_year);
-              self.wrapper.portofolio.$endDateMonth.addClass('disabled').attr('disabled', true);
-              self.wrapper.portofolio.$endDateYear.addClass('disabled').attr('disabled', true);
-            } 
-            else 
-            {
-              self.wrapper.portofolio.$btnProjectOnGoing.prop('checked', false);
-              self.wrapper.portofolio.$startDateMonth.val(response.start_date_month);
-              self.wrapper.portofolio.$startDateYear.val(response.start_date_year);
-              self.wrapper.portofolio.$endDateMonth.val(response.end_date_month);
-              self.wrapper.portofolio.$endDateYear.val(response.end_date_year);
-            }
-            self.wrapper.portofolio.$modalportofolio.css({'display': 'block'});
-            self.$body.css({'overflow': 'hidden'});
-            callback(null, true);
-          });
-        }
-      ]);
+      var id = self.data.portofolio.id;
+      var data = _.find(self.data.portofolio.collection, {id: parseInt(id)});
+
+      jQuery('#project-name').val(data.project_name);
+      jQuery('#project-url').val(data.project_url);
+      jQuery('#description').val(data.description);
+
+      var initStartDate = self.initDate(data.start_date);
+      var initEndDate = self.initDate(data.end_date);
+
+      if(data.project_on_going){
+        self.wrapper.portofolio.$btnProjectOnGoing.prop('checked', true);
+        self.wrapper.portofolio.$startDateMonth.val(initStartDate.month);
+        self.wrapper.portofolio.$startDateYear.val(initStartDate.year);
+        self.wrapper.portofolio.$endDateMonth.addClass('disabled').prop('disabled', true);
+        self.wrapper.portofolio.$endDateYear.addClass('disabled').prop('disabled', true);
+      } else {
+        self.wrapper.portofolio.$btnProjectOnGoing.prop('checked', false);
+        self.wrapper.portofolio.$startDateMonth.val(initStartDate.month);
+        self.wrapper.portofolio.$startDateYear.val(initStartDate.year);
+        self.wrapper.portofolio.$endDateMonth.val(initEndDate.month);
+        self.wrapper.portofolio.$endDateYear.val(initEndDate.year);
+      }
+      self.wrapper.portofolio.$modalportofolio.css({'display': 'block'});
+      self.$body.css({'overflow': 'hidden'});
     });
 
     self.wrapper.portofolio.$btnProjectOnGoing.change(function() {
@@ -165,6 +165,22 @@ jQuery.editProfile = {
 
     self.wrapper.portofolio.$btnShowportofolio.click( function() {
       self.data.portofolio.id = $(this).attr('data-portofolio-id');
+
+      var id = self.data.portofolio.id;
+      var data = _.find(self.data.portofolio.collection, {id: parseInt(id)});
+      var initStartDate = self.initDate(data.start_date);
+      var initEndDate = self.initDate(data.end_date);
+
+      jQuery('#portofolio-item-project-name').text(data.project_name);
+      jQuery('#portofolio-item-description').text(data.description);
+      jQuery('#portofolio-item-image').attr('src', 'storage/portofolio/'+data.thumbnail);
+      jQuery('#portofolio-item-project-url').text(data.project_url).attr('href', data.project_url);
+      if(data.project_on_going){
+        jQuery('#portofolio-item-project-date').text(initStartDate.year+' '+initStartDate.month+' - '+'Project On Going');
+      } else {
+        jQuery('#portofolio-item-project-date').text(initStartDate.year+' '+initStartDate.month+' - '+initEndDate.year+' '+initEndDate.month);
+      }
+      
       self.wrapper.portofolio.$modalDetPort.css({'display': 'block'});
       self.$body.css({'overflow': 'hidden'});
     });
@@ -235,6 +251,31 @@ jQuery.editProfile = {
           }
       }
     });
+  },
+  initMonths: function() {
+    var month = new Array();
+        month[0] = "January";
+        month[1] = "February";
+        month[2] = "March";
+        month[3] = "April";
+        month[4] = "May";
+        month[5] = "June";
+        month[6] = "July";
+        month[7] = "August";
+        month[8] = "September";
+        month[9] = "October";
+        month[10] = "November";
+        month[11] = "December";
+    return month;
+  },
+  initDate: function(param) {
+    var self = this;
+    var initMonths = self.initMonths();
+    var date = new Date(param);
+    var month = initMonths[date.getMonth()];
+    var year = date.getFullYear();
+    var initEndDate = { month: month, year: year };
+    return initEndDate;
   }
 };
 

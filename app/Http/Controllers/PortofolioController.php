@@ -50,7 +50,6 @@ class PortofolioController extends Controller
         $portofolio->save();
 
         if($request->hasFile('thumbnail')){
-            $auth = Auth::user();
             $fileName = "" . uniqid() . "." .
             $request->file("thumbnail")->getClientOriginalExtension();
             $request->file("thumbnail")->move(storage_path() . '/app/public/portofolio/', $fileName);
@@ -69,14 +68,8 @@ class PortofolioController extends Controller
      */
     public function show($id)
     {
-        $portofolio = Portofolio::find($id);
-        return response()->json([
-                'portofolio' => $portofolio,
-                'start_date_year' => date('Y', strtotime($portofolio->start_date)),
-                'start_date_month' => date('F', strtotime($portofolio->start_date)),
-                'end_date_month' => date('F', strtotime($portofolio->end_date)),
-                'end_date_year' => date('Y', strtotime($portofolio->end_date)),
-            ]);
+        $portofolio = Portofolio::findMember($id)->get();
+        return $portofolio;
     }
 
     /**
@@ -99,7 +92,7 @@ class PortofolioController extends Controller
      */
     public function update(PortofolioRequest $request, $id)
     {
-        $portofolio = Portofolio::find($id)->first();
+        $portofolio = Portofolio::find($id);
         $portofolio->project_name = $request->project_name;
         $portofolio->start_date = date('Y-m-d', strtotime($request->start_date_year.' '.$request->start_date_month));
         $portofolio->description = $request->description;
@@ -111,7 +104,6 @@ class PortofolioController extends Controller
         $portofolio->update();
 
         if($request->hasFile('thumbnail')){
-            $auth = Auth::user();
             $fileName = "" . uniqid() . "." .
             $request->file("thumbnail")->getClientOriginalExtension();
             $request->file("thumbnail")->move(storage_path() . '/app/public/portofolio/', $fileName);
