@@ -66,9 +66,9 @@
             @else
             <div class="logged-user">
               @if($user->profile->url_photo_profile)
-              <img class="profile-img" src="{{ asset('storage/profile/'.$user->profile->url_photo_profile) }}">
+              <img class="profile-img" id="user-action" src="{{ asset('storage/profile/'.$user->profile->url_photo_profile) }}">
               @else
-              <img class="profile-img" src="{{ asset('images/no_avatar.jpg') }}">
+              <img class="profile-img" id="user-action" src="{{ asset('images/no_avatar.jpg') }}">
               @endif
               <div class="user-actions" id="actions">
                 <div class="arrow-up"></div>
