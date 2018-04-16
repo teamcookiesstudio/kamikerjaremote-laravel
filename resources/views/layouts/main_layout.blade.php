@@ -65,7 +65,12 @@
             <a class="btn btn-thin" href="{{ route('register') }}">{{ __('Register') }}</a>
             @else
             <div class="logged-user">
-              <img src="https://randomuser.me/api/portraits/men/51.jpg" id="user-action">
+              {!! 
+                Html::image(
+                  $user->profile->url_photo_profile ? asset('storage/profile/'.$user->profile->url_photo_profile) : asset('images/no_avatar.jpg'), 
+                  null, array('class' => 'profile-img', 'id' => 'user-action')
+                ) 
+              !!}
               <div class="user-actions" id="actions">
                 <div class="arrow-up"></div>
                 <ul>
@@ -92,7 +97,6 @@
   @yield('content')
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/async/2.6.0/async.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
 <script src="{{ asset('js/nav.js') }}"></script>

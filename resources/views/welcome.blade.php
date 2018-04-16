@@ -38,7 +38,12 @@
                 <div class="actions">
                   @auth
                     <div class="logged-user">
-                        <img src="https://randomuser.me/api/portraits/men/51.jpg" id="user-action">
+                        {!! 
+                          Html::image(
+                            $user->profile->url_photo_profile ? asset('storage/profile/'.$user->profile->url_photo_profile) : asset('images/no_avatar.jpg'), 
+                            null, array('class' => 'profile-img', 'id' => 'user-action')
+                          ) 
+                        !!}
                         <div class="user-actions" id="actions">
                           <div class="arrow-up"></div>
                           <ul>

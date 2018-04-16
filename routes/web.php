@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $user = auth()->user();
+    return view('welcome', compact('user'));
 });
 
 Auth::routes();

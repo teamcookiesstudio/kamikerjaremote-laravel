@@ -68,12 +68,23 @@ a.no-decoration {
   padding: 11px 8px;
   background: #f9f9f9;
   border-radius: 5px;
-  border: 1px solid #e7e7e7; }
-  .input-label input::placeholder {
+  border: 1px solid #e7e7e7; 
+}
+
+.input-label input::placeholder {
     color: #bfbfbf; }
 .input-label textarea {
   height: 135px;
 }
+
+.input-label input:invalid {
+  margin: 0 .25rem;
+  min-width: 125px;
+  border-left: 3px solid salmon;
+  border-radius: 5px;
+  transition: border-color .5s ease-out;
+}
+
 .input-label .input-icon {
   display: flex;
   justify-content: flex-start;

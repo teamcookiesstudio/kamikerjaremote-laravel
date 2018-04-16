@@ -1,15 +1,22 @@
 @extends('layouts.main_layout') 
+
 @push('style')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+{!! Html::style('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css') !!}
 @endpush
+
 @section('content')
 <section class="user-header">
   <div class="user-cover">
     <div class="container">
       <div class="row center-xs">
         <div class="col-xs-11 col-md-12">
-          <img src="https://randomuser.me/api/portraits/men/51.jpg">
-          <button class="btn btn-outline btn-sm" id="edit-profile">Ubah profile</button>
+          {!! 
+              Html::image(
+                $user->profile->url_photo_profile ? asset('storage/profile/'.$user->profile->url_photo_profile) : asset('images/no_avatar.jpg'), 
+                null, array('class' => 'profile-img')
+              ) 
+          !!}
+          {!! Form::button('Edit profile', array('class' => 'btn btn-outline btn-sm', 'id' => 'edit-profile', 'type' => 'button')) !!}
         </div>
       </div>
     </div>
@@ -26,7 +33,7 @@
         <span class="job">{{$user->profile->occupation ?? null}}</span>
         <span class="location">{{$user->profile->location ?? null}}</span>
         <span class="about">{{$user->profile->summary ?? null}}</span>
-        <a href="{{$user->profile->website ?? null}}" target="_blank" class="link">{{$user->profile->website ?? null}}</a>
+        {!! HTML::link($user->profile->website ?? null, $user->profile->website ?? null, array('class' => 'link', 'target' => '_blank'), true)!!}
         <div class="tags">
           @foreach($skillset as $value)
           <div class="tag">{{$value}}</div>
@@ -41,14 +48,14 @@
     <div class="row center-xs">
       <div class="col-xs-11 portofolios-header">
         <h3>portofolio</h3>
-        <button class="btn btn-outline btn-sm" id="add-portofolio">Add portofolio</button>
+        {!! Form::button('Add portofolio', array('class' => 'btn btn-outline btn-sm', 'id' => 'add-portofolio', 'type' => 'button')) !!}
       </div>
     </div>
     <div class="row center-xs">
       <a class="col-xs-11 portofolios">
         @foreach($portofolios as $portofolio)
         <div class="item-wrapper" id="show-portofolio" data-portofolio-id="{{$portofolio->id}}">
-          <img src="{{ asset('storage/portofolio/'.$portofolio->thumbnail) }}">
+          {!! Html::image(asset('storage/portofolio/'.$portofolio->thumbnail), null, array('class' => 'profile-img')) !!}
           <div class="item-body">
           <span>{{$portofolio->project_name}}</span>
           </div>
@@ -62,22 +69,39 @@
   <div class="modal-content">
       <div class="modal-header">
         <h2>Profile</h2>
-        <button class="btn btn-simple" id="close-modal">
-          <i class="ion-android-close"></i>
-        </button>
+        {!! Form::button('<i class="ion-android-close"></i>', array('class' => 'btn btn-simple', 'id' => 'close-modal')) !!}
       </div>
       <div class="modal-body">
         <div class="profile-header">
-          <label for="file-cover" class="btn btn-circle btn-sm btn-red" id="edit-cover">
-            <i class="ion-edit"></i>
-          </label>
-          <input type="file" accept="image/*" id="file-cover">
+          {!! 
+              Html::decode(
+              Form::label(
+                  'file-cover', 
+                  '<i class="ion-edit"></i>', 
+                  array('class' => 'btn btn-circle btn-sm btn-red', 'id' => 'edit-cover')
+                )
+              ) 
+          !!}
+          {!! Form::file('file-cover', array('id' => 'file-cover', 'accept' => 'image/*')) !!}
+
           <div class="profile-img-container">
-            <img class="profile-img" src="https://randomuser.me/api/portraits/men/51.jpg">
-            <label for="file-avatar" class="btn btn-circle btn-sm btn-red">
-              <i class="ion-edit"></i>
-            </label>
-            <input type="file" accept="image/*" id="file-avatar">
+            {!! 
+                Html::image(
+                  $user->profile->url_photo_profile ? asset('storage/profile/'.$user->profile->url_photo_profile) : asset('images/no_avatar.jpg'), 
+                  null, 
+                  array('class' => 'profile-img', 'id' => 'profile-image')
+                ) 
+            !!}
+            {!! 
+                Html::decode(
+                Form::label(
+                  'file-avatar', 
+                  '<i class="ion-edit"></i>', 
+                  array('class' => 'btn btn-circle btn-sm btn-red', 'id' => 'edit-cover')
+                  )
+                ) 
+            !!}
+            {!! Form::file('file-avatar', array('id' => 'file-avatar', 'accept' => 'image/*')) !!}
           </div>
         </div>
 
@@ -93,26 +117,26 @@
               @endif
               <div class="row center-xs">
                 <div class="col-xs-12 col-md-6 input-label">
-                  {!! Form::label('First Name') !!} {!! Form::text('first_name', $user->first_name ?? null) !!} {!! $errors->first('first_name',
+                  {!! Form::label('First Name') !!} {!! Form::text('first_name', $user->first_name ?? null, ['required', 'placeholder' => 'First name']) !!} {!! $errors->first('first_name',
                   '
                   <p class="text-danger">:message</p>') !!}
                 </div>
                 <div class="col-xs-12 col-md-6 input-label">
-                  {!! Form::label('Last Name') !!} {!! Form::text('last_name', $user->last_name ?? null) !!} {!! $errors->first('last_name',
+                  {!! Form::label('Last Name') !!} {!! Form::text('last_name', $user->last_name ?? null, ['required', 'placeholder' => 'Last name']) !!} {!! $errors->first('last_name',
                   '
                   <p class="text-danger">:message</p>') !!}
                 </div>
               </div>
               <div class="row center-xs">
                 <div class="col-xs-12 input-label">
-                  {!! Form::label('Current Position') !!} {!! Form::text('occupation', $user->profile->occupation ?? null) !!} {!! $errors->first('occupation',
+                  {!! Form::label('Current Position') !!} {!! Form::text('occupation', $user->profile->occupation ?? null, ['placeholder' => 'Occupation']) !!} {!! $errors->first('occupation',
                   '
                   <p class="text-danger">:message</p>') !!}
                 </div>
               </div>
               <div class="row center-xs">
                 <div class="col-xs-12 input-label">
-                  {!! Form::label('Location') !!} {!! Form::text('location', $user->profile->location ?? null) !!} {!! $errors->first('occupation',
+                  {!! Form::label('Location') !!} {!! Form::text('location', $user->profile->location ?? null, ['placeholder' => 'Location']) !!} {!! $errors->first('occupation',
                   '
                   <p class="text-danger">:message</p>') !!}
                 </div>
@@ -126,7 +150,7 @@
               </div>
               <div class="row center-xs">
                 <div class="col-xs-12 input-label">
-                  {!! Form::label('Website') !!} {!! Form::text('website', $user->profile->website ?? null, ['id' => 'website']) !!} {!! $errors->first('website',
+                  {!! Form::label('Website') !!} {!! Form::text('website', $user->profile->website ?? null, ['id' => 'website', 'placeholder' => 'https://example.com']) !!} {!! $errors->first('website',
                   '
                   <p class="text-danger">:message</p>') !!}
                 </div>
@@ -151,64 +175,66 @@
   <div class="modal-content">
     <div class="modal-header">
       <h2>portofolio</h2>
-      <button class="btn btn-simple" id="close-portofolio-modal">
-        <i class="ion-android-close"></i>
-      </button>          
+      {!! Form::button('<i class="ion-android-close"></i>', array('class' => 'btn btn-simple', 'id' => 'close-portofolio-modal')) !!}
     </div>
     <div class="modal-body">
-      <form id="portofolio-form" enctype="multipart/form-data">
+      {!! Form::open(array('id' => 'portofolio-form', 'enctype' => 'multipart/form-data')) !!}
       <div class="portofolio-form">
         <div class="portofolio-header">
-          <label class="portofolio-upload" for="upload-portofolio-img"><i class="ion-ios-camera-outline"></i><span>Upload Thumbnail</span></label>
-          <input type="file" accept="image/*" id="upload-portofolio-img" name="thumbnail">
+          {!! 
+            Html::decode(
+            Form::label(
+                'upload-portofolio-img', 
+                '<i class="ion-ios-camera-outline"></i><span>Upload Thumbnail</span>', 
+                array('class' => 'portofolio-upload')
+              )
+            ) 
+        !!}
+        {!! Form::file('thumbnail', array('id' => 'upload-portofolio-img', 'accept' => 'image/*')) !!}
         </div>
         <div class="row center-xs">
           <div class="col-xs-12 input-label">
-            <label>Project Name</label>
-            <input id="project-name" type="text" placeholder="My awesome project" name="project_name">
-            <input type="hidden" value="{{auth::user()->id}}" id="member-id">
+            {!! Form::label('Project Name') !!}
+            {!! Form::text('project_name', null, array('id' => 'project-name', 'placeholder' => 'My awesome project', 'required')) !!}
+            {!! Form::hidden(null, auth::user()->id, array('id' => 'member-id')) !!}
           </div>
         </div>
         <div class="row center-xs">
           <div class="col-xs-12 input-label">
-            <label>Project Url</label>
-            <input id="project-url" type="text" placeholder="https://example.com" name="project_url">
+            {!! Form::label('Project Url') !!}
+            {!! Form::text('project_url', null, array('id' => 'project-url', 'placeholder' => 'https://example.com')) !!}
           </div>
         </div>
         <div class="row center-xs">
           <div class="col-xs-12 col-md-6 input-label">
-            <label>Start Date</label>
+            {!! Form::label('Start Date') !!}
             <div class="dropdown">
-              <select id="start-date-month" name="start_date_month">
-              </select>
+              {!! Form::select('start_date_month', array(), null, array('id' => 'start-date-month')) !!}
             </div>
             <div class="dropdown">
-              <select id="start-date-year" name="start_date_year">
-              </select>
+              {!! Form::select('start_date_year', array(), null, array('id' => 'start-date-year')) !!}
             </div>
           </div>
           <div class="col-xs-12 col-md-6 input-label">
-            <label>End Date</label>
+            {!! Form::label('End Date') !!}
             <div class="dropdown">
-              <select id="end-date-month" name="end_date_month">
-              </select>
+              {!! Form::select('end_date_month', array(), null, array('id' => 'end-date-month')) !!}
             </div>
             <div class="dropdown">
-              <select id="end-date-year" name="end_date_year">
-              </select>
+              {!! Form::select('end_date_year', array(), null, array('id' => 'end-date-year')) !!}
             </div>
           </div>
         </div>
         <div class="row center-xs">
           <div class="col-xs-12 start-xs project-ongoing">
-            <input type="checkbox" id="project-ongoing" name="project_ongoing">
-            <label for="project-ongoing">Project Ongoing</label>
+            {!! Form::checkbox('project_ongoing', null, false, array('id' => 'project-ongoing')) !!}
+            {!! Form::label('project-ongoing', 'Project Ongoing') !!}
           </div>
         </div>
         <div class="row center-xs">
           <div class="col-xs-12 input-label">
-            <label>Description</label>
-            <textarea id="description" type="text" placeholder="Tell some description of your project" name="description"></textarea>
+            {!! Form::label('Description') !!}
+            {!! Form::textarea('description', null, array('placeholder' => 'Tell some description of your project', 'id' => 'description')) !!}
           </div>
         </div>
         <div class="row center-xs">
@@ -219,16 +245,21 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button id="save-button-portofolio" type="submit"class="btn btn-red">Save</button>
-      <button id="update-button-portofolio" class="btn btn-red" style="display:none;">Update</button>
+      {!! Form::button('Save', array('class' => 'btn btn-red', 'id' => 'save-button-portofolio')) !!}
+      {!! Form::button('Update', array('class' => 'btn btn-red', 'id' => 'update-button-portofolio', 'style' => 'display:none;')) !!}
     </div>
   </div>
-</form>
+{!! Form::close() !!}
 </div>
 <div class="modal" id="portofolio-details">
   <div class="modal-content">
     <div class="modal-body">
-      <img src="images/rectangle3.jpg" id="portofolio-item-image">
+      {!! 
+        Html::image(
+          '#', 
+          null, array('id' => 'portofolio-item-image')
+        ) 
+      !!}
       <div class="portofolio-desc">
         <div class="top-desc">
           <div class="details">
@@ -236,28 +267,27 @@
             <span class="date-range" id="portofolio-item-project-date">2017 January - 2018 January</span>
           </div>
           <div class="actions">
-            <button class="btn btn-outline btn-sm" id="edit-portofolio">Edit portofolio</button>
-            <button class="btn btn-simple" id="close-portofolio">
-              <i class="ion-android-close"></i>
-            </button>
+            {!! Form::button('Edit portofolio', array('class' => 'btn btn-outline btn-sm', 'id' => 'edit-portofolio', 'type' => 'button')) !!}
+            {!! Form::button('<i class="ion-android-close"></i>', array('class' => 'btn btn-simple', 'id' => 'close-portofolio', 'type' => 'button')) !!}
           </div>
         </div>
         <div class="bottom-desc">
           <p class="description" id="portofolio-item-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <a class="link" id="portofolio-item-project-url" href="https://www.teamcookies.id" target="_blank">https://www.teamcookies.id</a>
+          {!! HTML::link('https://www.teamcookies.id', 'https://www.teamcookies.id', array('class' => 'link', 'id' => 'portofolio-item-project-url', 'target' => '_blank'), true)!!}
         </div>
       </div>
     </div>
   </div>
 </div>
 @endsection
+
 @push('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script>
 jQuery.ajaxSetup({
     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
   });
 </script>
-<script src="{{ asset('js/pages/profile-page.js') }}"></script>
-<script src="{{ asset('js/pages/portofolio-modal.js') }}"></script>
+{!! Html::script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js') !!}
+{!! Html::script(asset('js/pages/profile-page.js')) !!}
+{!! Html::script(asset('js/pages/portofolio-modal.js')) !!}
 @endpush
