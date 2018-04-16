@@ -48,7 +48,7 @@
       <a class="col-xs-11 portofolios">
         @foreach($portofolios as $portofolio)
         <div class="item-wrapper" id="show-portofolio" data-portofolio-id="{{$portofolio->id}}">
-          <img src="{{ asset('storage/portofolio/'.$user->first_name.$user->last_name.'/'.$portofolio->thumbnail) }}">
+          <img src="{{ asset('storage/portofolio/'.$portofolio->thumbnail) }}">
           <div class="item-body">
           <span>{{$portofolio->project_name}}</span>
           </div>
@@ -180,31 +180,10 @@
             <label>Start Date</label>
             <div class="dropdown">
               <select id="start-date-month" name="start_date_month">
-                <option>January</option>
-                <option>February</option>
-                <option>March</option>
-                <option>March</option>
-                <option>May</option>
-                <option>June</option>
-                <option>July</option>
-                <option>August</option>
-                <option>September</option>
-                <option>October</option>
-                <option>November</option>
-                <option>December</option>
               </select>
             </div>
             <div class="dropdown">
               <select id="start-date-year" name="start_date_year">
-                <option>2011</option>
-                <option>2012</option>
-                <option>2013</option>
-                <option>2014</option>
-                <option>2015</option>
-                <option>2016</option>
-                <option>2017</option>
-                <option>2018</option>
-                <option>2019</option>
               </select>
             </div>
           </div>
@@ -212,31 +191,10 @@
             <label>End Date</label>
             <div class="dropdown">
               <select id="end-date-month" name="end_date_month">
-                <option>January</option>
-                <option>February</option>
-                <option>March</option>
-                <option>March</option>
-                <option>May</option>
-                <option>June</option>
-                <option>July</option>
-                <option>August</option>
-                <option>September</option>
-                <option>October</option>
-                <option>November</option>
-                <option>December</option>
               </select>
             </div>
             <div class="dropdown">
               <select id="end-date-year" name="end_date_year">
-                <option>2011</option>
-                <option>2012</option>
-                <option>2013</option>
-                <option>2014</option>
-                <option>2015</option>
-                <option>2016</option>
-                <option>2017</option>
-                <option>2018</option>
-                <option>2019</option>
               </select>
             </div>
           </div>
@@ -270,12 +228,12 @@
 <div class="modal" id="portofolio-details">
   <div class="modal-content">
     <div class="modal-body">
-      <img src="images/rectangle3.jpg">
+      <img src="images/rectangle3.jpg" id="portofolio-item-image">
       <div class="portofolio-desc">
         <div class="top-desc">
           <div class="details">
-            <h2 class="title">Developing Gojek for Apple Watch</h2>
-            <span class="date-range">2017 January - 2018 January</span>
+            <h2 class="title" id="portofolio-item-project-name">Developing Gojek for Apple Watch</h2>
+            <span class="date-range" id="portofolio-item-project-date">2017 January - 2018 January</span>
           </div>
           <div class="actions">
             <button class="btn btn-outline btn-sm" id="edit-portofolio">Edit portofolio</button>
@@ -285,8 +243,8 @@
           </div>
         </div>
         <div class="bottom-desc">
-          <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <a class="link" href="https://www.teamcookies.id" target="_blank">https://www.teamcookies.id</a>
+          <p class="description" id="portofolio-item-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <a class="link" id="portofolio-item-project-url" href="https://www.teamcookies.id" target="_blank">https://www.teamcookies.id</a>
         </div>
       </div>
     </div>
@@ -295,4 +253,11 @@
 @endsection
 @push('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script>
+jQuery.ajaxSetup({
+    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+  });
+</script>
+<script src="{{ asset('js/pages/profile-page.js') }}"></script>
+<script src="{{ asset('js/pages/portofolio-modal.js') }}"></script>
 @endpush

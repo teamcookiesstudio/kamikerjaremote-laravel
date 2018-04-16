@@ -122,6 +122,15 @@ label + input[type=file] {
   transform: translateY(-50%);
 }
 
+select.disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+textarea#description::placeholder {
+  opacity: .5;
+}
+
 .btn {
   border-radius: 10rem;
   padding: .5rem 2rem;
