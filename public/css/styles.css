@@ -1170,6 +1170,34 @@ body#search {
   text-decoration: none;
 }
 
+.login-card {
+  position: relative;
+}
+
+.warning {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f5a623;
+  padding: .618rem 1rem;
+  border-radius: 3px;
+}
+
+.warning span {
+  color: white;
+  font-weight: 600;
+}
+
+select.disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+textarea#description::placeholder {
+  opacity: .5;
+}
+
 /** MEDIA QUERIES **/
 
 @media only screen and (max-width: 768px) {
