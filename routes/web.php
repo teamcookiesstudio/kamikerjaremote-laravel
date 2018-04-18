@@ -37,5 +37,5 @@ Route::middleware(['auth', 'admin'])->group(function() {
     Route::patch('members/{user}/reject', 'MemberController@reject')->name('members.reject');
 });
 
-Route::get('/search', 'HomeController@search')->name('search.result');
-Route::get('/freelancer/{hash}', 'HomeController@viewProfile')->name('profiles.view_profile');
+Route::get('/search', 'PublicController@search')->name('search.result');
+Route::get('/freelancer/{name}', 'PublicController@viewProfile')->name('profiles.view_profile');

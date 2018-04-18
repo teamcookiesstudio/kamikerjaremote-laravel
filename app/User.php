@@ -33,6 +33,11 @@ class User extends Authenticatable
         'password', 'remember_token', 'level', 'is_approved', 'reviewed_by',
     ];
 
+    public function getFullNameAttribute($value)
+    {
+       return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
+    }
+
     public function scopeAdmin($query)
     {
         return $query->where('level', static::ACCESS_ADMIN);

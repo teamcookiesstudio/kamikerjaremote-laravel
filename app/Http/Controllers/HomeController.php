@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Portofolio;
 use App\Profile;
 use App\Models\SkillSet;
+use Cache;
+use Illuminate\Support\Facades\Redis;
 
 class HomeController extends Controller
 {
@@ -24,7 +26,17 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
+    {
+        $page = Cache::get('home');
+        if($page != null){
+            return $page;
+        }
+        
+        return $this->getIndex();
+    }
+
+    public function getIndex()
     {
         $user = auth()->user();
         $arr = [];
@@ -33,17 +45,6 @@ class HomeController extends Controller
         foreach($profile->skillsets()->get() as $skill){
             $skillset[] = $skill->skill_set_name;
         }
-        return view('home', compact('user', 'portofolios', 'skillset'));
-    }
-
-    public function search(Request $request)
-    {
-        $q = $request->get('q');
-        return view('search.result', compact('q'));
-    }
-
-    public function viewProfile($profileHash)
-    {
-        return view('profiles.view_profile', compact('profileHash'));
+        return view('home', compact('user', 'portofolios', 'skillset'))->render();
     }
 }

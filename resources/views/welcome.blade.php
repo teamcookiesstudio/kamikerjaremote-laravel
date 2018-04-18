@@ -77,11 +77,13 @@
         <div class="col-xs-11 col-md-6 center-xs">
           <h1>Indonesian Remote Worker</h1>
           <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <div class="input-control search-box">
-            <label class="icon-search" for="search"></label>
-            <input type="text" id="search" placeholder="Cari Freelancer Anda di sini">
-            <button class="btn btn-primary" type="submit" (click)="onSearch()">Cari</button>
-          </div>
+          <form action="{{route('search.result')}}">
+            <div class="input-control search-box">
+              <label class="icon-search" for="search"></label>
+              <input type="text" id="search" name="q" placeholder="Cari Freelancer Anda di sini">
+              <button class="btn btn-primary" type="submit">Cari</button>
+            </div>
+          </form>
         </div>
       </div>
       <div class="wave-brand"></div>

@@ -4,7 +4,10 @@
 <div class="container">
     <div class="row center-xs middle-md">
       <div class="col-xs-11 col-md-6">
-        <div class="card shadow-heavy">
+        <div class="card shadow-heavy login-card">
+            <div class="warning">
+                <span>Wrong login account, bro!</span>
+            </div>
             <div class="login-header">
                 <h1>Login</h1>
                 <span>Don't have an account? <a href="{{ route('register') }}">{{ __('Register here') }}</a></span>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Portofolio;
 use App\Http\Requests\PortofolioRequest;
-use Image, Auth;
+use Image, Auth, Cache;
 
 class PortofolioController extends Controller
 {
@@ -66,7 +66,9 @@ class PortofolioController extends Controller
      */
     public function show($id)
     {
-        $portofolio = Portofolio::findMember($id)->get();
+        $portofolio = Cache::remember('portofolio', 22*60, function() use ($id){
+            return Portofolio::findMember($id)->get();
+        });
         return $portofolio;
     }
 

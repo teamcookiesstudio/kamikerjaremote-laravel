@@ -1,3 +1,4 @@
+
 const STARTING_YEAR = 1980;
 const ENDING_YEAR = new Date().getFullYear();
 var startYear = STARTING_YEAR;
@@ -25,6 +26,7 @@ function changeYears (c, s, e) {
   for (let y = s; y <= e; y++) {
     years.push({year: y});
   }
+
   var m = c.val();
   c.children("option").remove();
   $.each(years, function(index, item) {
