@@ -30,5 +30,11 @@ class UserTableSeeder extends Seeder
         ]);
 
         factory(Profile::class)->create(['member_id' => $member->id]);
+
+        factory(User::class, 50)->create([
+            'level' => User::ACCESS_MEMBER
+        ])->each(function($freelancer){
+            factory(Profile::class)->create(['member_id' => $freelancer->id]);
+        });
     }
 }
