@@ -137,15 +137,15 @@ jQuery.editProfile = {
 
       if(data.project_on_going){
         self.wrapper.portofolio.$btnProjectOnGoing.prop('checked', true);
-        self.wrapper.portofolio.$startDateMonth.val(initStartDate.idMonth);
+        self.wrapper.portofolio.$startDateMonth.val(initStartDate.idMonth+1);
         self.wrapper.portofolio.$startDateYear.val(initStartDate.year);
         self.wrapper.portofolio.$endDateMonth.addClass('disabled').prop('disabled', true);
         self.wrapper.portofolio.$endDateYear.addClass('disabled').prop('disabled', true);
       } else {
         self.wrapper.portofolio.$btnProjectOnGoing.prop('checked', false);
-        self.wrapper.portofolio.$startDateMonth.val(initStartDate.idMonth);
+        self.wrapper.portofolio.$startDateMonth.val(initStartDate.idMonth+1);
         self.wrapper.portofolio.$startDateYear.val(initStartDate.year);
-        self.wrapper.portofolio.$endDateMonth.val(initEndDate.idMonth);
+        self.wrapper.portofolio.$endDateMonth.val(initEndDate.idMonth+1);
         self.wrapper.portofolio.$endDateYear.val(initEndDate.year);
       }
       self.wrapper.portofolio.$modalportofolio.css({'display': 'block'});
@@ -184,6 +184,7 @@ jQuery.editProfile = {
       var data = _.find(self.data.portofolio.collection, {id: parseInt(id)});
       var initStartDate = self.initDate(data.start_date);
       var initEndDate = self.initDate(data.end_date);
+      console.log(data, initStartDate);
 
       jQuery('#portofolio-item-project-name').text(data.project_name);
       jQuery('#portofolio-item-description').text(data.description);
@@ -266,18 +267,18 @@ jQuery.editProfile = {
   },
   initMonths: function() {
     var month = new Array();
-        month[1] = "January";
-        month[2] = "February";
-        month[3] = "March";
-        month[4] = "April";
-        month[5] = "May";
-        month[6] = "June";
-        month[7] = "July";
-        month[8] = "August";
-        month[9] = "September";
-        month[10] = "October";
-        month[11] = "November";
-        month[12] = "December";
+        month[0] = "January";
+        month[1] = "February";
+        month[2] = "March";
+        month[3] = "April";
+        month[4] = "May";
+        month[5] = "June";
+        month[6] = "July";
+        month[7] = "August";
+        month[8] = "September";
+        month[9] = "October";
+        month[10] = "November";
+        month[11] = "December";
     return month;
   },
   initDate: function(param) {

@@ -26,25 +26,15 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
-        $page = Cache::get('home');
-        if($page != null){
-            return $page;
-        }
-        
-        return $this->getIndex();
-    }
-
-    public function getIndex()
+    public function index()
     {
         $user = auth()->user();
-        $arr = [];
+        $skillset = [];
         $portofolios = Portofolio::findMember(auth()->user()->id)->get();
         $profile = Profile::where('member_id', $user->id)->first();
         foreach($profile->skillsets()->get() as $skill){
             $skillset[] = $skill->skill_set_name;
         }
-        return view('home', compact('user', 'portofolios', 'skillset'))->render();
+        return view('home', compact('user', 'portofolios', 'skillset'));
     }
 }

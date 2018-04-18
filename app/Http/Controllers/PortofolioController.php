@@ -37,14 +37,16 @@ class PortofolioController extends Controller
      */
     public function store(PortofolioRequest $request)
     {
+        $start_date = date('Y-m-d', strtotime($request->start_date_year.'-'.$request->start_date_month));
+        $end_date = date('Y-m-d', strtotime($request->end_date_year.'-'.$request->end_date_month));
         $portofolio = new Portofolio;
         $portofolio->member_id = $request->member_id;
         $portofolio->project_name = $request->project_name;
-        $portofolio->start_date = date('Y-m-d', strtotime($request->start_date_year.'-'.$request->start_date_month));
+        $portofolio->start_date = $start_date;
         $portofolio->description = $request->description;
         $portofolio->project_on_going = $request->project_on_going;
         $portofolio->project_url = $request->project_url;
-        $portofolio->end_date = date('Y-m-d', strtotime($request->end_date_year.'-'.$request->end_date_month));
+        $portofolio->end_date = $end_date;
         $portofolio->save();
 
         if($request->hasFile('thumbnail')){
@@ -64,11 +66,9 @@ class PortofolioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($memberId)
     {
-        $portofolio = Cache::remember('portofolio', 22*60, function() use ($id){
-            return Portofolio::findMember($id)->get();
-        });
+        $portofolio = Portofolio::findMember($memberId)->get();
         return $portofolio;
     }
 
@@ -92,13 +92,15 @@ class PortofolioController extends Controller
      */
     public function update(PortofolioRequest $request, $id)
     {
+        $start_date = date('Y-m-d', strtotime($request->start_date_year.'-'.$request->start_date_month));
+        $end_date = date('Y-m-d', strtotime($request->end_date_year.'-'.$request->end_date_month));
         $portofolio = Portofolio::find($id);
         $portofolio->project_name = $request->project_name;
-        $portofolio->start_date = date('Y-m-d', strtotime($request->start_date_year.'-'.$request->start_date_month));
+        $portofolio->start_date = $start_date;
         $portofolio->description = $request->description;
         $portofolio->project_on_going = $request->project_on_going;
         $portofolio->project_url = $request->project_url;
-        $portofolio->end_date = date('Y-m-d', strtotime($request->end_date_year.'-'.$request->end_date_month));
+        $portofolio->end_date = $end_date;
         $portofolio->update();
 
         if($request->hasFile('thumbnail')){

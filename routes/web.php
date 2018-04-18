@@ -28,7 +28,7 @@ Route::middleware(['auth'])->group(function() {
 Route::middleware(['auth'])->group(function() {
     Route::post('portofolio', 'PortofolioController@store')->name('portofolio.store');
     Route::post('portofolio/{id}', 'PortofolioController@update')->name('portofolio.update');
-    Route::get('portofolio/{id}', 'PortofolioController@show')->name('portofolio.show');
+    Route::get('portofolio/{memberId}', 'PortofolioController@show')->name('portofolio.show');
 });
 
 Route::middleware(['auth', 'admin'])->group(function() {
