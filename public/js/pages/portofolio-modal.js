@@ -1,13 +1,4 @@
-$('#project-ongoing').click(() => {
-  var isOngoing = $('#project-ongoing').prop('checked');
-  if (isOngoing) {
-    $('#end-date-month').addClass('disabled').attr('disabled', true);
-    $('#end-date-year').addClass('disabled').attr('disabled', true);
-  } else {
-    $('#end-date-month').removeClass('disabled').attr('disabled', false);
-    $('#end-date-year').removeClass('disabled').attr('disabled', false);
-  }
-});
+
 const STARTING_YEAR = 1980;
 const ENDING_YEAR = new Date().getFullYear();
 var startYear = STARTING_YEAR;
@@ -35,6 +26,7 @@ function changeYears (c, s, e) {
   for (let y = s; y <= e; y++) {
     years.push({year: y});
   }
+
   var m = c.val();
   c.children("option").remove();
   $.each(years, function(index, item) {
@@ -65,18 +57,18 @@ function changeMonths (c) {
 }
 function initMonths () {
   var months = [
-    { id: "January", name: "January" },
-    { id: "February", name: "February" },
-    { id: "March", name: "March" },
-    { id: "April", name: "April" },
-    { id: "May", name: "May" },
-    { id: "June", name: "June" },
-    { id: "July", name: "July" },
-    { id: "August", name: "August" },
-    { id: "September", name: "September" },
-    { id: "October", name: "October" },
-    { id: "November", name: "November" },
-    { id: "December", name: "December" }
+    { id: 1, name: "January" },
+    { id: 2, name: "February" },
+    { id: 3, name: "March" },
+    { id: 4, name: "April" },
+    { id: 5, name: "May" },
+    { id: 6, name: "June" },
+    { id: 7, name: "July" },
+    { id: 8, name: "August" },
+    { id: 9, name: "September" },
+    { id: 10, name: "October" },
+    { id: 11, name: "November" },
+    { id: 12, name: "December" }
   ]
   return months;
 }

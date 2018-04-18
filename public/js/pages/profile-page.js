@@ -137,15 +137,15 @@ jQuery.editProfile = {
 
       if(data.project_on_going){
         self.wrapper.portofolio.$btnProjectOnGoing.prop('checked', true);
-        self.wrapper.portofolio.$startDateMonth.val(initStartDate.month);
+        self.wrapper.portofolio.$startDateMonth.val(initStartDate.idMonth);
         self.wrapper.portofolio.$startDateYear.val(initStartDate.year);
         self.wrapper.portofolio.$endDateMonth.addClass('disabled').prop('disabled', true);
         self.wrapper.portofolio.$endDateYear.addClass('disabled').prop('disabled', true);
       } else {
         self.wrapper.portofolio.$btnProjectOnGoing.prop('checked', false);
-        self.wrapper.portofolio.$startDateMonth.val(initStartDate.month);
+        self.wrapper.portofolio.$startDateMonth.val(initStartDate.idMonth);
         self.wrapper.portofolio.$startDateYear.val(initStartDate.year);
-        self.wrapper.portofolio.$endDateMonth.val(initEndDate.month);
+        self.wrapper.portofolio.$endDateMonth.val(initEndDate.idMonth);
         self.wrapper.portofolio.$endDateYear.val(initEndDate.year);
       }
       self.wrapper.portofolio.$modalportofolio.css({'display': 'block'});
@@ -225,13 +225,11 @@ jQuery.editProfile = {
     var object = {
       thumbnail: jQuery('#upload-portofolio-img').prop('files')[0],
       member_id: parseInt(jQuery('#member-id').val()),
-      project_on_going: ''
+      project_on_going: 0
     };
 
     if(jQuery('.project-ongoing #project-ongoing').is(':checked')){
       object.project_on_going = 1;
-    } else {
-      object.project_on_going = 0;
     }
 
     var form = jQuery('#portofolio-form').serializeArray();
@@ -268,18 +266,18 @@ jQuery.editProfile = {
   },
   initMonths: function() {
     var month = new Array();
-        month[0] = "January";
-        month[1] = "February";
-        month[2] = "March";
-        month[3] = "April";
-        month[4] = "May";
-        month[5] = "June";
-        month[6] = "July";
-        month[7] = "August";
-        month[8] = "September";
-        month[9] = "October";
-        month[10] = "November";
-        month[11] = "December";
+        month[1] = "January";
+        month[2] = "February";
+        month[3] = "March";
+        month[4] = "April";
+        month[5] = "May";
+        month[6] = "June";
+        month[7] = "July";
+        month[8] = "August";
+        month[9] = "September";
+        month[10] = "October";
+        month[11] = "November";
+        month[12] = "December";
     return month;
   },
   initDate: function(param) {
@@ -287,8 +285,9 @@ jQuery.editProfile = {
     var initMonths = self.initMonths();
     var date = new Date(param);
     var month = initMonths[date.getMonth()];
+    var idMonth = date.getMonth();
     var year = date.getFullYear();
-    var initEndDate = { month: month, year: year };
+    var initEndDate = { month: month, year: year, idMonth: idMonth };
     return initEndDate;
   },
   initChangeProfilePicture: function(input, $selector) {

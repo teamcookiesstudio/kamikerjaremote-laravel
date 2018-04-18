@@ -40,13 +40,11 @@ class PortofolioController extends Controller
         $portofolio = new Portofolio;
         $portofolio->member_id = $request->member_id;
         $portofolio->project_name = $request->project_name;
-        $portofolio->start_date = date('Y-m-d', strtotime($request->start_date_year.' '.$request->start_date_month));
+        $portofolio->start_date = date('Y-m-d', strtotime($request->start_date_year.'-'.$request->start_date_month));
         $portofolio->description = $request->description;
         $portofolio->project_on_going = $request->project_on_going;
         $portofolio->project_url = $request->project_url;
-        if(!empty($request->end_date_year) && !empty($request->end_date_month)){
-            $portofolio->end_date = date('Y-m-d', strtotime($request->end_date_year.' '.$request->end_date_month));
-        }
+        $portofolio->end_date = date('Y-m-d', strtotime($request->end_date_year.'-'.$request->end_date_month));
         $portofolio->save();
 
         if($request->hasFile('thumbnail')){
@@ -96,13 +94,11 @@ class PortofolioController extends Controller
     {
         $portofolio = Portofolio::find($id);
         $portofolio->project_name = $request->project_name;
-        $portofolio->start_date = date('Y-m-d', strtotime($request->start_date_year.' '.$request->start_date_month));
+        $portofolio->start_date = date('Y-m-d', strtotime($request->start_date_year.'-'.$request->start_date_month));
         $portofolio->description = $request->description;
         $portofolio->project_on_going = $request->project_on_going;
         $portofolio->project_url = $request->project_url;
-        if(!empty($request->end_date_year) && !empty($request->end_date_month)){
-            $portofolio->end_date = date('Y-m-d', strtotime($request->end_date_year.' '.$request->end_date_month));
-        }
+        $portofolio->end_date = date('Y-m-d', strtotime($request->end_date_year.'-'.$request->end_date_month));
         $portofolio->update();
 
         if($request->hasFile('thumbnail')){
