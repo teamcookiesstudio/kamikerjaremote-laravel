@@ -18,11 +18,14 @@ class PublicController extends Controller
         $q = Cache::remember($page, 30, function() use($request){
             $user = User::when($request->q, function($query) use ($request) {
                 $query->select(
-                    'users.id', 'users.first_name', 'users.last_name',
+                    'users.id', 'users.first_name', 'users.last_name', 'users.level',
                     'profiles.location', 'profiles.occupation', 'profiles.url_photo_profile')
                 ->leftJoin('profiles', 'users.id', '=', 'profiles.member_id')
-                ->where('first_name', 'LIKE', '%'.$request->q.'%')
-                ->orWhere('last_name', 'LIKE', '%'.$request->q.'%');
+                ->where('users.level', User::ACCESS_MEMBER)
+                ->where(function($query) use ($request){
+                    $query->where('first_name', 'LIKE', '%'.$request->q.'%')
+                            ->orWhere('last_name', 'LIKE', '%'.$request->q.'%');
+                });
             })->paginate(10);
             $user->appends($request->only('q'));
             if ($request->ajax()) {
