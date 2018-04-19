@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateTableSkillSet extends Migration
 {
@@ -13,7 +13,7 @@ class CreateTableSkillSet extends Migration
      */
     public function up()
     {
-        Schema::create('skill_sets', function(Blueprint $table){
+        Schema::create('skill_sets', function (Blueprint $table) {
             $table->increments('id');
             $table->string('skill_set_name')->nullable();
             $table->timestamps();

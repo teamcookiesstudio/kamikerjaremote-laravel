@@ -15,22 +15,22 @@ use Faker\Generator as Faker;
 
 $factory->define(App\User::class, function (Faker $faker) {
     return [
-        'first_name' => $faker->firstName,
-        'last_name' => $faker->lastName,
-        'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+        'first_name'     => $faker->firstName,
+        'last_name'      => $faker->lastName,
+        'email'          => $faker->unique()->safeEmail,
+        'password'       => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token' => str_random(10),
-        'level' => rand(1,2),
+        'level'          => rand(1, 2),
     ];
 });
 
 $factory->define(App\Profile::class, function (Faker $faker) {
     return [
-        'member_id' => rand(1,3),
-        'occupation' => $faker->jobTitle,
-        'location' => $faker->randomElement(['Bandung', 'Jakarta', 'Jogja']),
-        'summary' => $faker->sentence,
-        'website' => 'http://' .$faker->domainName,
-        'url_photo_profile' => $faker->imageUrl
+        'member_id'         => rand(1, 3),
+        'occupation'        => $faker->jobTitle,
+        'location'          => $faker->randomElement(['Bandung', 'Jakarta', 'Jogja']),
+        'summary'           => $faker->sentence,
+        'website'           => 'http://'.$faker->domainName,
+        'url_photo_profile' => $faker->imageUrl,
     ];
 });

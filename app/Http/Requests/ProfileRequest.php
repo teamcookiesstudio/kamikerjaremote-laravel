@@ -25,10 +25,10 @@ class ProfileRequest extends FormRequest
     {
         return [
             'first_name' => 'required|string',
-            'last_name' => 'required|string',
+            'last_name'  => 'required|string',
             'occupation' => 'string',
-            'location' => 'string',
-            'summary' => 'string',
+            'location'   => 'string',
+            'summary'    => 'string',
         ];
     }
 }

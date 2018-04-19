@@ -13,25 +13,26 @@
 
 Route::get('/', function () {
     $user = auth()->user();
+
     return view('welcome', compact('user'));
 });
 
 Auth::routes();
 
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth'])->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('profile', 'ProfileController@show')->name('profiles.show');
     Route::get('profile/edit', 'ProfileController@edit')->name('profiles.edit');
-    Route::patch('profile', 'ProfileController@update')->name('profiles.update');    
+    Route::patch('profile', 'ProfileController@update')->name('profiles.update');
 });
 
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth'])->group(function () {
     Route::post('portofolio', 'PortofolioController@store')->name('portofolio.store');
     Route::post('portofolio/{id}', 'PortofolioController@update')->name('portofolio.update');
     Route::get('portofolio/{memberId}', 'PortofolioController@show')->name('portofolio.show');
 });
 
-Route::middleware(['auth', 'admin'])->group(function() {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('members', 'MemberController@index')->name('members.index');
     Route::patch('members/{user}/approve', 'MemberController@approve')->name('members.approve');
     Route::patch('members/{user}/reject', 'MemberController@reject')->name('members.reject');

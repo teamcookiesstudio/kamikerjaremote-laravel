@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateProfilesTable extends Migration
 {
@@ -16,12 +16,12 @@ class CreateProfilesTable extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('member_id')->unsigned();
-            $table->foreign('member_id')->references('id')->on('users')->onDelete('restrict');            
-            $table->string('occupation')->nullable();;
-            $table->string('location')->nullable();;
-            $table->text('summary')->nullable();;
+            $table->foreign('member_id')->references('id')->on('users')->onDelete('restrict');
+            $table->string('occupation')->nullable();
+            $table->string('location')->nullable();
+            $table->text('summary')->nullable();
             $table->string('website')->nullable();
-            $table->string('url_photo_profile')->nullable();                      
+            $table->string('url_photo_profile')->nullable();
             $table->timestamps();
         });
     }

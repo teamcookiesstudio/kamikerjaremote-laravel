@@ -3,14 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\User;
 
 class Portofolio extends Model
 {
-    protected $table = "portofolio";
+    protected $table = 'portofolio';
     protected $fillable = [
         'id', 'member_id', 'project_name', 'start_date', 'end_date', 'project_on_going',
-        'thumbnail', 'description'
+        'thumbnail', 'description',
     ];
 
     public function scopeFindMember($query, $id)

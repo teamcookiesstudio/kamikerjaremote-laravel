@@ -2,10 +2,9 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Portfolio;
-use App\Profile;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -35,21 +34,24 @@ class User extends Authenticatable
 
     public function getFullNameAttribute($value)
     {
-       return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
+        return ucfirst($this->first_name).' '.ucfirst($this->last_name);
     }
 
     public function scopeAdmin($query)
     {
         return $query->where('level', static::ACCESS_ADMIN);
     }
+
     public function scopeMember($query)
     {
         return $query->where('level', static::ACCESS_MEMBER);
     }
+
     public function isMember()
     {
         return $this->level == static::ACCESS_MEMBER;
     }
+
     public function isAdmin()
     {
         return $this->level == static::ACCESS_ADMIN;
@@ -82,7 +84,6 @@ class User extends Authenticatable
 
     public function getStatusAttribute()
     {
-
         if ($this->is_approved == false && !is_null($this->reviewed_by)) {
             return 'rejected';
         }
@@ -91,10 +92,8 @@ class User extends Authenticatable
             return 'waiting approval';
         }
 
-
         if ($this->is_approved == true) {
             return 'approved';
         }
-
     }
 }
