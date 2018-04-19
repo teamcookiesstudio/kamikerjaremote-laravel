@@ -25,8 +25,8 @@ class PortofolioRequest extends FormRequest
     {
         return [
             'project_name' => 'required|string',
-            'description' => 'nullable',
-            'thumbnail' => 'nullable'
+            'description'  => 'nullable',
+            'thumbnail'    => 'nullable',
         ];
     }
 }

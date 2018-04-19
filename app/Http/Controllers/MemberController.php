@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
@@ -41,16 +41,17 @@ class MemberController extends Controller
         return view('members.index', $param);
     }
 
-    public function approve(User $user) 
+    public function approve(User $user)
     {
         $user->update(['is_approved' => true, 'reviewed_by' => auth()->user()->id]);
+
         return redirect()->route('members.index');
     }
 
     public function reject(User $user)
     {
         $user->update(['is_approved' => false, 'reviewed_by' => auth()->user()->id]);
+
         return redirect()->route('members.index');
     }
-
 }

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use App\User;
 use App\Profile;
+use App\User;
+use Illuminate\Database\Seeder;
 
 class UserTableSeeder extends Seeder
 {
@@ -15,25 +15,25 @@ class UserTableSeeder extends Seeder
     {
         factory(User::class)->create([
             'first_name' => 'kkr for the win',
-            'last_name' => 'admin',
-            'email' => 'rahmat.awaludin@gmail.com',
-            'password' => bcrypt('sukseskkr2018'),
-            'level' => User::ACCESS_ADMIN        
+            'last_name'  => 'admin',
+            'email'      => 'rahmat.awaludin@gmail.com',
+            'password'   => bcrypt('sukseskkr2018'),
+            'level'      => User::ACCESS_ADMIN,
         ]);
 
         $member = factory(User::class)->create([
             'first_name' => 'Anhar',
-            'last_name' => 'Solehudin',
-            'email' => 'anhsbolic@gmail.com',
-            'password' => bcrypt('anharsolehudin'),
-            'level' => User::ACCESS_MEMBER
+            'last_name'  => 'Solehudin',
+            'email'      => 'anhsbolic@gmail.com',
+            'password'   => bcrypt('anharsolehudin'),
+            'level'      => User::ACCESS_MEMBER,
         ]);
 
         factory(Profile::class)->create(['member_id' => $member->id]);
 
         factory(User::class, 50)->create([
-            'level' => User::ACCESS_MEMBER
-        ])->each(function($freelancer){
+            'level' => User::ACCESS_MEMBER,
+        ])->each(function ($freelancer) {
             factory(Profile::class)->create(['member_id' => $freelancer->id]);
         });
     }

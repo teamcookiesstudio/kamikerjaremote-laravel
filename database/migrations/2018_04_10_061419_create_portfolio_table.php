@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePortfolioTable extends Migration
 {
@@ -16,7 +16,7 @@ class CreatePortfolioTable extends Migration
         Schema::create('portfolio', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('member_id')->unsigned();
-            $table->foreign('member_id')->references('id')->on('users')->onDelete('cascade');            
+            $table->foreign('member_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('project_name');
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
