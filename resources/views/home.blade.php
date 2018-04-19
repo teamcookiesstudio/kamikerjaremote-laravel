@@ -12,7 +12,11 @@
         <div class="col-xs-11 col-md-12">
           {!! 
               Html::image(
-                $user->profile->url_photo_profile ? asset('storage/profile/'.$user->profile->url_photo_profile) : asset('images/no_avatar.jpg'), 
+                strpos($user->profile->url_photo_profile, 'http') !== false ? 
+                $user->profile->url_photo_profile : 
+                ($user->profile->url_photo_profile != null ? 
+                asset('storage/profile/'.$user->profile->url_photo_profile) : 
+                asset('images/no_avatar.jpg')), 
                 null, array('class' => 'profile-img')
               ) 
           !!}
@@ -87,7 +91,11 @@
           <div class="profile-img-container">
             {!! 
                 Html::image(
-                  $user->profile->url_photo_profile ? asset('storage/profile/'.$user->profile->url_photo_profile) : asset('images/no_avatar.jpg'), 
+                  strpos($user->profile->url_photo_profile, 'http') !== false ? 
+                  $user->profile->url_photo_profile : 
+                  ($user->profile->url_photo_profile != null ? 
+                  asset('storage/profile/'.$user->profile->url_photo_profile) : 
+                  asset('images/no_avatar.jpg')), 
                   null, 
                   array('class' => 'profile-img', 'id' => 'profile-image')
                 ) 

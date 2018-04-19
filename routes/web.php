@@ -39,4 +39,4 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 Route::get('/search', 'PublicController@search')->name('search.result');
-Route::get('/freelancer/{name}', 'PublicController@viewProfile')->name('profiles.view_profile');
+Route::get('/freelancer/@{name}', 'PublicController@viewProfile')->name('profiles.view_profile');

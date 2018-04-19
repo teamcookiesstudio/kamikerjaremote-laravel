@@ -15,7 +15,7 @@ class PublicController extends Controller
         } else {
             $page = $request->q;
         }
-        $q = Cache::remember($page, 30, function () use ($request) {
+        $q = Cache::rememberForever($page, function () use ($request) {
             $user = User::when($request->q, function ($query) use ($request) {
                 $query->select(
                     'users.id', 'users.first_name', 'users.last_name', 'users.level',
@@ -40,6 +40,14 @@ class PublicController extends Controller
 
     public function viewProfile($name)
     {
-        return view('profiles.view_profile', compact('profileHash'));
+        $user = auth()->user();
+        $skillset = [];
+        $portofolios = Portofolio::findMember(auth()->user()->id)->get();
+        $profile = Profile::where('member_id', $user->id)->first();
+        foreach ($profile->skillsets()->get() as $skill) {
+            $skillset[] = $skill->skill_set_name;
+        }
+
+        return view('profiles.view_profile', compact('user', 'portofolios', 'skillset'));
     }
 }

@@ -26,13 +26,19 @@ class HomeController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $skillset = [];
         $portofolios = Portofolio::findMember(auth()->user()->id)->get();
         $profile = Profile::where('member_id', $user->id)->first();
-        foreach ($profile->skillsets()->get() as $skill) {
-            $skillset[] = $skill->skill_set_name;
-        }
+        $skillset = $this->getSkill($profile->skillsets()->get());
 
         return view('home', compact('user', 'portofolios', 'skillset'));
+    }
+
+    private function getSkill($param)
+    {
+        $skillset = [];
+        foreach ($param as $skill) {
+            $skillset[] = $skill->skill_set_name;
+        }
+        return $skillset;
     }
 }

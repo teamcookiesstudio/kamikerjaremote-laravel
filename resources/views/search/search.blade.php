@@ -1,8 +1,8 @@
 @foreach($user as $result)
-<a class="no-decoration" href="user-profile.html">
+<a class="no-decoration" href="">
     <div class="item-wrapper" routerLink="/user">
       {!! Html::image(
-          $result->url_photo_profile ? asset('storage/profile/'.$result->url_photo_profile) : asset('images/no_avatar.jpg'), 
+          strpos($result->url_photo_profile, 'http') !== false ? $result->url_photo_profile : ($result->url_photo_profile != null ? asset('storage/profile/'.$result->url_photo_profile) : asset('images/no_avatar.jpg')), 
           null, array('class' => 'user-img')
         ) !!}
       <div class="item-details start-xs">
