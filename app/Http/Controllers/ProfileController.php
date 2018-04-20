@@ -41,16 +41,24 @@ class ProfileController extends Controller
         $profile = Profile::firstOrCreate(['member_id' => auth()->user()->id]);
         $profile->update($request->only('occupation', 'location', 'summary', 'website'));
         $profile->skillsets()->sync($skillset);
-        if ($request->hasFile('url_photo_profile')) {
-            if ($profile->url_photo_profile) {
-                $file = Storage::disk('public')->delete('/profile/'.$profile->url_photo_profile);
-            }
-            $fileName = ''.uniqid().'.'.
-            $request->file('url_photo_profile')->getClientOriginalExtension();
-            $request->file('url_photo_profile')->move(storage_path().'/app/public/profile/', $fileName);
 
-            $profile->url_photo_profile = $fileName;
-            $profile->update();
+        $name = ['url_photo_profile' => $profile->url_photo_profile, 'image_header' => $profile->image_header];
+        foreach ($name as $key => $value) {
+            if ($request->hasFile($key)) {
+                if ($value) {
+                    $file = Storage::disk('public')->delete('/profile/'.$value);
+                }
+                $fileName = ''.uniqid().'.'.
+                $request->file($key)->getClientOriginalExtension();
+                $request->file($key)->move(storage_path().'/app/public/profile/', $fileName);
+                
+                if ($key == 'url_photo_profile') {
+                    $profile->url_photo_profile = $fileName;
+                } else {
+                    $profile->image_header = $fileName;
+                }
+                $profile->update();
+            }
         }
     }
 }

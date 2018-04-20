@@ -54,6 +54,31 @@ jQuery.editProfile = {
       self.initChangeProfilePicture(this, $('#profile-image'));
     });
 
+    var _URL = window.URL || window.webkitURL;
+    jQuery('#file-cover').on('change', function() {
+      var file = $(this)[0].files[0];
+      reader = new FileReader();
+      reader.readAsDataURL( file );
+      reader.onload = function(){
+        img = new Image();
+        var imgwidth = 0;
+        var imgheight = 0;
+        var maxwidth = 1200;
+        var maxheight = 200;
+
+        img.src = _URL.createObjectURL(file);
+        img.onload = function(e) {
+          
+          imgwidth = this.width;
+          if(imgwidth < maxwidth && imgheight < maxheight){
+            $.notify('Image width and height should be 1200x200 or more..');
+          } else {
+            jQuery('.profile-header').css('background', 'url('+reader.result+')');
+          }
+        }
+      }
+    });
+
     self.wrapper.profile.$btnEditProfile.click( function() {
       self.wrapper.profile.$modalProfile.css({'display': 'block'});
       self.$body.css({'overflow': 'hidden'});
@@ -71,6 +96,7 @@ jQuery.editProfile = {
       for(var i = 0; i < skillSet.length; i++){
         object.append('skill_set_name[]', skillSet[i]);
       }
+      object.append('image_header', jQuery('#file-cover').prop('files')[0])
       object.append('url_photo_profile', jQuery('#file-avatar').prop('files')[0]);
       object.append('_method', 'patch');  
       _.forEach(form, function(el, i){

@@ -67,10 +67,14 @@
             <div class="logged-user">
               {!! 
                 Html::image(
-                  $user->profile->url_photo_profile ? asset('storage/profile/'.$user->profile->url_photo_profile) : asset('images/no_avatar.jpg'), 
-                  null, array('class' => 'profile-img', 'id' => 'user-action')
+                  strpos($user->profile->url_photo_profile, 'http') !== false ? 
+                  $user->profile->url_photo_profile : 
+                  ($user->profile->url_photo_profile != null ? 
+                  asset('storage/profile/'.$user->profile->url_photo_profile) : 
+                  asset('images/no_avatar.jpg')), 
+                  null, array('class' => 'profile-img')
                 ) 
-              !!}
+            !!}
               <div class="user-actions" id="actions">
                 <div class="arrow-up"></div>
                 <ul>
