@@ -60,10 +60,10 @@
             <div class="logged-user">
               {!! 
                 Html::image(
-                  strpos($user[0]->profile->url_photo_profile, 'http') !== false ? 
-                  $user[0]->profile->url_photo_profile : 
-                  ($user[0]->profile->url_photo_profile != null ? 
-                  asset('storage/profile/'.$user[0]->profile->url_photo_profile) : 
+                  strpos(auth::user()->profile->url_photo_profile, 'http') !== false ? 
+                  auth::user()->profile->url_photo_profile : 
+                  (auth::user()->profile->url_photo_profile != null ? 
+                  asset('storage/profile/'.auth::user()->profile->url_photo_profile) : 
                   asset('images/no_avatar.jpg')), 
                   null, array('class' => 'profile-img', 'id' => 'user-action')
                 ) 
