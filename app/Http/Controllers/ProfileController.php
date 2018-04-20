@@ -51,7 +51,7 @@ class ProfileController extends Controller
                 $fileName = ''.uniqid().'.'.
                 $request->file($key)->getClientOriginalExtension();
                 $request->file($key)->move(storage_path().'/app/public/profile/', $fileName);
-                
+
                 if ($key == 'url_photo_profile') {
                     $profile->url_photo_profile = $fileName;
                 } else {
