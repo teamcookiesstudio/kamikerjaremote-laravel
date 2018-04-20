@@ -5,9 +5,11 @@
     <div class="row center-xs middle-md">
       <div class="col-xs-11 col-md-6">
         <div class="card shadow-heavy login-card">
+        @if ($errors->any())
             <div class="warning">
                 <span>Wrong login account, bro!</span>
             </div>
+        @endif
             <div class="login-header">
                 <h1>Login</h1>
                 <span>Don't have an account? <a href="{{ route('register') }}">{{ __('Register here') }}</a></span>
@@ -17,20 +19,20 @@
                 <div class="input-control-square">
                     <i class="icon-mail"></i>
                     <input id="email" type="email" placeholder="Enter your email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>                    
-                    @if ($errors->has('email'))
+                    {{-- @if ($errors->has('email'))
                         <span class="invalid-feedback">
                             <strong>{{ $errors->first('email') }}</strong>
                         </span>
-                    @endif
+                    @endif --}}
                 </div>
                 <div class="input-control-square">
                     <i class="icon-locked"></i>
                     <input id="password" type="password" placeholder="Password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-                    @if ($errors->has('password'))
+                    {{-- @if ($errors->has('password'))
                         <span class="invalid-feedback">
                             <strong>{{ $errors->first('password') }}</strong>
                         </span>
-                    @endif
+                    @endif --}}
                 </div>
                 <div class="login-preferences">
                     <div class="remember">
