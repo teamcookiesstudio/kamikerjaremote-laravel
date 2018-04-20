@@ -39,6 +39,7 @@ class HomeController extends Controller
         foreach ($param as $skill) {
             $skillset[] = $skill->skill_set_name;
         }
+
         return $skillset;
     }
 }
