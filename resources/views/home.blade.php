@@ -5,22 +5,18 @@
 @endpush
 
 @section('content')
+<input type="hidden" id="portofolio-show" value="{{route('portofolio.show', $user->id)}}">
 <section class="user-header">
   <div class="user-cover" style="background: url('{{ $user->profile->image_header ? asset('storage/profile/'.$user->profile->image_header) :  'https://images.unsplash.com/photo-1496112933996-1aa94ac8a23f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9efbe2dae4aa3b325ab203f8c4bc52b5&auto=format&fit=crop&w=1650&q=80'}}') center no-repeat;">
     <div class="container">
       <div class="row center-xs">
         <div class="col-xs-11 col-md-12">
-          {!! 
-              Html::image(
-                strpos($user->profile->url_photo_profile, 'http') !== false ? 
-                $user->profile->url_photo_profile : 
-                ($user->profile->url_photo_profile != null ? 
-                asset('storage/profile/'.$user->profile->url_photo_profile) : 
-                asset('images/no_avatar.jpg')), 
-                null, array('class' => 'profile-img')
-              ) 
-          !!}
+          {!! Html::image($image, null, array('class' => 'profile-img')) !!}
+          @if ($auth = auth()->user())
+            @if ($auth->id==$user->id)
           {!! Form::button('Edit profile', array('class' => 'btn btn-outline btn-sm', 'id' => 'edit-profile', 'type' => 'button')) !!}
+            @endif
+          @endif
         </div>
       </div>
     </div>
@@ -39,8 +35,8 @@
         <span class="about">{{$user->profile->summary ?? null}}</span>
         {!! HTML::link($user->profile->website ?? null, $user->profile->website ?? null, array('class' => 'link', 'target' => '_blank'), true)!!}
         <div class="tags">
-          @foreach($skillset as $value)
-          <div class="tag">{{$value}}</div>
+          @foreach($user->profile->skillsets as $value)
+          <div class="tag">{{$value->skill_set_name}}</div>
           @endforeach
         </div>
       </div>
@@ -52,12 +48,16 @@
     <div class="row center-xs">
       <div class="col-xs-11 portofolios-header">
         <h3>portofolio</h3>
+        @if ($auth = auth()->user())
+          @if ($auth->id==$user->id)
         {!! Form::button('Add portofolio', array('class' => 'btn btn-outline btn-sm', 'id' => 'add-portofolio', 'type' => 'button')) !!}
+          @endif
+        @endif
       </div>
     </div>
     <div class="row center-xs">
       <a class="col-xs-11 portofolios">
-        @foreach($portofolios as $portofolio)
+        @foreach($user->portofolio as $portofolio)
         <div class="item-wrapper" id="show-portofolio" data-portofolio-id="{{$portofolio->id}}">
           {!! Html::image(asset('storage/portofolio/'.$portofolio->thumbnail), null, array('class' => 'profile-img')) !!}
           <div class="item-body">
@@ -90,17 +90,7 @@
           {!! Form::file('file-cover', array('id' => 'file-cover', 'accept' => 'image/*')) !!}
 
           <div class="profile-img-container">
-            {!! 
-                Html::image(
-                  strpos($user->profile->url_photo_profile, 'http') !== false ? 
-                  $user->profile->url_photo_profile : 
-                  ($user->profile->url_photo_profile != null ? 
-                  asset('storage/profile/'.$user->profile->url_photo_profile) : 
-                  asset('images/no_avatar.jpg')), 
-                  null, 
-                  array('class' => 'profile-img', 'id' => 'profile-image')
-                ) 
-            !!}
+            {!! Html::image($image, null, array('class' => 'profile-img', 'id' => 'profile-image')) !!}
             {!! 
                 Html::decode(
                 Form::label(
@@ -167,7 +157,12 @@
               <div class="row center-xs">
                 <div class="col-xs-12 input-label">
                     {!! Form::label("Skill Set") !!}
-                    {!! Form::select(null, App\Models\SkillSet::pluck("skill_set_name", "skill_set_name")->all(), $skillset ?? null, ["id" => "skill-set", "multiple" => "multiple"]) !!}
+                    <select id="skill-set" multiple>
+                      @foreach($user->profile->skillsets as $skill)
+                        <option value="{{$skill->skill_set_name}}" selected>{{$skill->skill_set_name}}</option>
+                      @endforeach
+                    </select>
+                    {{-- {!! Form::select(null, App\Models\SkillSet::pluck("skill_set_name", "skill_set_name")->all(), $user->profile->skillsets ?? null, ["id" => "skill-set", "multiple" => "multiple"]) !!} --}}
                 </div>
               </div>
     
@@ -205,7 +200,7 @@
           <div class="col-xs-12 input-label">
             {!! Form::label('Project Name') !!}
             {!! Form::text('project_name', null, array('id' => 'project-name', 'placeholder' => 'My awesome project', 'required')) !!}
-            {!! Form::hidden(null, auth::user()->id, array('id' => 'member-id')) !!}
+            {!! Form::hidden(null, auth::user()->id ?? null, array('id' => 'member-id')) !!}
           </div>
         </div>
         <div class="row center-xs">
@@ -276,7 +271,11 @@
             <span class="date-range" id="portofolio-item-project-date">2017 January - 2018 January</span>
           </div>
           <div class="actions">
+            @if ($auth = auth()->user())
+              @if ($auth->id==$user->id)
             {!! Form::button('Edit portofolio', array('class' => 'btn btn-outline btn-sm', 'id' => 'edit-portofolio', 'type' => 'button')) !!}
+              @endif
+            @endif
             {!! Form::button('<i class="ion-android-close"></i>', array('class' => 'btn btn-simple', 'id' => 'close-portofolio', 'type' => 'button')) !!}
           </div>
         </div>

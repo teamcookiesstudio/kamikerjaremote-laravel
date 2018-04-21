@@ -36,8 +36,7 @@ jQuery.editProfile = {
   $body: jQuery('#profile'),
   init: function() {
     var self = this;
-    var memberId = jQuery('#member-id').val();
-    var url = 'portofolio/'+memberId;
+    var url = jQuery('#portofolio-show').val();
     $.get(url, function(response) {
       self.data.portofolio.collection = response;
     });
@@ -93,7 +92,10 @@ jQuery.editProfile = {
       var form = $('#profile-form').serializeArray();
       var skillSet = self.wrapper.profile.$skillSet.val();
       var object = new FormData();
-      for(var i = 0; i < skillSet.length; i++){
+      if (_.isNull(skillSet)) {
+        $.notify('Atleast 1 skill must be set..');
+      }
+      for (var i = 0; i < skillSet.length; i++){
         object.append('skill_set_name[]', skillSet[i]);
       }
       object.append('image_header', jQuery('#file-cover').prop('files')[0])
@@ -214,7 +216,7 @@ jQuery.editProfile = {
 
       jQuery('#portofolio-item-project-name').text(data.project_name);
       jQuery('#portofolio-item-description').text(data.description);
-      jQuery('#portofolio-item-image').attr('src', 'storage/portofolio/'+data.thumbnail);
+      jQuery('#portofolio-item-image').attr('src', '/storage/portofolio/'+data.thumbnail);
       jQuery('#portofolio-item-project-url').text(data.project_url).attr('href', data.project_url);
       if(data.project_on_going){
         jQuery('#portofolio-item-project-date').text(initStartDate.year+' '+initStartDate.month+' - '+'Project On Going');

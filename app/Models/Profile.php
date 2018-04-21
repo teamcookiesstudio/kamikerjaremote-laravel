@@ -1,8 +1,7 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Models\SkillSet;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model

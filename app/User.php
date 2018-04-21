@@ -2,7 +2,9 @@
 
 namespace App;
 
-use App\Models\Portfolio;
+use App\Http\Traits\TraitModel;
+use App\Models\Portofolio;
+use App\Models\Profile;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -12,6 +14,7 @@ class User extends Authenticatable
     const ACCESS_MEMBER = 2;
 
     use Notifiable;
+    use TraitModel;
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +23,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'first_name', 'last_name', 'email', 'password', 'level', 'is_approved',
-        'reviewed_by',
+        'reviewed_by', 'uuid',
     ];
 
     /**
@@ -47,6 +50,11 @@ class User extends Authenticatable
         return $query->where('level', static::ACCESS_MEMBER);
     }
 
+    public function scopeFindByUuid($query, $uuid)
+    {
+        return $query->where('uuid', $uuid)->firstOrFail();
+    }
+
     public function isMember()
     {
         return $this->level == static::ACCESS_MEMBER;
@@ -62,9 +70,9 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class, 'member_id');
     }
 
-    public function portfolio()
+    public function portofolio()
     {
-        return $this->hasMany(Portfolio::class, 'member_id', 'id');
+        return $this->hasMany(Portofolio::class, 'member_id', 'id');
     }
 
     public function scopeWaitingApproval($query)
