@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Profile;
 use Illuminate\Database\Eloquent\Model;
 
 class SkillSet extends Model

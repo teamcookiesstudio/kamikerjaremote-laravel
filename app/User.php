@@ -2,11 +2,11 @@
 
 namespace App;
 
-use App\Models\Profile;
-use App\Models\Portofolio;
 use App\Http\Traits\TraitModel;
-use Illuminate\Notifications\Notifiable;
+use App\Models\Portofolio;
+use App\Models\Profile;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -23,7 +23,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'first_name', 'last_name', 'email', 'password', 'level', 'is_approved',
-        'reviewed_by', 'uuid'
+        'reviewed_by', 'uuid',
     ];
 
     /**

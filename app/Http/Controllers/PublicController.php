@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Cache;
-use App\User;
-use Illuminate\Http\Request;
 use App\Http\Traits\TraitController;
+use App\User;
+use Cache;
+use Illuminate\Http\Request;
 
 class PublicController extends Controller
 {
@@ -45,6 +45,7 @@ class PublicController extends Controller
     {
         $user = User::findByUuid($uuid);
         $image = $this->findImage($user->profile->url_photo_profile);
+
         return view('home', compact('user', 'image'));
     }
 }
