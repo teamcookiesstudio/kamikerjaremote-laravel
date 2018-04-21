@@ -1,5 +1,5 @@
 @foreach($user as $result)
-<a class="no-decoration" href="">
+<a class="no-decoration" href="{{ route('profiles.view_profile', $result->uuid) }}">
     <div class="item-wrapper" routerLink="/user">
       {!! Html::image(
           strpos($result->url_photo_profile, 'http') !== false ? $result->url_photo_profile : ($result->url_photo_profile != null ? asset('storage/profile/'.$result->url_photo_profile) : asset('images/no_avatar.jpg')), 

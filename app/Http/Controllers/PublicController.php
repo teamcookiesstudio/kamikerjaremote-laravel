@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use Cache;
+use App\User;
 use Illuminate\Http\Request;
+use App\Http\Traits\TraitController;
 
 class PublicController extends Controller
 {
+    use TraitController;
+
     public function search(Request $request)
     {
         if ($request->has('page')) {
@@ -18,7 +21,7 @@ class PublicController extends Controller
         $q = Cache::rememberForever($page, function () use ($request) {
             $user = User::when($request->q, function ($query) use ($request) {
                 $query->select(
-                    'users.id', 'users.first_name', 'users.last_name', 'users.level',
+                    'users.id', 'users.uuid', 'users.first_name', 'users.last_name', 'users.level',
                     'profiles.location', 'profiles.occupation', 'profiles.url_photo_profile')
                 ->leftJoin('profiles', 'users.id', '=', 'profiles.member_id')
                 ->where('users.level', User::ACCESS_MEMBER)
@@ -38,16 +41,10 @@ class PublicController extends Controller
         return $q;
     }
 
-    public function viewProfile($name)
+    public function viewProfile($uuid)
     {
-        $user = auth()->user();
-        $skillset = [];
-        $portofolios = Portofolio::findMember(auth()->user()->id)->get();
-        $profile = Profile::where('member_id', $user->id)->first();
-        foreach ($profile->skillsets()->get() as $skill) {
-            $skillset[] = $skill->skill_set_name;
-        }
-
-        return view('profiles.view_profile', compact('user', 'portofolios', 'skillset'));
+        $user = User::findByUuid($uuid);
+        $image = $this->findImage($user->profile->url_photo_profile);
+        return view('home', compact('user', 'image'));
     }
 }

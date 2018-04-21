@@ -24,7 +24,7 @@ $factory->define(App\User::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(App\Profile::class, function (Faker $faker) {
+$factory->define(App\Models\Profile::class, function (Faker $faker) {
     return [
         'member_id'         => rand(1, 3),
         'occupation'        => $faker->jobTitle,

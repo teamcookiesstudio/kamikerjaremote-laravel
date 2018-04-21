@@ -22,7 +22,7 @@
         <div class="col-xs-11 col-md-8 center-xs start-md">
           <span class="result-number">Showing {{$user->total()}} results</span>
           <div class="search-results" id="search">
-            @include('search.search')
+            @include('search.partial-result')
           </div>
           {{$user->links('vendor.pagination.default')}}
         </div>
