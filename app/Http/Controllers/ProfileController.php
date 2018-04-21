@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\TraitController;
 use App\Http\Requests\ProfileRequest;
 use App\Models\Profile;
 use App\Models\SkillSet;
@@ -9,6 +10,7 @@ use Storage;
 
 class ProfileController extends Controller
 {
+    use TraitController;
     /**
      * Show the form for editing the specified resource.
      *

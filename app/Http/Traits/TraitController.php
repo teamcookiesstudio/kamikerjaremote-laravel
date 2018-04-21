@@ -2,6 +2,8 @@
 
 namespace App\Http\Traits;
 
+use Cache;
+
 trait TraitController
 {
     public function findImage($opt = null)

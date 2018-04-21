@@ -18,7 +18,7 @@ class PublicController extends Controller
         } else {
             $page = $request->q;
         }
-        $q = Cache::rememberForever($page, function () use ($request) {
+        $q = Cache::tags('search')->rememberForever($page, function () use ($request) {
             $user = User::when($request->q, function ($query) use ($request) {
                 $query->select(
                     'users.id', 'users.uuid', 'users.first_name', 'users.last_name', 'users.level',

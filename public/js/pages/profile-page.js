@@ -106,7 +106,7 @@ jQuery.editProfile = {
       });
       
       jQuery.ajax({
-        url: 'profile',
+        url: jQuery('#save-profile-post').val(),
         type: 'POST',
         data: object,
         cache: false,

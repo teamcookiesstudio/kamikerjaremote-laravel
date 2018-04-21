@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\ModelCaching;
 
-class Profile extends Model
+class Profile extends ModelCaching
 {
     /**
      * The attributes that are mass assignable.

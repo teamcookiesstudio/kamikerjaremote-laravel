@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\ModelCaching;
 
-class SkillSet extends Model
+class SkillSet extends ModelCaching
 {
     protected $table = 'skill_sets';
     protected $fillable = ['id', 'skill_set_name', 'created_at', 'updated_at'];
