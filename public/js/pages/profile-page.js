@@ -192,7 +192,7 @@ jQuery.editProfile = {
 
     self.wrapper.portofolio.$saveportofolio.click(function(event) {
       event.preventDefault();
-      var url = 'portofolio';
+      var url = jQuery('#save-portofolio-post').val();
       self.postPortofolio(url);
     });
 
