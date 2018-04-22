@@ -1,9 +1,9 @@
-<?php 
+<?php
 
 namespace App;
 
-use ModelCaching as Cachable;
 use Illuminate\Database\Eloquent\Model;
+use ModelCaching as Cachable;
 
 abstract class ModelCaching extends Model
 {

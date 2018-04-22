@@ -2,7 +2,8 @@
 
 namespace App\Http\Traits;
 
-use Cache, Uuid;
+use Cache;
+use Uuid;
 
 trait TraitObserver
 {
