@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\ModelCaching;
 
-class Portofolio extends Model
+class Portofolio extends ModelCaching
 {
     protected $table = 'portofolio';
     protected $fillable = [

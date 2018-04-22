@@ -6,6 +6,8 @@
 
 @section('content')
 <input type="hidden" id="portofolio-show" value="{{route('portofolio.show', $user->id)}}">
+<input type="hidden" id="save-profile-post" value="{{route('profiles.update')}}">
+<input type="hidden" id="save-portofolio-post" value="{{route('portofolio.store')}}">
 <section class="user-header">
   <div class="user-cover" style="background: url('{{ $user->profile->image_header ? asset('storage/profile/'.$user->profile->image_header) :  'https://images.unsplash.com/photo-1496112933996-1aa94ac8a23f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9efbe2dae4aa3b325ab203f8c4bc52b5&auto=format&fit=crop&w=1650&q=80'}}') center no-repeat;">
     <div class="container">

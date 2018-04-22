@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Http\Traits\TraitModel;
 use App\Models\Portofolio;
 use App\Models\Profile;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,7 +13,6 @@ class User extends Authenticatable
     const ACCESS_MEMBER = 2;
 
     use Notifiable;
-    use TraitModel;
 
     /**
      * The attributes that are mass assignable.

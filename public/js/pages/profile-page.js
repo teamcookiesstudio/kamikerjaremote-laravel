@@ -106,7 +106,7 @@ jQuery.editProfile = {
       });
       
       jQuery.ajax({
-        url: 'profile',
+        url: jQuery('#save-profile-post').val(),
         type: 'POST',
         data: object,
         cache: false,
@@ -192,7 +192,7 @@ jQuery.editProfile = {
 
     self.wrapper.portofolio.$saveportofolio.click(function(event) {
       event.preventDefault();
-      var url = 'portofolio';
+      var url = jQuery('#save-portofolio-post').val();
       self.postPortofolio(url);
     });
 
