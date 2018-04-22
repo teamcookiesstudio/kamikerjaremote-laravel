@@ -2,16 +2,18 @@
 
 namespace App\Observers;
 
-use App\Models\Portofolio;
 use App\Http\Traits\TraitObserver;
+use App\Models\Portofolio;
 
 class PortofolioObserver
 {
     use TraitObserver;
+
     /**
      * Listen to the Portofolio creating event.
      *
-     * @param  \App\Models\Portofolio  $portofolio
+     * @param \App\Models\Portofolio $portofolio
+     *
      * @return void
      */
     public function creating(Portofolio $portofolio)
@@ -22,7 +24,8 @@ class PortofolioObserver
     /**
      * Listen to the Portofolio created event.
      *
-     * @param  \App\Models\Portofolio  $portofolio
+     * @param \App\Models\Portofolio $portofolio
+     *
      * @return void
      */
     public function created(Portofolio $portofolio)
@@ -33,7 +36,8 @@ class PortofolioObserver
     /**
      * Listen to the Portofolio updating event.
      *
-     * @param  \App\Models\Portofolio  $portofolio
+     * @param \App\Models\Portofolio $portofolio
+     *
      * @return void
      */
     public function updating(Portofolio $portofolio)
@@ -44,7 +48,8 @@ class PortofolioObserver
     /**
      * Listen to the Portofolio updated event.
      *
-     * @param  \App\Models\Portofolio  $portofolio
+     * @param \App\Models\Portofolio $portofolio
+     *
      * @return void
      */
     public function updated(Portofolio $portofolio)
@@ -55,7 +60,8 @@ class PortofolioObserver
     /**
      * Listen to the Portofolio deleting event.
      *
-     * @param  \App\Models\Portofolio  $portofolio
+     * @param \App\Models\Portofolio $portofolio
+     *
      * @return void
      */
     public function deleting(Portofolio $portofolio)
@@ -66,7 +72,8 @@ class PortofolioObserver
     /**
      * Listen to the Portofolio deleted event.
      *
-     * @param  \App\Models\Portofolio  $portofolio
+     * @param \App\Models\Portofolio $portofolio
+     *
      * @return void
      */
     public function deleted(Portofolio $portofolio)
