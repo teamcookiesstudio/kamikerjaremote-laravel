@@ -139,7 +139,7 @@ class PortofoliosController extends Controller
 
             $portofolio->thumbnail = $fileName;
             
-            $portofolio->save();
+            $portofolio->update();
         }
     }
 
