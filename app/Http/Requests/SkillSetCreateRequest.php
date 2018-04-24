@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PortofolioRequest extends FormRequest
+class SkillSetCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class PortofolioRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,9 +24,7 @@ class PortofolioRequest extends FormRequest
     public function rules()
     {
         return [
-            'project_name' => 'required|string',
-            'description'  => 'nullable',
-            'thumbnail'    => 'nullable',
+            //
         ];
     }
 }

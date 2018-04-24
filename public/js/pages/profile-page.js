@@ -198,7 +198,7 @@ jQuery.editProfile = {
 
     self.wrapper.portofolio.$updateportofolio.click(function(event) {
       event.preventDefault();
-      var url = 'portofolio/'+self.data.portofolio.id;
+      var url = 'portofolios/'+self.data.portofolio.id;
       self.postPortofolio(url);
     });
   },
