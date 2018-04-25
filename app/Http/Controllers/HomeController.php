@@ -26,8 +26,15 @@ class HomeController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $image = $this->findImage($user->profile->url_photo_profile);
 
-        return view('home', compact('user', 'image'));
+        if ($user->isAdmin()) {
+
+            return view('admins.admin');
+        } else {
+            
+            $image = $this->findImage($user->profile->url_photo_profile);
+
+            return view('home', compact('user', 'image'));
+        }
     }
 }
