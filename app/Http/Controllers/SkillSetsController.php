@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Requests\SkillSetCreateRequest;
 use App\Http\Requests\SkillSetUpdateRequest;
 use App\Repositories\SkillSetRepository;
+use Illuminate\Http\Request;
 
 /**
  * Class SkillSetsController.
- *
- * @package namespace App\Http\Controllers;
  */
 class SkillSetsController extends Controller
 {
@@ -42,7 +38,6 @@ class SkillSetsController extends Controller
         $skillSets = $this->repository->all();
 
         if (request()->wantsJson()) {
-
             return response()->json([
                 'data' => $skillSets,
             ]);
@@ -54,16 +49,15 @@ class SkillSetsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  SkillSetCreateRequest $request
-     *
-     * @return \Illuminate\Http\Response
+     * @param SkillSetCreateRequest $request
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
+     *
+     * @return \Illuminate\Http\Response
      */
     public function store(SkillSetCreateRequest $request)
     {
         try {
-
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
             $skillSet = $this->repository->create($request->all());
@@ -74,7 +68,6 @@ class SkillSetsController extends Controller
             ];
 
             if ($request->wantsJson()) {
-
                 return response()->json($response);
             }
 
@@ -83,7 +76,7 @@ class SkillSetsController extends Controller
             if ($request->wantsJson()) {
                 return response()->json([
                     'error'   => true,
-                    'message' => $e->getMessageBag()
+                    'message' => $e->getMessageBag(),
                 ]);
             }
 
@@ -94,7 +87,7 @@ class SkillSetsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -103,7 +96,6 @@ class SkillSetsController extends Controller
         $skillSet = $this->repository->find($id);
 
         if (request()->wantsJson()) {
-
             return response()->json([
                 'data' => $skillSet,
             ]);
@@ -115,7 +107,7 @@ class SkillSetsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -129,17 +121,16 @@ class SkillSetsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  SkillSetUpdateRequest $request
-     * @param  string            $id
-     *
-     * @return Response
+     * @param SkillSetUpdateRequest $request
+     * @param string                $id
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
+     *
+     * @return Response
      */
     public function update(SkillSetUpdateRequest $request, $id)
     {
         try {
-
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
             $skillSet = $this->repository->update($request->all(), $id);
@@ -150,18 +141,15 @@ class SkillSetsController extends Controller
             ];
 
             if ($request->wantsJson()) {
-
                 return response()->json($response);
             }
 
             return redirect()->back()->with('message', $response['message']);
         } catch (ValidatorException $e) {
-
             if ($request->wantsJson()) {
-
                 return response()->json([
                     'error'   => true,
-                    'message' => $e->getMessageBag()
+                    'message' => $e->getMessageBag(),
                 ]);
             }
 
@@ -169,11 +157,10 @@ class SkillSetsController extends Controller
         }
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -182,7 +169,6 @@ class SkillSetsController extends Controller
         $deleted = $this->repository->delete($id);
 
         if (request()->wantsJson()) {
-
             return response()->json([
                 'message' => 'SkillSet deleted.',
                 'deleted' => $deleted,

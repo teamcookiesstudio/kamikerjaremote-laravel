@@ -3,10 +3,8 @@
 namespace Tests\Feature;
 
 use Cache;
-use Tests\TestCase;
 use Illuminate\Support\Facades\Redis;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class SearchFreelancerTest extends TestCase
 {

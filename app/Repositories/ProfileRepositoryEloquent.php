@@ -2,20 +2,17 @@
 
 namespace App\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\ProfileRepository;
 use App\Models\Profile;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class ProfileRepositoryEloquent.
- *
- * @package namespace App\Repositories;
  */
 class ProfileRepositoryEloquent extends BaseRepository implements ProfileRepository
 {
     /**
-     * Specify Model class name
+     * Specify Model class name.
      *
      * @return string
      */
@@ -25,7 +22,7 @@ class ProfileRepositoryEloquent extends BaseRepository implements ProfileReposit
     }
 
     /**
-     * Boot up the repository, pushing criteria
+     * Boot up the repository, pushing criteria.
      */
     public function boot()
     {
