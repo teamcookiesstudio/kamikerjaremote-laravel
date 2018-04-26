@@ -36,7 +36,34 @@
               </ul>
               @if (Route::has('login'))
                 <div class="actions">
-                  @auth
+                  @if (auth::check() && auth::user()->level == 1)
+                  <div class="logged-user">
+                      {!! 
+                        Html::image(
+                          asset('images/no_avatar.jpg'), 
+                          null, array('class' => 'profile-img', 'id' => 'user-action')
+                        ) 
+                      !!}
+                      <div class="user-actions" id="actions">
+                        <div class="arrow-up"></div>
+                        <ul>
+                          <li id="logout">
+                            <div>
+                              <i class="ion-log-out"></i>
+                              
+                              <a style="color: #404040; " href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                Logout
+                              </a>
+              
+                              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                              </form>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    @elseif (auth::check() && auth::user()->level == 2)
                     <div class="logged-user">
                         {!! 
                           Html::image(
@@ -71,7 +98,7 @@
                         <a class="btn btn-primary" href="{{ route('login') }}">Login</a>
                         <span>or</span>
                         <a class="btn btn-thin" href="{{ route('register') }}">Register</a>
-                    @endauth
+                    @endif
                 </div>
                 @endif
             </div>

@@ -3,6 +3,7 @@
 @push('adminstyle')
 {!! Html::style("admins/css/bootstrap.dataTables.min.css") !!}
 {!! Html::style('admins/js/iCheck/all.css') !!}
+{!! Html::style('admins/css/bootstrap-select.min.css') !!}
 @endpush
 
 @section('btn-add-content')
@@ -14,25 +15,33 @@
 
 <div class="row">
     <div class="col-md-12 col-lg-12 col-sm-12">
-        <div class="page-body">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover manage-u-table" id="table">
-                            <thead>
-                                <tr>
-                                    <th><button type="button" class="btn btn-default btn-sm checkbox-toggle" id="checkAll"><i class="fa fa-square-o"></i></button></th>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Status</th>
-                                    <th>Tanggal</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+        <div class="white-box">
+            <div class="row">
+                <div class="col-md-3">
+                    <select class="selectpicker m-b-20" data-style="btn-default btn-outline" id="status">
+                        <option value="">All</option>
+                        <option value="approved">Approved</option>
+                        <option value="waiting_approval">Waiting Approval</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
                 </div>
+                <div class="col-md-3"></div>
+            </div>
+            <br>
+            <div class="table-responsive">
+                <table class="table table-hover manage-u-table" id="table">
+                    <thead>
+                        <tr>
+                            <th><button type="button" class="btn btn-default btn-sm checkbox-toggle" id="checkAll"><i class="fa fa-square-o"></i></button></th>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Tanggal</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
     </div>
@@ -43,6 +52,7 @@
 {!! Html::script('admins/js/iCheck/icheck.js') !!}
 {!! Html::script('admins/js/jquery.dataTables.min.js') !!}
 {!! Html::script('admins/js/dataTables.bootstrap.min.js') !!}
+{!! Html::script('admins/js/bootstrap-select.min.js') !!}
 
 <script type="text/javascript">
 
@@ -93,7 +103,13 @@
             processing: true,
             serverSide: true,
             responsive: true,
-            ajax: '{{ route("admin.members.datatables") }}',
+            ajax: {
+                url: '{{ route("admin.members.datatables") }}',
+                type: 'GET',
+                data: function (d) {
+                    d.status = $('#status').val();
+                }
+            },
             columns: [
                 { data: null, name: null, searchable: false, orderable: false },
                 { data: 'rownum', name: 'rownum', searchable: false },
@@ -117,7 +133,10 @@
             createdRow: function ( row, data, index ){
 
                 $('td', row).eq(0).html('<input class="membercheckbox" id="membercheckbox" type="checkbox" name="id[]" value='+data.id+'>');
-                $('td', row).eq(6).html('<button id="approve" data-loading-text="Please wait.." member_id='+data.id+' member_name='+data.name+' class="btn btn-xs btn-success"><i class="glyphicon glyphicon-ok"></i> Approve</button> <button type="submit" id="reject" member_id="'+data.id+'" member_name="'+data.name+'" class="btn btn-xs btn-danger" data-loading-text="Please wait.."><i class="glyphicon glyphicon-remove"></i> Reject</button>');
+                $('td', row).eq(6).html(
+                    '<button id="approve" data-loading-text="Please wait.." member_id='+data.id+' member_name='+data.name+' class="btn btn-xs btn-success"><i class="glyphicon glyphicon-ok"></i> Approve</button>'+
+                    ' <button type="submit" id="reject" member_id="'+data.id+'" member_name="'+data.name+'" class="btn btn-xs btn-danger" data-loading-text="Please wait.."><i class="glyphicon glyphicon-remove"></i> Reject</button>'+
+                    ' <a href="freelancer/'+data.uuid+'" target="_blank" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-user"></i> Profile</a>');
             },
             initComplete: function ( settings, json ) {
                 $('input[type="checkbox"].membercheckbox').iCheck({
@@ -200,6 +219,10 @@
             }, function() {
                 sendPostRequest(url, $btn); 
             });
+        });
+
+        $('#status').change(function () {
+            oTable.ajax.reload();
         });
     });
 </script>
