@@ -21,14 +21,12 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('profile', 'ProfileController@show')->name('profiles.show');
-    Route::get('profile/edit', 'ProfileController@edit')->name('profiles.edit');
-    Route::patch('profile', 'ProfileController@update')->name('profiles.update');
+    Route::patch('profiles/{id}', 'ProfilesController@update')->name('profiles.update');
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::post('portofolio', 'PortofolioController@store')->name('portofolio.store');
-    Route::post('portofolio/{id}', 'PortofolioController@update')->name('portofolio.update');
+    Route::post('portofolios', 'PortofoliosController@store')->name('portofolios.store');
+    Route::post('portofolios/{id}', 'PortofoliosController@update')->name('portofolios.update');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -39,4 +37,4 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 Route::get('/search', 'PublicController@search')->name('search.result');
 Route::get('/freelancer/{uuid}', 'PublicController@viewProfile')->name('profiles.view_profile');
-Route::get('portofolio/{memberId}', 'PortofolioController@show')->name('portofolio.show');
+Route::get('portofolios/{memberId}', 'PortofoliosController@show')->name('portofolios.show');

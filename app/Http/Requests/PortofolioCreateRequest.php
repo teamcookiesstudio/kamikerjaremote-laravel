@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProfileRequest extends FormRequest
+class PortofolioCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,9 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|string',
-            'last_name'  => 'required|string',
-            'occupation' => 'string',
-            'location'   => 'string',
-            'summary'    => 'string',
+            'project_name' => 'required|string',
+            'description'  => 'nullable',
+            'thumbnail'    => 'nullable',
         ];
     }
 }
