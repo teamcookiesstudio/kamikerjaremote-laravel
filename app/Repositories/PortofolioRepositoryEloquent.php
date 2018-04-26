@@ -2,20 +2,17 @@
 
 namespace App\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\PortofolioRepository;
 use App\Models\Portofolio;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class PortofolioRepositoryEloquent.
- *
- * @package namespace App\Repositories;
  */
 class PortofolioRepositoryEloquent extends BaseRepository implements PortofolioRepository
 {
     /**
-     * Specify Model class name
+     * Specify Model class name.
      *
      * @return string
      */
@@ -25,11 +22,10 @@ class PortofolioRepositoryEloquent extends BaseRepository implements PortofolioR
     }
 
     /**
-     * Boot up the repository, pushing criteria
+     * Boot up the repository, pushing criteria.
      */
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
 }
