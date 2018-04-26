@@ -34,3 +34,17 @@ $factory->define(App\Models\Profile::class, function (Faker $faker) {
         'url_photo_profile' => $faker->imageUrl,
     ];
 });
+
+$factory->define(App\Models\Portofolio::class, function (Faker $faker) {
+    return [
+        'member_id'        => rand(1, 3),
+        'project_name'     => $faker->name,
+        'start_date'       => date('Y-m-d H:i:s'),
+        'end_date'         => date('Y-m-d H:i:s'),
+        'project_on_going' => false,
+        'thumbnail'        => null,
+        'description'      => $faker->text,
+        'created_at'       => date('Y-m-d H:i:s'),
+        'updated_at'       => date('Y-m-d H:i:s'),
+    ];
+});
