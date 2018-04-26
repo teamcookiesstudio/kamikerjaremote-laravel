@@ -19,18 +19,18 @@ Route::get('/', function () {
 
 Auth::routes();
 
-/**
+/*
  * Admin
  */
 
 Route::group(['as' => 'admin.', 'namespace' => 'Admin'], function ($route) {
 
-    /**
+    /*
      * Dashboard
      */
     $route->get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@index']);
-    
-    /**
+
+    /*
      * Members
      */
     $route->group(['prefix' => 'members', 'as' => 'members.'], function ($route) {

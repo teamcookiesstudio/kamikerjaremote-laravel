@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use DataTables, DB;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
 use App\Repositories\UserRepositoryEloquent;
+use DataTables;
+use DB;
+use Illuminate\Http\Request;
 
 class MembersController extends Controller
 {
@@ -21,8 +22,8 @@ class MembersController extends Controller
     protected $eloquent;
 
     /**
-     * MembersController 
-     * 
+     * MembersController.
+     *
      * @param UserRepository $userRepo
      */
     public function __construct(UserRepository $userRepo, UserRepositoryEloquent $eloquent)
@@ -32,25 +33,24 @@ class MembersController extends Controller
     }
 
     /**
-     * Dispkay view for the members
-     * 
+     * Dispkay view for the members.
      */
     public function index()
     {
-        return view('admins.members.index');   
+        return view('admins.members.index');
     }
 
     /**
-     * List and get all data 
-     * 
+     * List and get all data.
+     *
      * @param User $request
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function datatables(Request $request)
     {
         DB::statement(DB::raw('set @rownum = 0'));
-        $datatables = DataTables::of( 
+        $datatables = DataTables::of(
 
                 $this->eloquent->model()::select('*', DB::raw('@rownum := @rownum + 1 AS rownum'))
                 ->member()
@@ -59,7 +59,7 @@ class MembersController extends Controller
                 if ($request->has('status')) {
                     $status = $request->get('status');
                     switch ($status) {
-                        case 'approved': 
+                        case 'approved':
                             return $query->approved();
                             break;
                         case 'waiting_approval':
@@ -72,9 +72,8 @@ class MembersController extends Controller
                 }
             })
             ->addColumn('status', function ($app) {
-
                 switch ($app->status) {
-                    case 'approved': 
+                    case 'approved':
                         return '<span class="label label-success">approved</span>';
                         break;
                     case 'waiting approval':
@@ -86,100 +85,100 @@ class MembersController extends Controller
                 }
             })
             ->addColumn('name', function ($app) {
-
                 $name = ucfirst($app->first_name).' '.ucfirst($app->last_name);
+
                 return $name;
             })
-            ->rawColumns(array('status'))
+            ->rawColumns(['status'])
             ->AddIndexColumn()
             ->make(true);
-            
+
         return $datatables;
     }
 
     /**
-     * Approve a given members
-     * 
+     * Approve a given members.
+     *
      * @param User $id
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function approve($id)
-    {  
-        $data = array(
-            'is_approved' => true, 
-            'reviewed_by' => auth()->user()->id
-        );
+    {
+        $data = [
+            'is_approved' => true,
+            'reviewed_by' => auth()->user()->id,
+        ];
         if ($this->userRepo->update($data, $id)) {
-            return response()->json(array(
+            return response()->json([
                 'status'    => 'success',
-                'message'   => 'Approved'
-            ));
+                'message'   => 'Approved',
+            ]);
         }
     }
 
     /**
-     * Approve selected members
-     * 
+     * Approve selected members.
+     *
      * @return \Illuminate\Http\Response
      */
     public function approveSelected(Request $request)
     {
-        $attributes = array();
+        $attributes = [];
 
         foreach ($request->id as $key => $value) {
-            $attributes[] = (int)$value;
+            $attributes[] = (int) $value;
         }
 
         $this->eloquent->model()::whereIn('id', $attributes)
         ->update(['is_approved' => true, 'reviewed_by' => auth()->user()->id]);
 
-        return response()->json(array(
+        return response()->json([
             'status'    => 'success',
-            'message'   => 'Approved'
-        ));
+            'message'   => 'Approved',
+        ]);
     }
 
     /**
-     * Reject selected members
-     * 
+     * Reject selected members.
+     *
      * @return \Illuminate\Http\Response
      */
     public function rejectSelected(Request $request)
     {
-        $attributes = array();
+        $attributes = [];
 
         foreach ($request->id as $key => $value) {
-            $attributes[] = (int)$value;
+            $attributes[] = (int) $value;
         }
 
         $this->eloquent->model()::whereIn('id', $attributes)
         ->update(['is_approved' => false, 'reviewed_by' => auth()->user()->id]);
 
-        return response()->json(array(
+        return response()->json([
             'status'    => 'success',
-            'message'   => 'Rejected.'
-        ));
+            'message'   => 'Rejected.',
+        ]);
     }
 
     /**
-     * Reject a given members
-     * 
+     * Reject a given members.
+     *
      * @param User $id, $request
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function reject($id)
     {
-        $data = array(
-            'is_approved' => false, 
-            'reviewed_by' => auth()->user()->id
-        );
+        $data = [
+            'is_approved' => false,
+            'reviewed_by' => auth()->user()->id,
+        ];
         if ($this->userRepo->update($data, $id)) {
-            return response()->json(array(
+            return response()->json([
                 'status'    => 'success',
-                'message'   => 'Rejected.'
-            ));
+                'message'   => 'Rejected.',
+            ]);
         }
     }
 }
