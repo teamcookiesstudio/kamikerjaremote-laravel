@@ -2,20 +2,17 @@
 
 namespace App\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\SkillSetRepository;
 use App\Models\SkillSet;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class SkillSetRepositoryEloquent.
- *
- * @package namespace App\Repositories;
  */
 class SkillSetRepositoryEloquent extends BaseRepository implements SkillSetRepository
 {
     /**
-     * Specify Model class name
+     * Specify Model class name.
      *
      * @return string
      */
@@ -25,11 +22,10 @@ class SkillSetRepositoryEloquent extends BaseRepository implements SkillSetRepos
     }
 
     /**
-     * Boot up the repository, pushing criteria
+     * Boot up the repository, pushing criteria.
      */
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
 }
