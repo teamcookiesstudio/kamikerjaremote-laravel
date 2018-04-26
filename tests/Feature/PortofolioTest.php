@@ -35,8 +35,6 @@ class PortofolioTest extends TestCase
 
     public function testUpdatePortofolio()
     {
-        $portofolio = factory(Portofolio::class)->create();
-
         $data = [
             'member_id'        => rand(1, 3),
             'project_name'     => 'HUHU',
@@ -48,6 +46,8 @@ class PortofolioTest extends TestCase
             'created_at'       => date('Y-m-d H:i:s'),
             'updated_at'       => date('Y-m-d H:i:s'),
         ];
+
+        $portofolio = factory(Portofolio::class)->create();
 
         $portofolioRepository = new PortofolioRepository($portofolio);
 

@@ -6,6 +6,8 @@ use App\Models\Portofolio;
 
 class PortofolioRepository
 {
+    protected $model;
+    
     /**
      * PortofolioRepository constructor.
      *
