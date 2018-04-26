@@ -47,7 +47,7 @@ class MembersController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function datatables()
+    public function datatables(Request $request)
     {
         DB::statement(DB::raw('set @rownum = 0'));
         $datatables = DataTables::of( 
@@ -55,6 +55,22 @@ class MembersController extends Controller
                 $this->eloquent->model()::select('*', DB::raw('@rownum := @rownum + 1 AS rownum'))
                 ->member()
             )
+            ->filter(function ($query) use ($request) {
+                if ($request->has('status')) {
+                    $status = $request->get('status');
+                    switch ($status) {
+                        case 'approved': 
+                            return $query->approved();
+                            break;
+                        case 'waiting_approval':
+                            return $query->waitingApproval();
+                            break;
+                        case 'rejected':
+                            return $query->rejected();
+                            break;
+                    }
+                }
+            })
             ->addColumn('status', function ($app) {
 
                 switch ($app->status) {
