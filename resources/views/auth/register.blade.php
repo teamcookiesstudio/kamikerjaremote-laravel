@@ -13,10 +13,19 @@
                 @csrf
                 <div class="input-control-square">
                     <i class="icon-user"></i>
-                    <input id="name" placeholder="Enter your name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
-                    @if ($errors->has('name'))
+                    <input id="first_name" placeholder="First name" type="text" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ old('first_name') }}" required autofocus>
+                    @if ($errors->has('first_name'))
                         <span class="invalid-feedback">
                             <strong>{{ $errors->first('name') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                <div class="input-control-square">
+                    <i class="icon-user"></i>
+                    <input id="last_name" placeholder="Last name" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}" required autofocus>
+                    @if ($errors->has('last_name'))
+                        <span class="invalid-feedback">
+                            <strong>{{ $errors->first('last_name') }}</strong>
                         </span>
                     @endif
                 </div>
@@ -40,7 +49,7 @@
                 </div>
                 <div class="input-control-square">
                    <i class="icon-locked"></i>
-                   <input id="password" placeholder="Confirm Password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                   <input id="password_confirmation" placeholder="Confirm Password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password_confirmation" required>
                     @if ($errors->has('password'))
                         <span class="invalid-feedback">
                             <strong>{{ $errors->first('password') }}</strong>
