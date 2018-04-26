@@ -21,7 +21,6 @@ class SkillSetsController extends Controller
      * SkillSetsController constructor.
      *
      * @param SkillSetRepository $repository
-     * @param SkillSetValidator  $validator
      */
     public function __construct(SkillSetRepository $repository)
     {

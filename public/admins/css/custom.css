@@ -1,0 +1,42 @@
+/**
+ * Custom CSS for Kami Kerja Remote
+ *
+ * @author 		KKR <halo@kkr.com>
+ * @since 		Jan 2, 2018
+ **/
+
+
+/**
+ * Login Sidebar
+ **/
+.new-login-box {
+	margin: 10% auto !important;
+}
+
+.new-login-box .syarfi-logo {
+	text-align: center;
+}
+
+.new-login-box .syarfi-logo img {
+	width: auto;
+	height: 100px;
+}
+
+
+/**
+ * Sidebar
+ **/
+.sidebar-nav .sidebar-head {
+
+}
+
+.sidebar-nav .sidebar-head .sidebar-logo {
+	height: 40px;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.sidebar-nav .sidebar-head .sidebar-logo img {
+	height: 100%;
+    width: auto;
+}
