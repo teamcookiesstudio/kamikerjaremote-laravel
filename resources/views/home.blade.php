@@ -9,7 +9,11 @@
 <input type="hidden" id="save-profile-post" value="{{route('profiles.update', $user->id)}}">
 <input type="hidden" id="save-portofolio-post" value="{{route('portofolios.store')}}">
 <section class="user-header">
+  @if (!empty($user->profile))
   <div class="user-cover" style="background: url('{{ $user->profile->image_header ? asset('storage/profile/'.$user->profile->image_header) :  'https://images.unsplash.com/photo-1496112933996-1aa94ac8a23f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9efbe2dae4aa3b325ab203f8c4bc52b5&auto=format&fit=crop&w=1650&q=80'}}') center no-repeat;">
+  @else
+  <div class="user-cover" style="background: url('https://images.unsplash.com/photo-1496112933996-1aa94ac8a23f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9efbe2dae4aa3b325ab203f8c4bc52b5&auto=format&fit=crop&w=1650&q=80') center no-repeat;">  
+  @endif 
     <div class="container">
       <div class="row center-xs">
         <div class="col-xs-11 col-md-12">
@@ -37,9 +41,11 @@
         <span class="about">{{$user->profile->summary ?? null}}</span>
         {!! HTML::link($user->profile->website ?? null, $user->profile->website ?? null, array('class' => 'link', 'target' => '_blank'), true)!!}
         <div class="tags">
+        @if (!empty($user->profile))
           @foreach($user->profile->skillsets as $value)
           <div class="tag">{{$value->skill_set_name}}</div>
           @endforeach
+        @endif
         </div>
       </div>
     </div>
@@ -78,8 +84,13 @@
         {!! Form::button('<i class="ion-android-close"></i>', array('class' => 'btn btn-simple', 'id' => 'close-modal')) !!}
       </div>
       <div class="modal-body">
+      @if (!empty($user->profile))
         <div class="profile-header" style="background: url('{{ $user->profile->image_header ? asset('storage/profile/'.$user->profile->image_header) :  'https://images.unsplash.com/photo-1496112933996-1aa94ac8a23f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9efbe2dae4aa3b325ab203f8c4bc52b5&auto=format&fit=crop&w=1650&q=80'}}') center no-repeat;
         ">
+      @else
+      <div class="profile-header" style="background: url('https://images.unsplash.com/photo-1496112933996-1aa94ac8a23f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9efbe2dae4aa3b325ab203f8c4bc52b5&auto=format&fit=crop&w=1650&q=80') center no-repeat;
+          ">
+      @endif
           {!! 
               Html::decode(
               Form::label(
@@ -160,9 +171,11 @@
                 <div class="col-xs-12 input-label">
                     {!! Form::label("Skill Set") !!}
                     <select id="skill-set" multiple>
+                    @if (!empty($user->profile))
                       @foreach($user->profile->skillsets as $skill)
                         <option value="{{$skill->skill_set_name}}" selected>{{$skill->skill_set_name}}</option>
                       @endforeach
+                    @endif
                     </select>
                     {{-- {!! Form::select(null, App\Models\SkillSet::pluck("skill_set_name", "skill_set_name")->all(), $user->profile->skillsets ?? null, ["id" => "skill-set", "multiple" => "multiple"]) !!} --}}
                 </div>

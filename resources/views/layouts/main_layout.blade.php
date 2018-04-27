@@ -60,6 +60,7 @@
             <a class="btn btn-thin" href="{{ route('register') }}">{{ __('Register') }}</a>
             @else
             <div class="logged-user">
+            @if (!empty($user->profile))
               {!! 
                 Html::image(
                   strpos($user->profile->url_photo_profile, 'http') !== false ? 
@@ -70,6 +71,14 @@
                   null, array('class' => 'profile-img', 'id' => 'user-action')
                 ) 
             !!}
+            @else
+              {!! 
+                Html::image( 
+                  asset('images/no_avatar.jpg'), 
+                  null, array('class' => 'profile-img', 'id' => 'user-action')
+                ) 
+            !!}
+            @endif
               <div class="user-actions" id="actions">
                 <div class="arrow-up"></div>
                 <ul>

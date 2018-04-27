@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     $user = auth()->user();
 
@@ -33,7 +22,7 @@ Route::group(['as' => 'admin.', 'namespace' => 'Admin'], function ($route) {
     /*
      * Members
      */
-    $route->group(['prefix' => 'members', 'as' => 'members.'], function ($route) {
+    $route->group(['prefix' => 'members', 'as' => 'members.', 'middleware' => ['auth']], function ($route) {
         $route->get('/', ['as' => 'index', 'uses' => 'MembersController@index']);
         $route->any('datatables', ['as' => 'datatables', 'uses' => 'MembersController@datatables']);
         $route->get('approve/{id}', ['as' => 'approve', 'uses' => 'MembersController@approve']);
