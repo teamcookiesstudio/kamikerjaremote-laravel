@@ -17,7 +17,7 @@ Route::group(['as' => 'admin.', 'namespace' => 'Admin'], function ($route) {
     /*
      * Dashboard
      */
-    $route->get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@index']);
+    $route->get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@index'])->middleware('auth');
 
     /*
      * Members

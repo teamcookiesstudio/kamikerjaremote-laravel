@@ -8,7 +8,7 @@
             </div>
             <ul class="nav" id="side-menu">
                 <li>
-                    <a href="#" class="waves-effect {{{ (Request::is('admin/dashboard') ? 'active' : '') }}}">
+                    <a href="#" class="waves-effect {{{ (Request::is('dashboard') ? 'active' : '') }}}">
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
