@@ -58,6 +58,7 @@ class PortofoliosController extends Controller
         $portofolio = $this->repository->create($data);
 
         if ($request->hasFile('thumbnail')) {
+
             $fileName = ''.uniqid().'.'.
 
             $request->file('thumbnail')->getClientOriginalExtension();
@@ -116,7 +117,9 @@ class PortofoliosController extends Controller
         $portofolio = $this->repository->update($data, $id);
 
         if ($request->hasFile('thumbnail')) {
+
             if (!empty($portofolio->thumbnail)) {
+                
                 $file = Storage::disk('public')->delete('/portofolio/'.$portofolio->thumbnail);
             }
 

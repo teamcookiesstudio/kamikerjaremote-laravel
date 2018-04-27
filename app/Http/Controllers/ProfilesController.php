@@ -108,6 +108,7 @@ class ProfilesController extends Controller
     public function update(ProfileUpdateRequest $request, $id)
     {
         foreach ($request->skill_set_name as $value) {
+            
             $skillset[] = $this->SkillSetRepository->firstOrCreate(['skill_set_name' => $value])->id;
         }
 
