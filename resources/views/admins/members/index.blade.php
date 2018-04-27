@@ -15,7 +15,7 @@
 
 <div class="row">
     <div class="col-md-12 col-lg-12 col-sm-12">
-        <div class="white-box">
+        <div class="white-box" id="table-scroll">
             <div class="row">
                 <div class="col-md-3">
                     <select class="selectpicker m-b-20" data-style="btn-default btn-outline" id="status">
@@ -223,6 +223,10 @@
 
         $('#status').change(function () {
             oTable.ajax.reload();
+        });
+
+        $('#table-scroll').slimScroll({
+            height: '500px'
         });
     });
 </script>

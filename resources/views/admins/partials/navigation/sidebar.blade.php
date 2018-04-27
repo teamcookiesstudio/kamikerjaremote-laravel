@@ -19,7 +19,7 @@
                             <span class="fa arrow"></span>
                         </span>
                     </a>
-                    <ul class="nav nav-second-level collapse">
+                    <ul class="nav nav-second-level collapse" id="nav-second">
                         <li>
                             <a href="{{ route('admin.members.index') }}">
                                 <span class="hide-menu">Approval</span>
