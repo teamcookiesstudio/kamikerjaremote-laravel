@@ -8,12 +8,12 @@
             </div>
             <ul class="nav" id="side-menu">
                 <li>
-                    <a href="#" class="waves-effect {{{ (Request::is('dashboard') ? 'active' : '') }}}">
+                <a href="{{route('admin.dashboard')}}" class="waves-effect {{{ (Request::is('dashboard') ? 'active' : '') }}}">
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="waves-effect">
+                    <a href="javascript:void(0)" class="waves-effect">
                         <span class="hide-menu">
                             Users
                             <span class="fa arrow"></span>
