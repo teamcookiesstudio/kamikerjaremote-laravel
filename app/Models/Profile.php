@@ -19,4 +19,9 @@ class Profile extends ModelCaching
     {
         return $this->belongsToMany(SkillSet::class);
     }
+
+    public function users()
+    {
+        return $this->belongsTo(\App\User::class, 'member_id', 'id');
+    }
 }

@@ -28,7 +28,7 @@ class HomeController extends Controller
         $user = auth()->user();
 
         if ($user->isAdmin()) {
-            return view('admins.admin');
+            return redirect()->route('admin.dashboard');
         } else {
             if (empty($user->profile)) {
                 $image = asset('images/no_avatar.jpg');

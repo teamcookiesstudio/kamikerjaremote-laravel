@@ -13,6 +13,11 @@
                     </a>
                 </li>
                 <li>
+                <a href="{{route('admin.browse')}}" class="waves-effect {{{ (Request::is('browse-freelancer') ? 'active' : '') }}}">
+                        <span class="hide-menu">Browse Freelancer</span>
+                    </a>
+                </li>
+                <li>
                     <a href="javascript:void(0)" class="waves-effect">
                         <span class="hide-menu">
                             Users
