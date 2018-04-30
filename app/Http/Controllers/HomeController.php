@@ -28,15 +28,11 @@ class HomeController extends Controller
         $user = auth()->user();
 
         if ($user->isAdmin()) {
-            
             return view('admins.admin');
         } else {
-            
             if (empty($user->profile)) {
-
                 $image = asset('images/no_avatar.jpg');
             } else {
-
                 $image = $this->findImage($user->profile->url_photo_profile);
             }
 

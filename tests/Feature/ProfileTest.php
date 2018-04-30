@@ -2,21 +2,21 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use App\Models\Profile;
 use Tests\Repositories\ProfileRepository;
+use Tests\TestCase;
 
 class ProfileTest extends TestCase
 {
     public function testStoreProfile()
     {
         $data = [
-            'member_id'        => rand(1, 3),
-            'occupation'     => 'HUHU',
-            'location'       => date('Y-m-d H:i:s'),
-            'summary'         => date('Y-m-d H:i:s'),
-            'website' => false,
-            'url_photo_profile'        => null
+            'member_id'                => rand(1, 3),
+            'occupation'               => 'HUHU',
+            'location'                 => date('Y-m-d H:i:s'),
+            'summary'                  => date('Y-m-d H:i:s'),
+            'website'                  => false,
+            'url_photo_profile'        => null,
         ];
 
         $profileRepo = new ProfileRepository(new Profile());
@@ -33,13 +33,13 @@ class ProfileTest extends TestCase
     public function testUpdateProfile()
     {
         $data = [
-            'member_id'        => 1,
-            'occupation'     => 'HUHU',
-            'location'       => date('Y-m-d H:i:s'),
-            'summary'         => date('Y-m-d H:i:s'),
-            'url_photo_profile' => 'https://lorempixel.com/640/480/?22330',
-            'website' => false,
-            'url_photo_profile'        => null
+            'member_id'                => 1,
+            'occupation'               => 'HUHU',
+            'location'                 => date('Y-m-d H:i:s'),
+            'summary'                  => date('Y-m-d H:i:s'),
+            'url_photo_profile'        => 'https://lorempixel.com/640/480/?22330',
+            'website'                  => false,
+            'url_photo_profile'        => null,
         ];
 
         $profile = factory(Profile::class)->create();
