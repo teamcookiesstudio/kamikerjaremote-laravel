@@ -74,13 +74,13 @@ class MembersController extends Controller
             ->addColumn('status', function ($app) {
                 switch ($app->status) {
                     case 'approved':
-                        return '<span class="label label-success">approved</span>';
+                        return '<span class="label label-success">APPROVED</span>';
                         break;
                     case 'waiting approval':
-                        return '<span class="label label-info">waiting approval</span>';
+                        return '<span class="label label-info">WAITING APPROVAL</span>';
                         break;
                     case 'rejected':
-                        return '<span class="label label-danger">rejected</span>';
+                        return '<span class="label label-danger">REJECTED</span>';
                         break;
                 }
             })

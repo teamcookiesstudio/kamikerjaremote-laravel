@@ -8,20 +8,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-/*
- * Admin
- */
-
 Route::group(['as' => 'admin.', 'namespace' => 'Admin'], function ($route) {
+    $route->get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@index'])->middleware('auth');
+    $route->get('browse-freelancer', ['as' => 'browse', 'uses' => 'BrowseController@index']);
 
-    /*
-     * Dashboard
-     */
-    $route->get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@index']);
-
-    /*
-     * Members
-     */
     $route->group(['prefix' => 'members', 'as' => 'members.', 'middleware' => ['auth']], function ($route) {
         $route->get('/', ['as' => 'index', 'uses' => 'MembersController@index']);
         $route->any('datatables', ['as' => 'datatables', 'uses' => 'MembersController@datatables']);
@@ -32,14 +22,11 @@ Route::group(['as' => 'admin.', 'namespace' => 'Admin'], function ($route) {
     });
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/home', 'HomeController@index')->name('home');
-    Route::patch('profiles/{id}', 'ProfilesController@update')->name('profiles.update');
-});
-
-Route::middleware(['auth'])->group(function () {
-    Route::post('portofolios', 'PortofoliosController@store')->name('portofolios.store');
-    Route::post('portofolios/{id}', 'PortofoliosController@update')->name('portofolios.update');
+Route::middleware(['auth'])->group(function ($route) {
+    $route->get('/home', 'HomeController@index')->name('home');
+    $route->patch('profiles/{id}', 'ProfilesController@update')->name('profiles.update');
+    $route->post('portofolios', 'PortofoliosController@store')->name('portofolios.store');
+    $route->post('portofolios/{id}', 'PortofoliosController@update')->name('portofolios.update');
 });
 
 Route::get('/search', 'PublicController@search')->name('search.result');

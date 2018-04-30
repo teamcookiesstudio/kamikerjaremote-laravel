@@ -15,7 +15,7 @@
 
 <div class="row">
     <div class="col-md-12 col-lg-12 col-sm-12">
-        <div class="white-box">
+        <div class="white-box" id="table-scroll">
             <div class="row">
                 <div class="col-md-3">
                     <select class="selectpicker m-b-20" data-style="btn-default btn-outline" id="status">
@@ -134,9 +134,9 @@
 
                 $('td', row).eq(0).html('<input class="membercheckbox" id="membercheckbox" type="checkbox" name="id[]" value='+data.id+'>');
                 $('td', row).eq(6).html(
-                    '<button id="approve" data-loading-text="Please wait.." member_id='+data.id+' member_name='+data.name+' class="btn btn-xs btn-success"><i class="glyphicon glyphicon-ok"></i> Approve</button>'+
-                    ' <button type="submit" id="reject" member_id="'+data.id+'" member_name="'+data.name+'" class="btn btn-xs btn-danger" data-loading-text="Please wait.."><i class="glyphicon glyphicon-remove"></i> Reject</button>'+
-                    ' <a href="freelancer/'+data.uuid+'" target="_blank" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-user"></i> Profile</a>');
+                    '<button id="approve" data-loading-text="Please wait.." member_id='+data.id+' member_name='+data.name+' class="btn btn-xs btn btn-rounded btn-default btn-outline m-r-5"><i class="ti-check text-success m-r-5"></i> Approve</button>'+
+                    ' <button type="submit" id="reject" member_id="'+data.id+'" member_name="'+data.name+'" class="btn btn-xs btn-default btn-rounded btn-outline" data-loading-text="Please wait.."><i class="ti-close text-danger m-r-5"></i> Reject</button>'+
+                    ' <a href="freelancer/'+data.uuid+'" target="_blank" class="btn btn-xs btn-default btn-rounded btn-outline"><i class="ti-user text-primary m-r-5"></i> Profile</a>');
             },
             initComplete: function ( settings, json ) {
                 $('input[type="checkbox"].membercheckbox').iCheck({
@@ -223,6 +223,10 @@
 
         $('#status').change(function () {
             oTable.ajax.reload();
+        });
+
+        $('#table-scroll').slimScroll({
+            height: '500px'
         });
     });
 </script>

@@ -88,55 +88,11 @@
     {!! Html::script('admins/js/waves.js') !!}
 
     {!! Html::script('admins/js/custom.js') !!}
-
-    {!! Html::script('admins/js/toastr.min.js') !!}
     
     {!! Html::script("https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js") !!}
 
     @stack("adminscript")
 
-<script type="text/javascript">
-$(function(){
-
-    toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "newestOnTop": false,
-        "progressBar": true,
-        "positionClass": "toast-bottom-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "11000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    }
-});
-</script>
-<script>
-    @if(Session::has('message'))
-        var type='{{Session::get("alert-type", "info")}}';
-
-        switch (type) {
-            case 'info':
-                    toastr.info("{{ Session::get('message') }}");
-                    break;
-            case 'success':
-                toastr.success("{{ Session::get('message') }}");
-                break;
-            case 'warning':
-                toastr.warning("{{ Session::get('message') }}");
-                break;
-            case 'error':
-                toastr.error("{{ Session::get('message') }}");
-                break;
-        }
-    @endif
-</script>
 </body>
 
 </html>

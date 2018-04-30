@@ -8,18 +8,23 @@
             </div>
             <ul class="nav" id="side-menu">
                 <li>
-                    <a href="#" class="waves-effect {{{ (Request::is('admin/dashboard') ? 'active' : '') }}}">
+                <a href="{{route('admin.dashboard')}}" class="waves-effect {{{ (Request::is('dashboard') ? 'active' : '') }}}">
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="waves-effect">
+                <a href="{{route('admin.browse')}}" class="waves-effect {{{ (Request::is('browse-freelancer') ? 'active' : '') }}}">
+                        <span class="hide-menu">Browse Freelancer</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="waves-effect">
                         <span class="hide-menu">
                             Users
                             <span class="fa arrow"></span>
                         </span>
                     </a>
-                    <ul class="nav nav-second-level collapse">
+                    <ul class="nav nav-second-level collapse" id="nav-second">
                         <li>
                             <a href="{{ route('admin.members.index') }}">
                                 <span class="hide-menu">Approval</span>
