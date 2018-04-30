@@ -30,7 +30,9 @@ class PublicController extends Controller
                             ->orWhere('last_name', 'LIKE', '%'.$request->q.'%');
                 });
             })->paginate(10);
+
             $user->appends($request->only('q'));
+
             if ($request->ajax()) {
                 return Response::json(View::make('search.result', compact('user'))->render());
             }
