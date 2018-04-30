@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\UserRepository;
 use App\Repositories\ProfileRepository;
+use App\Repositories\UserRepository;
+use Illuminate\Http\Request;
 
 class BrowseController extends Controller
 {
@@ -18,10 +18,10 @@ class BrowseController extends Controller
         $this->userRepo = $userRepo;
         $this->profileRepo = $profileRepo;
     }
-    
+
     public function index(Request $request)
     {
-        $result = $this->profileRepo->whereHas('skillsets', function($query) {
+        $result = $this->profileRepo->whereHas('skillsets', function ($query) {
             $query->where('skill_set_name', 'PHP');
         })->get();
 
