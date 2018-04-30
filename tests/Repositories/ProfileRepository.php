@@ -7,7 +7,7 @@ use App\Models\Profile;
 class ProfileRepository
 {
     protected $model;
-    
+
     /**
      * ProfileRepository constructor.
      *
