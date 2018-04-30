@@ -2,33 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Charts;
 use App\Charts\Dashboard;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\UserRepositoryEloquent;
+use Charts;
 
 class DashboardController extends Controller
 {
-    /**
-     * 
-     * 
-     */
     protected $eloquent;
 
-    /**
-     * 
-     * 
-     */
     public function __construct(UserRepositoryEloquent $eloquent)
     {
         $this->eloquent = $eloquent;
     }
 
-    /**
-     * 
-     * 
-     */
     public function index()
     {
         $approved = $this->eloquent->model()::approved();
@@ -44,12 +31,12 @@ class DashboardController extends Controller
             ->dataset('Rejected', $rejected->get())
             ->lastByMonth(12, true);
 
-        $variable = array(
-            'chart' => $chart,
-            'approved'  => $approved->count(),
+        $variable = [
+            'chart'           => $chart,
+            'approved'        => $approved->count(),
             'waitingApproval' => $waitingApproval->count(),
-            'rejected'  => $rejected->count()
-        );
+            'rejected'        => $rejected->count(),
+        ];
 
         return view('admins.dashboard', $variable);
     }

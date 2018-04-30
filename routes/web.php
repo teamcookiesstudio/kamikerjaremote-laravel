@@ -9,7 +9,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['as' => 'admin.', 'namespace' => 'Admin'], function ($route) {
-
     $route->get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@index'])->middleware('auth');
     $route->get('browse-freelancer', ['as' => 'browse', 'uses' => 'BrowseController@index']);
 
