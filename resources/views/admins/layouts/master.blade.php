@@ -91,6 +91,16 @@
     
     {!! Html::script("https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js") !!}
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+
+    <script type="text/javascript">
+    $(function (){
+        FastClick.attach(document.body);
+    });
+    </script>
+
     @stack("adminscript")
 
 </body>

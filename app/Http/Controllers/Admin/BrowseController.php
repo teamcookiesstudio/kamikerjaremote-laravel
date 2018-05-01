@@ -21,15 +21,36 @@ class BrowseController extends Controller
 
     public function index(Request $request)
     {
-        $result = $this->profileRepo->whereHas('skillsets', function ($query) {
-            $query->where('skill_set_name', 'PHP');
+        $result = $this->profileRepo->whereHas('skillsets', function ($query) use ($request) {
+            $query->where('skill_set_name', 'LIKE', '%'.$request->skill.'%');
         })->get();
 
-        if ($request->ajax()) {
-            
-        }
+        if ($request->has('q')) {
 
-        $model = $this->userRepo->paginate(10)->except(\Auth::id());
+            $model = \App\User::when($request->q, function ($query) use ($request) {
+                $query->member()->where(function ($query) use ($request) {
+                    $query->where('first_name', 'LIKE', '%'.$request->q.'%')
+                            ->orWhere('last_name', 'LIKE', '%'.$request->q.'%');
+                });
+            })->paginate(10);
+    
+            $model->appends($request->only('q'));
+            
+            if ($request->ajax()) {
+                return \Response::json(
+                    \View::make('admins.browse.partials._result-browse', compact('model'))->render()
+                );
+            }
+        } else {
+            
+            $model = \App\User::member()->paginate(10);
+
+            if ($request->ajax()) {
+                return \Response::json(
+                    \View::make('admins.browse.partials._result-browse', compact('model'))->render()
+                );
+            }
+        }
 
         return view('admins.browse.browse', compact('model'));
     }

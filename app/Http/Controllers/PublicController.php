@@ -30,14 +30,10 @@ class PublicController extends Controller
 
         //$q = Cache::tags('search')->rememberForever($page, function () use ($request) {
             $user = User::when($request->q, function ($query) use ($request) {
-                $query->select(
-                    'users.id', 'users.uuid', 'users.first_name', 'users.last_name', 'users.level',
-                    'profiles.location', 'profiles.occupation', 'profiles.url_photo_profile')
-                ->leftJoin('profiles', 'users.id', '=', 'profiles.member_id')
-                ->where('users.level', User::ACCESS_MEMBER)
-                ->where(function ($query) use ($request) {
-                    $query->where('first_name', 'LIKE', '%'.$request->q.'%')
-                            ->orWhere('last_name', 'LIKE', '%'.$request->q.'%');
+                $query->member()
+                    ->where(function ($query) use ($request) {
+                        $query->where('first_name', 'LIKE', '%'.$request->q.'%')
+                                ->orWhere('last_name', 'LIKE', '%'.$request->q.'%');
                 });
             })->paginate(10);
 
