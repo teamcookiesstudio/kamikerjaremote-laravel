@@ -8,17 +8,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['as' => 'admin.', 'namespace' => 'Admin'], function ($route) {
-    $route->get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@index'])->middleware('auth');
+Route::group(['as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function ($route) {
+    $route->get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@index']);
     $route->get('browse-freelancer', ['as' => 'browse', 'uses' => 'BrowseController@index']);
 
-    $route->group(['prefix' => 'members', 'as' => 'members.', 'middleware' => ['auth']], function ($route) {
+    $route->group(['prefix' => 'members', 'as' => 'members.'], function ($route) {
         $route->get('/', ['as' => 'index', 'uses' => 'MembersController@index']);
         $route->any('datatables', ['as' => 'datatables', 'uses' => 'MembersController@datatables']);
         $route->get('approve/{id}', ['as' => 'approve', 'uses' => 'MembersController@approve']);
         $route->get('reject/{id}', ['as' => 'reject', 'uses' => 'MembersController@reject']);
         $route->post('approve-selected', ['as' => 'approve-selected', 'uses' => 'MembersController@approveSelected']);
         $route->post('reject-selected', ['as' => 'reject-selected', 'uses' => 'MembersController@rejectSelected']);
+    });
+
+    $route->group(['prefix' => 'skill-sets', 'as' => 'skill-sets.'], function ($route) {
+        $route->any('data', ['as' => 'data', 'uses' => 'SkillSetController@data']);
     });
 });
 

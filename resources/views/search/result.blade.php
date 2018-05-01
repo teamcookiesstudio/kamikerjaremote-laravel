@@ -1,5 +1,9 @@
 @extends('layouts.search')
 
+@push('searchstyle')
+
+@endpush
+
 @section('content')
   <div class="search-wrapper">
     <div class="container">
@@ -20,17 +24,17 @@
     <div class="container">
       <div class="row center-xs start-md">
         <div class="col-xs-11 col-md-8 center-xs start-md">
-          <span class="result-number">Showing {{$user->total()}} results</span>
-          <div class="search-results" id="search">
+          
+            <div id="spinner" style="background:url(plugins/images/spinner2.gif) no-repeat center center;"></div>
+            
             @include('search.partial-result')
-          </div>
-          {{$user->links('vendor.pagination.default')}}
+
         </div>
       </div>
     </div>
   </div>
 
 @endsection
-@push('script')
+@push('searchscript')
 {{Html::script(asset('js/pages/search.js'))}}
 @endpush

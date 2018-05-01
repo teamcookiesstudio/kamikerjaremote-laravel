@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Traits\TraitController;
 use App\User;
-use Cache;
+use Cache, Response, View;
 use Illuminate\Http\Request;
 
 class PublicController extends Controller
@@ -34,7 +34,7 @@ class PublicController extends Controller
             $user->appends($request->only('q'));
 
             if ($request->ajax()) {
-                return Response::json(View::make('search.result', compact('user'))->render());
+                return Response::json(View::make('search.partial-result', compact('user'))->render());
             }
 
             return view('search.result', compact('user'))->render();
