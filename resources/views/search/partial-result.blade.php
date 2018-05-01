@@ -17,5 +17,5 @@
       </a>
     @endforeach
   </div>
-  {{$user->links('vendor.pagination.default')}}
+  {{$user->links('vendor.pagination.public-default')}}
 </div>

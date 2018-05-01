@@ -13,12 +13,22 @@ class PublicController extends Controller
 
     public function search(Request $request)
     {
-        if ($request->has('page')) {
-            $page = $request->q.'&page='.$request->query('page');
-        } else {
-            $page = $request->q;
-        }
-        $q = Cache::tags('search')->rememberForever($page, function () use ($request) {
+        // if ($request->has('page')) {
+        //     $page = $request->q.'&page='.$request->query('page');
+        // } else {
+        //     $page = $request->q;
+        // }
+
+        // $result = Cache::tags('search')->get($request->q);
+
+        //     if (!empty($result)) {
+        //         $cek = is_string($result) ? true : false;
+        //         if ($cek) {
+        //             Cache::tags('search')->flush($request->q);
+        //         }
+        //     }
+
+        //$q = Cache::tags('search')->rememberForever($page, function () use ($request) {
             $user = User::when($request->q, function ($query) use ($request) {
                 $query->select(
                     'users.id', 'users.uuid', 'users.first_name', 'users.last_name', 'users.level',
@@ -38,9 +48,9 @@ class PublicController extends Controller
             }
 
             return view('search.result', compact('user'))->render();
-        });
+        //});
 
-        return $q;
+        //return $q;
     }
 
     public function viewProfile($uuid)
