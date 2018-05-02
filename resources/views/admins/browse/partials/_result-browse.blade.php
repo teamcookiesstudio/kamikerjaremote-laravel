@@ -19,13 +19,13 @@
                     <h5>{{$value->profile->occupation}}</h5>
                     <span class="time">{{$value->profile->location}}</span> 
 
-                    @if ($value->is_approved == true)
+                    @if ($value->is_approved === 1)
                         <span class="label label-rouded label-success"> APPROVED</span>
-                    @elseif ($value->is_approved == false)
+                    @elseif ($value->is_approved === 0)
                         <span class="label label-rouded label-danger"> REJECTED</span>
-                    @else
+                    @elseif ($value->is_approved === null)
                         <span class="label label-rouded label-info"> WAITING APPROVAL</span>
-                        <br/><br/> <a href="javacript:void(0)" class="btn btn btn-rounded btn-default btn-outline m-r-5"><i class="ti-check text-success m-r-5"></i>Approve</a><a href="javacript:void(0)" class="btn-rounded btn btn-default btn-outline"><i class="ti-close text-danger m-r-5"></i> Reject</a> 
+                <br/><br/> <button class="btn-rounded btn-sm btn-default btn-outline" data-loading-text="Please wait.." member-id="{{$value->id}}" id="approve-button"><i class="ti-check text-success m-r-5"></i>Approve</button> <button class="btn-rounded btn-sm btn-default btn-outline" data-loading-text="Please wait.." member-id="{{$value->id}}" id="reject-button"><i class="ti-close text-danger m-r-5"></i> Reject</button> 
                     @endif
                 
                 </div>

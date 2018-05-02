@@ -21,9 +21,11 @@ class BrowseController extends Controller
 
     public function index(Request $request)
     {
-        $result = $this->profileRepo->whereHas('skillsets', function ($query) use ($request) {
-            $query->where('skill_set_name', 'LIKE', '%'.$request->skill.'%');
-        })->get();
+        $callback = function($query) use ($request) {
+            $query->where('skill_set_name', 'LIKE', '%php%');
+        };
+
+        $result = $this->profileRepo->whereHas('skillsets', $callback)->with('users')->paginate(10);
 
         if ($request->has('q')) {
 
@@ -31,6 +33,12 @@ class BrowseController extends Controller
                 $query->member()->where(function ($query) use ($request) {
                     $query->where('first_name', 'LIKE', '%'.$request->q.'%')
                             ->orWhere('last_name', 'LIKE', '%'.$request->q.'%');
+
+                    if ($request->has('skill')) {
+                        $query->with('profile')->whereHas('skillsets', function ($q) use ($request) {
+                            $q->where('skill_set_name', 'LIKE', '%'.$request->skill.'%');
+                        });
+                    }
                 });
             })->paginate(10);
     

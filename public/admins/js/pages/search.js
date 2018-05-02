@@ -13,6 +13,14 @@ jQuery.adminSearchFreelancer = {
             height: '500px'      
         });
     },
+    approveOrReject: function(url, $selector){
+        var self = this;
+
+        $.get(url).done( function ( response ) {
+            swal('Success', response['message'], response['status']);
+            $selector.button('reset');
+        });
+    },
     setEvent: function() {
         var self = this;
 
@@ -49,6 +57,22 @@ jQuery.adminSearchFreelancer = {
                 });
 
             }
+        });
+
+        jQuery(document).on('click', '#approve-button', function () {
+            var $btn        = $(this);
+            var member_id   = $btn.attr('member_id');
+            var url         = 'members/approve/'+member_id;
+            $btn.button('loading');
+            self.approveOrReject(url, $btn);
+        });
+
+        jQuery('#reject-button').click(function () {
+            var $btn        = $(this);
+            var member_id   = $btn.attr('member-id');
+            var url         = 'members/reject/'+member_id;
+            $btn.button('loading');
+            approveOrReject(url, $btn);
         });
 
         jQuery(document).on('click', '#pagination a', function (e) {
