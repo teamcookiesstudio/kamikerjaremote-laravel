@@ -40,7 +40,8 @@ class PublicController extends Controller
             $user->appends($request->only('q'));
 
             if ($request->ajax()) {
-                return Response::json(View::make('search.partial-result', compact('user'))->render());
+                $view = view('search.partial-result', compact('user'))->render();
+                return Response::json($view);
             }
 
             return view('search.result', compact('user'))->render();

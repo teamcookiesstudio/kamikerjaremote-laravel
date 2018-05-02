@@ -17,7 +17,24 @@ jQuery.adminSearchFreelancer = {
         var self = this;
 
         $.get(url).done( function ( response ) {
-            swal('Success', response['message'], response['status']);
+
+            $.ajax({
+                url : window.location.href,
+                dataType: 'json',
+                beforeSend: function() {
+                    self.wrapper.$result.hide();
+                    self.wrapper.$spinner.css({'height': '100px'});
+                    jQuery(window).scrollTop(0);
+                }
+            }).done(function (data) {
+                swal('Success', response['message'], response['status']);
+            
+                self.wrapper.$result.show().html(data);
+                self.wrapper.$spinner.css({'height': '0px'});
+            }).fail(function () {
+    
+                swal('Error','Search could not be loaded.', 'error');
+            });
             $selector.button('reset');
         });
     },
@@ -39,7 +56,6 @@ jQuery.adminSearchFreelancer = {
                 var q = self.wrapper.$input.val();
                 var ajax = $.ajax({
                     url: 'browse-freelancer',
-                    cache: true,
                     data: {q: q}
                 });
 
@@ -61,18 +77,18 @@ jQuery.adminSearchFreelancer = {
 
         jQuery(document).on('click', '#approve-button', function () {
             var $btn        = $(this);
-            var member_id   = $btn.attr('member_id');
+            var member_id   = $btn.attr('member-id');
             var url         = 'members/approve/'+member_id;
             $btn.button('loading');
             self.approveOrReject(url, $btn);
         });
 
-        jQuery('#reject-button').click(function () {
+        jQuery(document).on('click', '#reject-button', function () {
             var $btn        = $(this);
             var member_id   = $btn.attr('member-id');
             var url         = 'members/reject/'+member_id;
             $btn.button('loading');
-            approveOrReject(url, $btn);
+            self.approveOrReject(url, $btn);
         });
 
         jQuery(document).on('click', '#pagination a', function (e) {
@@ -95,7 +111,6 @@ jQuery.adminSearchFreelancer = {
             $.ajax({
                 url : pages,
                 dataType: 'json',
-                cache: true,
             }).done(function (data) {
     
                 self.wrapper.$result.show().html(data);
@@ -113,7 +128,6 @@ jQuery.adminSearchFreelancer = {
         $.ajax({
             url : page,
             dataType: 'json',
-            cache: true,
         }).done(function (data) {
 
             self.wrapper.$result.show().html(data);
