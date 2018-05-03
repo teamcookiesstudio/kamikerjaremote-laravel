@@ -25,7 +25,10 @@ class BrowseController extends Controller
             $query->where('skill_set_name', 'PHP');
         })->get();
 
-        $model = $this->userRepo->paginate(10);
+        if ($request->ajax()) {
+        }
+
+        $model = $this->userRepo->paginate(10)->except(\Auth::id());
 
         return view('admins.browse.browse', compact('model'));
     }
