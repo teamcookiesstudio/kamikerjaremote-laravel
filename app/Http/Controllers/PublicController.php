@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Traits\TraitController;
 use App\User;
-use Cache, Response, View;
+use Cache;
 use Illuminate\Http\Request;
+use Response;
+use View;
 
 class PublicController extends Controller
 {
@@ -29,8 +31,8 @@ class PublicController extends Controller
         //     }
 
         //$q = Cache::tags('search')->rememberForever($page, function () use ($request) {
-            $user = User::when($request->q, function ($query) use ($request) {
-                $query->select(
+        $user = User::when($request->q, function ($query) use ($request) {
+            $query->select(
                     'users.id', 'users.uuid', 'users.first_name', 'users.last_name', 'users.level',
                     'profiles.location', 'profiles.occupation', 'profiles.url_photo_profile')
                 ->leftJoin('profiles', 'users.id', '=', 'profiles.member_id')
@@ -39,15 +41,15 @@ class PublicController extends Controller
                     $query->where('first_name', 'LIKE', '%'.$request->q.'%')
                             ->orWhere('last_name', 'LIKE', '%'.$request->q.'%');
                 });
-            })->paginate(10);
+        })->paginate(10);
 
-            $user->appends($request->only('q'));
+        $user->appends($request->only('q'));
 
-            if ($request->ajax()) {
-                return Response::json(View::make('search.partial-result', compact('user'))->render());
-            }
+        if ($request->ajax()) {
+            return Response::json(View::make('search.partial-result', compact('user'))->render());
+        }
 
-            return view('search.result', compact('user'))->render();
+        return view('search.result', compact('user'))->render();
         //});
 
         //return $q;
