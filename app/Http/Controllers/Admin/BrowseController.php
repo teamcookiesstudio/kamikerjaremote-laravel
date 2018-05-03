@@ -26,7 +26,6 @@ class BrowseController extends Controller
         })->get();
 
         if ($request->ajax()) {
-            
         }
 
         $model = $this->userRepo->paginate(10)->except(\Auth::id());
