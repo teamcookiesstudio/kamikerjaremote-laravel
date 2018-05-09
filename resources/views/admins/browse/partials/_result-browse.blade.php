@@ -5,10 +5,10 @@
                 <div class="user-img"> 
                     {!! 
                         Html::image(
-                            strpos($value->profile->url_photo_profile, 'http') !== false ? 
-                            $value->profile->url_photo_profile : 
-                            ($value->profile->url_photo_profile != null ? 
-                            asset('storage/profile/'.$value->profile->url_photo_profile) : 
+                            strpos($value->url_photo_profile, 'http') !== false ? 
+                            $value->url_photo_profile : 
+                            ($value->url_photo_profile != null ? 
+                            asset('storage/profile/'.$value->url_photo_profile) : 
                             asset('images/no_avatar.jpg')), 
                             null, array('class' => 'img-circle')
                         ) 
@@ -16,8 +16,8 @@
                 </div>
                 <div class="mail-contnet">
                     <h4><strong>{{ucfirst($value->first_name)}} {{ucfirst($value->last_name)}}</strong></h4>
-                    <h5>{{$value->profile->occupation}}</h5>
-                    <span class="time">{{$value->profile->location}}</span> 
+                    <h5>{{$value->occupation}}</h5>
+                    <span class="time">{{$value->location}}</span> 
 
                     @if ($value->is_approved === 1)
                         <span class="label label-rouded label-success"> APPROVED</span>

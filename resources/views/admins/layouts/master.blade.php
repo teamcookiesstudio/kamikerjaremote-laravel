@@ -19,6 +19,10 @@
 
     <title>Kami Kerja Remote</title>
 
+    {!! Html::style('admins/custom-select/custom-select.css') !!}
+    
+    {!! Html::style('admins/bootstrap-select/bootstrap-select.min.css') !!}
+
     {!! Html::style('admins/css/bootstrap.min.css') !!}
 
     {!! Html::style('admins/css/sidebar-nav.min.css') !!}
@@ -81,6 +85,10 @@
 
     {!! Html::script('admins/js/bootstrap.min.js') !!}
 
+    {!! Html::script('admins/custom-select/custom-select.min.js') !!}
+    
+    {!! Html::script('admins/bootstrap-select/bootstrap-select.min.js') !!}
+
     {!! Html::script('admins/js/sidebar-nav.min.js') !!}
 
     {!! Html::script('admins/js/jquery.slimscroll.js') !!}
@@ -98,6 +106,9 @@
     <script type="text/javascript">
     $(function (){
         FastClick.attach(document.body);
+        jQuery.ajaxSetup({
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+        });
     });
     </script>
 

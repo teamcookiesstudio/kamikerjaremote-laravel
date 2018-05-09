@@ -10,7 +10,7 @@ Auth::routes();
 
 Route::group(['as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function ($route) {
     $route->get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@index']);
-    $route->get('browse-freelancer', ['as' => 'browse', 'uses' => 'BrowseController@index']);
+    $route->match(['get', 'post'], 'browse-freelancer', ['as' => 'browse', 'uses' => 'BrowseController@index']);
 
     $route->group(['prefix' => 'members', 'as' => 'members.'], function ($route) {
         $route->get('/', ['as' => 'index', 'uses' => 'MembersController@index']);

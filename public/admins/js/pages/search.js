@@ -1,4 +1,8 @@
 jQuery.adminSearchFreelancer = {
+    settings: {
+        skillset: [],
+        city: '',
+    },
     wrapper: {
         $input: jQuery('#input-search-freelancer'),
         $button: jQuery('#button-search-freelancer'),
@@ -8,7 +12,7 @@ jQuery.adminSearchFreelancer = {
     init: function() {
         var self = this;
         self.setEvent();
-        $.get('skill-sets/data').done(function(data) { self.bloodhound(data); });
+        $('.select2').select2();
         $('#slimScroll').slimScroll({
             height: '500px'      
         });
@@ -53,16 +57,25 @@ jQuery.adminSearchFreelancer = {
                 self.wrapper.$spinner.css({'height': '100px'});
                 jQuery(window).scrollTop(0);
 
-                var q = self.wrapper.$input.val();
+                var data = {
+                    q: self.wrapper.$input.val(),
+                };
+                if (self.settings.city) {
+                    data['city'] = self.settings.city;
+                }
+                if (self.settings.skillset) {
+                    data['skill'] = self.settings.skillset;
+                }
                 var ajax = $.ajax({
                     url: 'browse-freelancer',
-                    data: {q: q}
+                    data: data,
+                    type: 'post'
                 });
 
                 ajax.done(function (data){
                     
                     self.wrapper.$result.show().html(data);
-                    window.history.pushState(null, null, '/browse-freelancer?q=' + q);
+                    window.history.pushState(null, null, '/browse-freelancer?q=' + self.wrapper.$input.val());
                     self.wrapper.$spinner.css({'height': '0px'});
                     jQuery('.pagination').attr('id', 'pagination');
                     
@@ -73,6 +86,22 @@ jQuery.adminSearchFreelancer = {
                 });
 
             }
+        });
+
+        
+        jQuery('#simpan').on('click', function() {
+            var ini = self.settings;
+            var city = jQuery('#city').select2('data');
+            var skill = jQuery('#skill').val();
+            
+            if (city) {
+                var text = city.text;
+                var location = text.replace(/\s+/g, " ").trim();
+                ini.city = location;
+            }
+
+            ini.skillset.push(skill);
+            console.log(skill);
         });
 
         jQuery(document).on('click', '#approve-button', function () {
@@ -120,7 +149,7 @@ jQuery.adminSearchFreelancer = {
     
                 swal('Error','Search could not be loaded.', 'error');
             });
-        })
+        });
     },
     getSearch: function(page) {
         var self = this;
@@ -137,25 +166,6 @@ jQuery.adminSearchFreelancer = {
         }).fail(function () {
 
             swal('Error','Search could not be loaded.', 'error');
-        });
-    },
-    bloodhound: function(data) {
-        var skillsets = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('skill_set_name'),
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            local: data
-        });
-        skillsets.initialize();
-        
-        var elt = $('#skill-set');
-        elt.tagsinput({
-            itemValue: 'id',
-            itemText: 'skill_set_name',
-            typeaheadjs: {
-                name: 'skillsets',
-                displayKey: 'skill_set_name',
-                source: skillsets.ttAdapter()
-            }
         });
     }
 };
