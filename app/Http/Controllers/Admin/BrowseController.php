@@ -41,8 +41,7 @@ class BrowseController extends Controller
                 $query->where(function($q) use ($request) {
                     $q->where('first_name', 'LIKE', '%'.$request->q.'%')
                         ->orWhere('last_name', 'LIKE', '%'.$request->q.'%');
-                })
-                ->where('id', '!=', Auth::id);
+                });
             });
 
             if ($request->has('skill')) {
