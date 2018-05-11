@@ -5,7 +5,7 @@
     <a class="no-decoration" href="{{ route('profiles.view_profile', $result->uuid) }}">
         <div class="item-wrapper" routerLink="/user">
           {!! Html::image(
-              strpos($result->profile->url_photo_profile, 'http') !== false ? $result->profile->url_photo_profile : ($result->url_photo_profile != null ? asset('storage/profile/'.$result->url_photo_profile) : asset('images/no_avatar.jpg')), 
+              strpos($result->profile->url_photo_profile, 'http') !== false ? $result->profile->url_photo_profile : ($result->profile->url_photo_profile != null ? asset('storage/profile/'.$result->profile->url_photo_profile) : asset('images/no_avatar.jpg')), 
               null, array('class' => 'user-img')
             ) !!}
           <div class="item-details start-xs">
