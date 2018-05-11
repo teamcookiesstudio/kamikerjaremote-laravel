@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\TraitController;
 use App\Repositories\ProfileRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
-use App\Http\Traits\TraitController;
 
 class BrowseController extends Controller
 {
@@ -39,10 +39,9 @@ class BrowseController extends Controller
         }
 
         if ($request->has('q')) {
-            
             $collection = \App\User::when($request->q, function ($query) use ($request) {
                 $query->member();
-                $query->where(function($q) use ($request) {
+                $query->where(function ($q) use ($request) {
                     $q->where('first_name', 'LIKE', '%'.$request->q.'%')
                         ->orWhere('last_name', 'LIKE', '%'.$request->q.'%');
                 });
@@ -50,33 +49,31 @@ class BrowseController extends Controller
 
             if ($request->has('skill')) {
                 $skill = $request->get('skill');
-                $collection->whereHas('profile', function($q) use ($skill) {
-                        $q->whereHas('skillsets', function($q) use ($skill) {
-                            $q->whereIn('profile_skill_set.id', $skill);
-                        });
-                    }
+                $collection->whereHas('profile', function ($q) use ($skill) {
+                    $q->whereHas('skillsets', function ($q) use ($skill) {
+                        $q->whereIn('profile_skill_set.id', $skill);
+                    });
+                }
                 );
             }
 
             if ($request->has('city')) {
                 $city = str_replace(' ', '|', $request->city);
-                $collection->whereHas('profile', function($q) use ($city) {
+                $collection->whereHas('profile', function ($q) use ($city) {
                     $q->where('location', 'regexp', $city);
                 });
             }
 
             $model = $collection->with('profile')->paginate(10);
-            
+
             $model->appends($request->only('q'));
-            
+
             if ($request->ajax()) {
                 return \Response::json(
                     \View::make('admins.browse.partials._result-browse', compact('model', 'indonesia'))->render()
                 );
             }
-
         } else {
-            
             $model = \App\User::member()->paginate(10);
 
             if ($request->ajax()) {
