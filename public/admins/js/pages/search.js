@@ -12,7 +12,9 @@ jQuery.adminSearchFreelancer = {
     init: function() {
         var self = this;
         self.setEvent();
-        $('.select2').select2();
+        $('.select2').select2({
+            placeholder: 'Silahkan Pilih Skill'
+        });
         $('#slimScroll').slimScroll({
             height: '500px'      
         });
@@ -63,8 +65,8 @@ jQuery.adminSearchFreelancer = {
                 if (self.settings.city) {
                     data['city'] = self.settings.city;
                 }
-                if (self.settings.skillset) {
-                    data['skill'] = self.settings.skillset;
+                if (jQuery('#skill').val()) {
+                    data['skill'] = jQuery('#skill').val();
                 }
                 var ajax = $.ajax({
                     url: 'browse-freelancer',
@@ -88,20 +90,15 @@ jQuery.adminSearchFreelancer = {
             }
         });
 
-        
-        jQuery('#simpan').on('click', function() {
+        jQuery('#city').on('change', function() {
             var ini = self.settings;
-            var city = jQuery('#city').select2('data');
-            var skill = jQuery('#skill').val();
+            var city=$(this).select2('data');
             
-            if (city) {
+            if (city && city.text != 'Tetapkan Lokasi') {
                 var text = city.text;
                 var location = text.replace(/\s+/g, " ").trim();
                 ini.city = location;
             }
-
-            ini.skillset.push(skill);
-            console.log(skill);
         });
 
         jQuery(document).on('click', '#approve-button', function () {

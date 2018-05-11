@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Repositories\ProfileRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use App\Http\Traits\TraitController;
 
 class BrowseController extends Controller
 {
+    use TraitController;
+
     protected $userRepo;
 
     protected $profileRepo;
@@ -42,6 +45,7 @@ class BrowseController extends Controller
                     $q->where('first_name', 'LIKE', '%'.$request->q.'%')
                         ->orWhere('last_name', 'LIKE', '%'.$request->q.'%');
                 });
+                $query->where('id', '!=', \Auth::id());
             });
 
             if ($request->has('skill')) {
@@ -61,7 +65,7 @@ class BrowseController extends Controller
                 });
             }
 
-            $model = $collection->paginate(10);
+            $model = $collection->with('profile')->paginate(10);
             
             $model->appends($request->only('q'));
             
