@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class AddSocialMediaFieldProfileTable extends Migration
 {
@@ -14,7 +14,7 @@ class AddSocialMediaFieldProfileTable extends Migration
     public function up()
     {
         Schema::table('profiles', function (Blueprint $table) {
-            $social_media = array('facebook', 'linkedin', 'upwork');
+            $social_media = ['facebook', 'linkedin', 'upwork'];
             foreach ($social_media as $value) {
                 $table->string($value)->nullable()->before('created_at');
             }
@@ -29,7 +29,7 @@ class AddSocialMediaFieldProfileTable extends Migration
     public function down()
     {
         Schema::table('profiles', function (Blueprint $table) {
-            $table->dropColumn(array('facebook', 'linkedin', 'upwork'));
+            $table->dropColumn(['facebook', 'linkedin', 'upwork']);
         });
     }
 }
