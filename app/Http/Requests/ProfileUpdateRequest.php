@@ -31,7 +31,7 @@ class ProfileUpdateRequest extends FormRequest
             'summary'    => 'string|nullable',
             'facebook'   => 'string|nullable',
             'upwork'     => 'string|nullable',
-            'linkedin'   => 'string|nullable'
+            'linkedin'   => 'string|nullable',
         ];
     }
 }
