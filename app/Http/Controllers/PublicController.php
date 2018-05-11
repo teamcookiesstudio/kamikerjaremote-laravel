@@ -32,20 +32,21 @@ class PublicController extends Controller
 
         //$q = Cache::tags('search')->rememberForever($page, function () use ($request) {
 
-            $user = User::when($request->q, function ($query) use ($request) {
-                $query->member()
+        $user = User::when($request->q, function ($query) use ($request) {
+            $query->member()
                     ->where(function ($query) use ($request) {
                         $query->where('first_name', 'LIKE', '%'.$request->q.'%')
                                 ->orWhere('last_name', 'LIKE', '%'.$request->q.'%');
-                });
+                    });
         })->paginate(10);
 
         $user->appends($request->only('q'));
 
-            if ($request->ajax()) {
-                $view = view('search.partial-result', compact('user'))->render();
-                return Response::json($view);
-            }
+        if ($request->ajax()) {
+            $view = view('search.partial-result', compact('user'))->render();
+
+            return Response::json($view);
+        }
 
         return view('search.result', compact('user'))->render();
         //});
