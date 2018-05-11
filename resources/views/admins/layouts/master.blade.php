@@ -19,6 +19,10 @@
 
     <title>Kami Kerja Remote</title>
 
+    {!! Html::style('admins/custom-select/custom-select.css') !!}
+    
+    {!! Html::style('admins/bootstrap-select/bootstrap-select.min.css') !!}
+
     {!! Html::style('admins/css/bootstrap.min.css') !!}
 
     {!! Html::style('admins/css/sidebar-nav.min.css') !!}
@@ -81,6 +85,10 @@
 
     {!! Html::script('admins/js/bootstrap.min.js') !!}
 
+    {!! Html::script('admins/custom-select/custom-select.min.js') !!}
+    
+    {!! Html::script('admins/bootstrap-select/bootstrap-select.min.js') !!}
+
     {!! Html::script('admins/js/sidebar-nav.min.js') !!}
 
     {!! Html::script('admins/js/jquery.slimscroll.js') !!}
@@ -90,6 +98,19 @@
     {!! Html::script('admins/js/custom.js') !!}
     
     {!! Html::script("https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js") !!}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+
+    <script type="text/javascript">
+    $(function (){
+        FastClick.attach(document.body);
+        jQuery.ajaxSetup({
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+        });
+    });
+    </script>
 
     @stack("adminscript")
 
