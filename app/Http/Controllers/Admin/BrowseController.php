@@ -29,14 +29,13 @@ class BrowseController extends Controller
     {
         $indonesia = [];
         $path = "$this->storage/indonesia.json";
-
+      
         if (file_exists($path)) {
             $json = file_get_contents($path);
             $result = json_decode($json, true);
             foreach ($result as $k => $v) {
                 array_push($indonesia, $v);
             }
-        }
 
         if ($request->has('q')) {
             
