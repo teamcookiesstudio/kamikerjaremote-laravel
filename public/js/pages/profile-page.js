@@ -92,7 +92,7 @@ jQuery.editProfile = {
       var form = $('#profile-form').serializeArray();
       var skillSet = self.wrapper.profile.$skillSet.val();
       var object = new FormData();
-      if (_.isNull(skillSet)) {
+      if (_.isNull(skillSet) || skillSet == '') {
         $.notify('Atleast 1 skill must be set..');
       }
       for (var i = 0; i < skillSet.length; i++){

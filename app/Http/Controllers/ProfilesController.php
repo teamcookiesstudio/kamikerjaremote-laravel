@@ -115,9 +115,7 @@ class ProfilesController extends Controller
 
         $profile = $this->profileRepository->firstOrCreate(['member_id' => $id]);
 
-        $profile->update($request->only('occupation', 'location', 'summary', 'website'));
-
-        $profile->skillsets()->sync($skillset);
+        $profile->update($request->only('occupation', 'location', 'summary', 'website', 'facebook', 'linkedin', 'upwork'));
 
         $attributes = [
             'url_photo_profile' => $profile->url_photo_profile,
@@ -125,6 +123,8 @@ class ProfilesController extends Controller
         ];
 
         $this->insertImage($request, $profile, $attributes);
+
+        $profile->skillsets()->sync($skillset);
     }
 
     /**

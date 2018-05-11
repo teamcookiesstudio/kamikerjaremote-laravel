@@ -13,6 +13,7 @@ class Profile extends ModelCaching
      */
     protected $fillable = [
         'id', 'member_id', 'occupation', 'location', 'summary', 'website', 'url_photo_prfile',
+        'facebook', 'linkedin', 'upwork',
     ];
 
     public function skillsets()

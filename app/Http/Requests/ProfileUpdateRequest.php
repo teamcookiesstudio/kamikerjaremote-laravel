@@ -26,9 +26,12 @@ class ProfileUpdateRequest extends FormRequest
         return [
             'first_name' => 'required|string',
             'last_name'  => 'required|string',
-            'occupation' => 'string',
-            'location'   => 'string',
-            'summary'    => 'string',
+            'occupation' => 'string|required',
+            'location'   => 'string|required',
+            'summary'    => 'string|nullable',
+            'facebook'   => 'string|nullable',
+            'upwork'     => 'string|nullable',
+            'linkedin'   => 'string|nullable',
         ];
     }
 }
