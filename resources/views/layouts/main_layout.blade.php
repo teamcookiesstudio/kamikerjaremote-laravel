@@ -12,6 +12,7 @@
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <title>Kami Kerja Remote</title>
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="{{ asset('css/flexboxgrid.css') }}" rel="stylesheet">
   <link href="{{ asset('css/ionicons.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">

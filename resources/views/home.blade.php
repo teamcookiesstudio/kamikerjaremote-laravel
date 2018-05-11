@@ -2,6 +2,44 @@
 
 @push('style')
 {!! Html::style('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css') !!}
+<style>
+.fa {
+  padding: 10px;
+  font-size: 21px;
+  width: 25px;
+  text-align: center;
+  text-decoration: none;
+  margin: 4px 4px;
+  border-radius: 50%;
+}
+
+.social {
+  display: flex;
+  list-style-type: none;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+a.icon-upwork {
+  color: white;
+  background: yellowgreen;
+  margin-right: 3px;
+  letter-spacing: -3px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.fa-linkedin {
+  background: #007bb5;
+  color: white;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+</style>
 @endpush
 
 @section('content')
@@ -40,6 +78,12 @@
         <span class="location">{{$user->profile->location ?? null}}</span>
         <span class="about">{{$user->profile->summary ?? null}}</span>
         {!! HTML::link($user->profile->website ?? null, $user->profile->website ?? null, array('class' => 'link', 'target' => '_blank'), true)!!}
+        <div class="social">
+          @if ($user->profile->facebook)<a href="{{$user->profile->facebook}}" class="fa fa-facebook" target="_blank"></a>@endif
+          @if ($user->profile->linkedin)<a href="{{$user->profile->linkedin}}" class="fa fa-linkedin" target="_blank"></a>@endif
+          @if ($user->profile->upwork)<a href="{{$user->profile->upwork}}" class="fa icon-upwork" target="_blank"><b>U <i>p</i></b></a>@endif
+        </div>
+        <br>
         <div class="tags">
         @if (!empty($user->profile))
           @foreach($user->profile->skillsets as $value)
@@ -163,6 +207,27 @@
               <div class="row center-xs">
                 <div class="col-xs-12 input-label">
                   {!! Form::label('Website') !!} {!! Form::text('website', $user->profile->website ?? null, ['id' => 'website', 'placeholder' => 'https://example.com']) !!} {!! $errors->first('website',
+                  '
+                  <p class="text-danger">:message</p>') !!}
+                </div>
+              </div>
+              <div class="row center-xs">
+                <div class="col-xs-12 input-label">
+                  {!! Form::label('Facebook') !!} {!! Form::text('facebook', $user->profile->facebook ?? null, ['id' => 'facebook', 'placeholder' => 'https://facebook.com/kamikerjaremote']) !!} {!! $errors->first('website',
+                  '
+                  <p class="text-danger">:message</p>') !!}
+                </div>
+              </div>
+              <div class="row center-xs">
+                <div class="col-xs-12 input-label">
+                  {!! Form::label('Linkedin') !!} {!! Form::text('linkedin', $user->profile->linkedin ?? null, ['id' => 'linkedin', 'placeholder' => 'https://linkedin.com/kamikerjaremote']) !!} {!! $errors->first('website',
+                  '
+                  <p class="text-danger">:message</p>') !!}
+                </div>
+              </div>
+              <div class="row center-xs">
+                <div class="col-xs-12 input-label">
+                  {!! Form::label('upwork') !!} {!! Form::text('upwork', $user->profile->upwork ?? null, ['id' => 'upwork', 'placeholder' => 'https://upwork.com/kamikerjaremote']) !!} {!! $errors->first('website',
                   '
                   <p class="text-danger">:message</p>') !!}
                 </div>
