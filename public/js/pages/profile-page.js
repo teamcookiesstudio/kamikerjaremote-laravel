@@ -90,6 +90,9 @@ jQuery.editProfile = {
     });
 
     self.wrapper.profile.$saveProfile.click( function() {
+      self.wrapper.profile.$modalProfile.hide();
+      self.$body.css({'overflow': 'auto'});
+
       var form = $('#profile-form').serializeArray();
       var skillSet = self.wrapper.profile.$skillSet.val();
       var object = new FormData();
@@ -114,11 +117,7 @@ jQuery.editProfile = {
         contentType: false,
         processData: false,
         success: function(response, data) {
-          //window.location.reload();
-          console.log(response);
           jQuery('#profile-section').html(response);
-          self.wrapper.profile.$modalProfile.hide();
-          self.$body.css({'overflow': 'auto'});
         },
         error: function(xhr,status, response){
           var error = jQuery.parseJSON(xhr.responseText);
