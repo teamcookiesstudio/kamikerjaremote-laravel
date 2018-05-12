@@ -2,7 +2,7 @@
 
 @push('style')
 {!! Html::style('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css') !!}
-{!! Html::style('plugins/pace/themes/white/pace-theme-flash.css') !!}
+{!! Html::style('plugins/pace/themes/black/pace-theme-flash.css') !!}
 <style>
 .fa {
   padding: 10px;
@@ -52,32 +52,10 @@ a.icon-upwork {
   @include('_home')
 </div>
 
-<section class="portofolio-container">
-  <div class="container">
-    <div class="row center-xs">
-      <div class="col-xs-11 portofolios-header">
-        <h3>portofolio</h3>
-        @if ($auth = auth()->user())
-          @if ($auth->id==$user->id)
-        {!! Form::button('Add portofolio', array('class' => 'btn btn-outline btn-sm', 'id' => 'add-portofolio', 'type' => 'button')) !!}
-          @endif
-        @endif
-      </div>
-    </div>
-    <div class="row center-xs">
-      <a class="col-xs-11 portofolios">
-        @foreach($user->portofolio as $portofolio)
-        <div class="item-wrapper" id="show-portofolio" data-portofolio-id="{{$portofolio->id}}">
-          {!! Html::image(asset('storage/portofolio/'.$portofolio->thumbnail), null, array('class' => 'profile-img')) !!}
-          <div class="item-body">
-          <span>{{$portofolio->project_name}}</span>
-          </div>
-        </div>
-        @endforeach
-      </a>
-    </div>
-  </div>
-</section>
+<div id="portofolio-section">
+  @include('_home-portofolio')
+</div>
+
 <div id="modal-profile" class="modal">
   <div class="modal-content">
       <div class="modal-header">

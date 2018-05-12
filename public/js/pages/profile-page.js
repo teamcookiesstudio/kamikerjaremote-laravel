@@ -84,12 +84,12 @@ jQuery.editProfile = {
       self.$body.css({'overflow': 'hidden'});
     });
 
-    self.wrapper.profile.$closeProfile.click( function() {
+    jQuery(document).on('click', '#close-modal', function() {
       self.wrapper.profile.$modalProfile.css({'display': 'none'});
       self.$body.css({'overflow': 'auto'});
     });
 
-    self.wrapper.profile.$saveProfile.click( function() {
+    jQuery(document).on('click', '#save-button-profile', function() {
       self.wrapper.profile.$modalProfile.hide();
       self.$body.css({'overflow': 'auto'});
 
@@ -135,14 +135,14 @@ jQuery.editProfile = {
   portofolio: function() {
     var self = this;
 
-    self.wrapper.portofolio.$btnAddportofolio.click(function(event) {
+    jQuery(document).on('click', '#add-portofolio', function(event) {
       self.wrapper.portofolio.$saveportofolio.show();
       self.wrapper.portofolio.$updateportofolio.hide();
       self.wrapper.portofolio.$modalportofolio.css({'display': 'block'});
       self.$body.css({'overflow': 'hidden'});
     });
 
-    self.wrapper.portofolio.$closeportofolio.click(function(event) {
+    jQuery(document).on('click', '#close-portofolio-modal', function(event) {
       self.wrapper.portofolio.$endDateMonth.removeClass('disabled').attr('disabled', false);
       self.wrapper.portofolio.$endDateYear.removeClass('disabled').attr('disabled', false);
       self.wrapper.portofolio.$portofolioForm.reset();
@@ -150,7 +150,7 @@ jQuery.editProfile = {
       self.$body.css({'overflow': 'auto'});
     });
 
-    self.wrapper.portofolio.$btnEditportofolio.click(function(event) {
+    jQuery(document).on('click', '#edit-portofolio', function(event) {
       self.wrapper.portofolio.$saveportofolio.hide();
       self.wrapper.portofolio.$updateportofolio.show();
       self.wrapper.portofolio.$modalDetPort.css({'display': 'none'});
@@ -193,29 +193,32 @@ jQuery.editProfile = {
       }
     });
 
-    self.wrapper.portofolio.$saveportofolio.click(function(event) {
+    jQuery(document).on('click', '#save-button-portofolio', function(event) {
       event.preventDefault();
       var url = jQuery('#save-portofolio-post').val();
+      self.wrapper.portofolio.$modalportofolio.css({'display': 'none'});
+      self.$body.css({'overflow': 'auto'});
       self.postPortofolio(url);
     });
 
-    self.wrapper.portofolio.$updateportofolio.click(function(event) {
+    jQuery(document).on('click', '#update-button-portofolio', function(event) {
       event.preventDefault();
       var url = 'portofolios/'+self.data.portofolio.id;
+      self.wrapper.portofolio.$modalportofolio.css({'display': 'none'});
+      self.$body.css({'overflow': 'auto'});
       self.postPortofolio(url);
     });
   },
   showportofolioItem: function() {
     var self = this;
 
-    self.wrapper.portofolio.$btnShowportofolio.click( function() {
+    jQuery(document).on('click', '.portofolios #show-portofolio', function() {
       self.data.portofolio.id = $(this).attr('data-portofolio-id');
 
       var id = self.data.portofolio.id;
       var data = _.find(self.data.portofolio.collection, {id: parseInt(id)});
       var initStartDate = self.initDate(data.start_date);
       var initEndDate = self.initDate(data.end_date);
-      console.log(data, initStartDate);
 
       jQuery('#portofolio-item-project-name').text(data.project_name);
       jQuery('#portofolio-item-description').text(data.description);
@@ -230,7 +233,8 @@ jQuery.editProfile = {
       self.wrapper.portofolio.$modalDetPort.css({'display': 'block'});
       self.$body.css({'overflow': 'hidden'});
     });
-    self.wrapper.portofolio.$closeDetPort.click( function() {
+
+    jQuery(document).on('click', '#close-portofolio', function() {
       self.wrapper.portofolio.$modalDetPort.css({'display': 'none'});
       self.$body.css({'overflow': 'auto'});
     });
@@ -238,7 +242,7 @@ jQuery.editProfile = {
   setEvent: function() {
     var self = this;
 
-    jQuery(window).click( function(event) {
+    jQuery(window).on('click', function(event) {
       if (event.target == self.wrapper.portofolio.$modalProfile) {
         self.$modalProfile.css({'display': 'none'});
         self.$body.css({'overflow': 'auto'});
@@ -254,6 +258,7 @@ jQuery.editProfile = {
     });
   },
   postPortofolio: function(url){
+    var self = this;
     var object = {
       thumbnail: jQuery('#upload-portofolio-img').prop('files')[0],
       member_id: parseInt(jQuery('#member-id').val()),
@@ -280,9 +285,11 @@ jQuery.editProfile = {
       contentType: false,
       processData: false,
       success: function(response) {
-        window.location.reload();
-        self.wrapper.portofolio.$modalportofolio.css({'display': 'none'});
-        self.$body.css({'overflow': 'auto'});
+        jQuery('#portofolio-section').html(response);
+        var url = jQuery('#portofolio-show').val();
+        $.get(url, function(response) {
+          self.data.portofolio.collection = response;
+        });
       },
       error: function(xhr,status, response){
         var error = jQuery.parseJSON(xhr.responseText);
