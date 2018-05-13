@@ -90,9 +90,9 @@
     @yield('content')
     <div class="wave-brand"></div>
   </section>
-  @if (Auth::check() && Auth::user()->level != \App\User::ACCESS_ADMIN)
+  @auth
   <script src="{{ asset('js/nav.js') }}"></script>
-  @endif
+  @endauth
 </body>
 
 </html>
