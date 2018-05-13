@@ -15,6 +15,14 @@ class PublicController extends Controller
 
     public function search(Request $request)
     {
+        $validation = $request->validate(array(
+            'q' => 'required'
+        ));
+        
+        if ($validation->fails()) {
+            return redirect()->back()->withErrors($validator);;
+        }
+
         // if ($request->has('page')) {
         //     $page = $request->q.'&page='.$request->query('page');
         // } else {
