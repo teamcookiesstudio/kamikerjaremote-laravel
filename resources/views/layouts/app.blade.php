@@ -90,7 +90,9 @@
     @yield('content')
     <div class="wave-brand"></div>
   </section>
+  @auth
   <script src="{{ asset('js/nav.js') }}"></script>
+  @endauth
 </body>
 
 </html>

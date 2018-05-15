@@ -68,6 +68,11 @@ class PortofoliosController extends Controller
 
             $portofolio->save();
         }
+
+        if ($portofolio) {
+            $user = auth()->user();
+            return \View::make('_home-portofolio', compact('user'))->render();
+        }
     }
 
     /**
@@ -129,6 +134,11 @@ class PortofoliosController extends Controller
             $portofolio->thumbnail = $fileName;
 
             $portofolio->update();
+        }
+
+        if ($portofolio) {
+            $user = auth()->user();
+            return \View::make('_home-portofolio', compact('user'))->render();
         }
     }
 
