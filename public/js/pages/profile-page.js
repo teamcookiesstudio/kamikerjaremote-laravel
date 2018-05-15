@@ -36,6 +36,7 @@ jQuery.editProfile = {
   $body: jQuery('#profile'),
   init: function() {
     var self = this;
+    jQuery(document).ajaxStart(function() { Pace.restart(); });
     var url = jQuery('#portofolio-show').val();
     $.get(url, function(response) {
       self.data.portofolio.collection = response;
@@ -78,7 +79,7 @@ jQuery.editProfile = {
       }
     });
 
-    self.wrapper.profile.$btnEditProfile.click( function() {
+    jQuery(document).on('click', '#edit-profile', function() {
       self.wrapper.profile.$modalProfile.css({'display': 'block'});
       self.$body.css({'overflow': 'hidden'});
     });
@@ -89,6 +90,9 @@ jQuery.editProfile = {
     });
 
     self.wrapper.profile.$saveProfile.click( function() {
+      self.wrapper.profile.$modalProfile.hide();
+      self.$body.css({'overflow': 'auto'});
+
       var form = $('#profile-form').serializeArray();
       var skillSet = self.wrapper.profile.$skillSet.val();
       var object = new FormData();
@@ -112,9 +116,8 @@ jQuery.editProfile = {
         cache: false,
         contentType: false,
         processData: false,
-        success: function(response) {
-          window.location.reload();
-          self.wrapper.profile.$modalProfile.css({'display': 'none'});
+        success: function(response, data) {
+          jQuery('#profile-section').html(response);
         },
         error: function(xhr,status, response){
           var error = jQuery.parseJSON(xhr.responseText);

@@ -125,6 +125,18 @@ class ProfilesController extends Controller
         $this->insertImage($request, $profile, $attributes);
 
         $profile->skillsets()->sync($skillset);
+
+        $user = auth()->user();
+
+        if (empty($user->profile)) {
+            $image = asset('images/no_avatar.jpg');
+        } else {
+            $image = $this->findImage($user->profile->url_photo_profile);
+        }
+
+        $view = \View::make('_home', compact('user', 'image'))->render();
+
+        return response()->json($view);
     }
 
     /**
