@@ -282,5 +282,10 @@
     @auth
     <script src="{{ asset('js/nav.js') }}"></script>
     @endauth
+    @if ($errors->any())
+    <script >
+      $.notify('Kolom pencarian tidakboleh kosong..');
+    </script>
+    @endif
   </body>
 </html>
